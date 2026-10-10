@@ -1,6 +1,7 @@
 name: Docs
 
-# Builds the documentation site with --strict to catch broken links and nav errors.
+# Builds the documentation site with --strict to catch broken links and nav errors,
+# and checks that every pull request updates the build journal (ADR 0014).
 #
 # The workflow runs on every pull request, but the build steps only run when
 # documentation files change. Filtering inside the job (rather than with an
@@ -9,6 +10,8 @@ name: Docs
 
 on:
   pull_request:
+    # labeled/unlabeled re-run the journal check when the no-journal label changes.
+    types: [opened, synchronize, reopened, labeled, unlabeled]
   push:
     branches: [main]
     paths:
@@ -63,3 +66,34 @@ jobs:
       - name: Build site
         if: steps.changes.outputs.docs == 'true'
         run: mkdocs build --strict
+
+  journal:
+    # ADR 0014: a pull request that changes anything outside docs/journal/ must also
+    # change something inside it. Trivial changes may skip this with the no-journal label.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check the build journal was updated
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          NO_JOURNAL: ${{ contains(github.event.pull_request.labels.*.name, 'no-journal') }}
+        run: |
+          if [ "$NO_JOURNAL" = "true" ]; then
+            echo "::warning::Journal check skipped by the no-journal label."
+            exit 0
+          fi
+          changed=$(git diff --name-only "$BASE_SHA" HEAD)
+          if ! echo "$changed" | grep -qvE '^docs/journal/'; then
+            echo "Only journal files changed."
+            exit 0
+          fi
+          if echo "$changed" | grep -qE '^docs/journal/.+\.md$'; then
+            echo "Journal updated."
+            exit 0
+          fi
+          echo "::error::This pull request changes the repository but not the build journal. Add or update docs/journal/YYYY-MM-DD.md (ADR 0014), or apply the no-journal label for a trivial change."
+          exit 1

@@ -6,9 +6,19 @@ Each significant decision gets one short, numbered record: the context, the deci
 |---|---|---|
 | [0001](0001-record-architecture-decisions.md) | Record architecture decisions | Accepted |
 | [0002](0002-docs-as-code.md) | Documentation as code, in the repository | Accepted |
-| [0003](0003-licence.md) | Open-source licence | Proposed |
-| [0004](0004-self-hosted-single-tenant.md) | Self-hosted, single tenant | Proposed |
-| [0005](0005-accounting-as-plugin.md) | Accounting systems behind a plugin interface | Proposed |
-| [0006](0006-configuration-over-customisation.md) | Shop-specific behaviour is configuration, not code | Proposed |
+| [0003](0003-licence.md) | Open-source licence: Apache 2.0 | Accepted |
+| [0004](0004-multi-tenant.md) | Multi-tenant SaaS, with row-level isolation | Accepted |
+| [0005](0005-accounting-as-plugin.md) | Accounting systems behind a plugin interface | Accepted |
+| [0006](0006-configuration-over-customisation.md) | Shop-specific behaviour is configuration, not code | Accepted |
+| [0007](0007-backend-dotnet.md) | Back end: .NET and ASP.NET Core | Accepted |
+| [0008](0008-database-postgresql.md) | Database: PostgreSQL | Accepted |
+| [0009](0009-frontend-react.md) | Front end: React, TypeScript and Mantine | Accepted |
+| [0010](0010-api-first.md) | API first: one API for every client and every actor | Accepted |
+| [0011](0011-documentation-first.md) | Documentation before implementation | Accepted |
+| [0012](0012-testing.md) | Testing strategy | Accepted |
+| [0013](0013-work-in-the-open.md) | Work in the open | Accepted |
+| [0014](0014-build-journal.md) | Build journal | Accepted |
+| [0015](0015-separate-deployments-one-origin.md) | Separate deployments for UI and API, served from one origin | Accepted |
+| [0016](0016-rql-queries.md) | API queries use RQL | Accepted |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/templates/adr-template.md).

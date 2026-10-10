@@ -58,6 +58,7 @@ nav:
       - Migration: product/prd-migration.md
   - Design:
       - Architecture: design/architecture.md
+      - Front end: design/front-end.md
       - Data model: design/data-model.md
       - Pricing engine: design/pricing-engine.md
       - Accounting integration: design/accounting-integration.md
@@ -68,7 +69,20 @@ nav:
       - "0001 Record architecture decisions": adr/0001-record-architecture-decisions.md
       - "0002 Docs as code": adr/0002-docs-as-code.md
       - "0003 Licence": adr/0003-licence.md
-      - "0004 Self-hosted, single tenant": adr/0004-self-hosted-single-tenant.md
+      - "0004 Multi-tenant SaaS": adr/0004-multi-tenant.md
       - "0005 Accounting as a plugin": adr/0005-accounting-as-plugin.md
       - "0006 Configuration over customisation": adr/0006-configuration-over-customisation.md
+      - "0007 Back end: .NET": adr/0007-backend-dotnet.md
+      - "0008 Database: PostgreSQL": adr/0008-database-postgresql.md
+      - "0009 Front end: React": adr/0009-frontend-react.md
+      - "0010 API first": adr/0010-api-first.md
+      - "0011 Documentation first": adr/0011-documentation-first.md
+      - "0012 Testing strategy": adr/0012-testing.md
+      - "0013 Work in the open": adr/0013-work-in-the-open.md
+      - "0014 Build journal": adr/0014-build-journal.md
+      - "0015 Separate deployments, one origin": adr/0015-separate-deployments-one-origin.md
+      - "0016 RQL queries": adr/0016-rql-queries.md
+  - Build journal:
+      - journal/index.md
+      - "2026-10-10": journal/2026-10-10.md
   - Glossary: glossary.md

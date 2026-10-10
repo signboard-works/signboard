@@ -14,6 +14,19 @@ Trade terms and Signboard's own vocabulary. If a word appears in a PRD or design
 | **Invoice** | A bill raised from a sales order: full, deposit or progress. Synced to the accounting system. |
 | **Pricing method** | How a quote line component is priced: by area, length, time, unit, or a fixed amount. |
 | **Proof** | Artwork sent to the customer for approval before production. |
+| **Business** | A sign or print shop using Signboard, with its staff as members of its business account. Signboard says "business" rather than "shop" in its model, because "shop" suggests an online store. In the trade sense ("sign shop", "shop floor"), "shop" is still used. |
+| **Tenant** | One business using the hosted Signboard service, together with its customers. Every business's data is isolated from every other business's. |
+| **User** | A person who can sign in, identified by a unique email address. Users are global: a user belongs to no single business. |
+| **Account** | Something users can be members of. There are three kinds: a business account (the business and its staff), a customer account (one of a business's customers) and the operations account (the people who run the hosted service). |
+| **Operations account** | The platform's own account. Membership gives no access to any other account; operations users add themselves to another account when they need to; the account's administrators are notified, and it is audited. |
+| **Membership** | A user's link to an account, with a role. A user can have many, of any kind. |
+| **Customer** | An organisation or person that buys from a business: a customer account. Each customer belongs to one business, so an organisation that buys from two businesses is two customers. Its users sign in to that business's customer portal. |
+| **Customer portal** | The part of Signboard where customer users view and approve quotes and proofs, and see their orders and invoices. Each business has its own, at the business's subdomain. Uses the same API as everything else. |
+| **Actor** | Whoever is making an API request: a user acting in one membership, or an integration client belonging to a business or customer account. The actor decides the tenant and which records and fields are visible. |
+| **RQL** | Resource Query Language: the query-string syntax Signboard's API uses for filtering, sorting, selecting fields and paging, for example `and(eq(status,in_production),ge(dueDate,2026-11-01))`. |
+| **Table view** | A user's saved arrangement of a grid: visible columns, order, widths, pinned columns, sort, filters, page size and density. Belongs to the user and is stored in their browser. |
+| **Default view** | A business's starting table view for a grid, set by a business administrator and used by anyone without a table view of their own. |
+| **Field visibility** | The rule that decides which fields of a record an actor can see. Hidden fields are left out of API responses entirely. |
 
 ## Trade terms
 
