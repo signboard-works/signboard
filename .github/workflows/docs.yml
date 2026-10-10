@@ -1,7 +1,8 @@
 name: Docs
 
 # Builds the documentation site with --strict to catch broken links and nav errors,
-# and checks that every pull request updates the build journal (ADR 0014).
+# checks that every pull request updates the build journal (ADR 0014), and publishes
+# the site to GitHub Pages at https://docs.signboard.works/ on every push to main.
 #
 # The workflow runs on every pull request, but the build steps only run when
 # documentation files change. Filtering inside the job (rather than with an
@@ -66,6 +67,32 @@ jobs:
       - name: Build site
         if: steps.changes.outputs.docs == 'true'
         run: mkdocs build --strict
+
+      - name: Upload site for GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    # Publishes the site built above. Only runs for main (push or manual run), never for PRs.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # Never cancel a deployment part-way through.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
   journal:
     # ADR 0014: a pull request that changes anything outside docs/journal/ must also

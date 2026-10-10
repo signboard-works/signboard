@@ -1,6 +1,6 @@
 site_name: Signboard
 site_description: Open-source job management for sign and print shops.
-site_url: https://signboard.works/
+site_url: https://docs.signboard.works/
 repo_url: https://github.com/signboard-works/signboard
 repo_name: signboard-works/signboard
 edit_uri: edit/main/docs/
