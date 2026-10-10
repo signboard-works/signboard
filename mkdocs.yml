@@ -86,6 +86,7 @@ nav:
       - "0018 Soft deletion": adr/0018-soft-delete.md
       - "0019 Audit trail": adr/0019-audit-trail.md
       - "0020 URL structure": adr/0020-url-structure.md
+      - "0021 Authentication": adr/0021-authentication.md
   - Build journal:
       - journal/index.md
       - "2026-10-10": journal/2026-10-10.md

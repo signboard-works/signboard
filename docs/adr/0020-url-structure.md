@@ -21,6 +21,7 @@ Each business has its own subdomain, serving both the app and the API from one o
 | `<business>.signboard.works` | The business's staff app, its customer portal, and the API at `/api` |
 | `signboard.works` | The public website |
 | `docs.signboard.works` | This documentation, including the API reference |
+| `id.signboard.works` | The identity service: sign-in for every user and host ([ADR 0021](0021-authentication.md)) |
 | `ops.signboard.works` | The operations account's app |
 
 - A business's **subdomain name** is lowercase letters, digits and hyphens, 3 to 63 characters, starting with a letter. It is chosen at sign-up and unique across Signboard.
@@ -121,4 +122,4 @@ App URLs mirror the API's modules, collections and object IDs, so a link means t
 - Every write ends by loading and serialising the object through the same path and field-visibility policy as `GET`. Tests check that a write's response equals a subsequent `GET`, for each actor ([ADR 0012](0012-testing.md)). Objects that embed large child collections need a deliberate representation in their design.
 - Renaming a module or collection, or moving a collection between modules, is a breaking API change and needs a new API version ([ADR 0010](0010-api-first.md)).
 - Subdomain names need a reserved-word list and a redirect table for renamed businesses.
-- Where users sign in, given that users are global and each business has its own host, is a separate decision for the authentication design.
+- Users sign in through the identity service at `id.signboard.works` ([ADR 0021](0021-authentication.md)).
