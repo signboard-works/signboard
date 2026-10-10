@@ -1,0 +1,74 @@
+site_name: Signboard
+site_description: Open-source job management for sign and print shops.
+site_url: https://signboard.works/
+repo_url: https://github.com/signboard-works/signboard
+repo_name: signboard-works/signboard
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+exclude_docs: |
+  templates/
+
+nav:
+  - Home: index.md
+  - Product:
+      - Vision: product/vision.md
+      - Open questions: product/open-questions.md
+      - Quotes: product/prd-quotes.md
+      - Sales orders: product/prd-sales-orders.md
+      - Jobs and kanban: product/prd-jobs-kanban.md
+      - Invoices: product/prd-invoices.md
+      - Customer email: product/prd-customer-email.md
+      - Migration: product/prd-migration.md
+  - Design:
+      - Architecture: design/architecture.md
+      - Data model: design/data-model.md
+      - Pricing engine: design/pricing-engine.md
+      - Accounting integration: design/accounting-integration.md
+      - Email delivery: design/email-delivery.md
+      - Deployment: design/deployment.md
+  - Decisions:
+      - adr/index.md
+      - "0001 Record architecture decisions": adr/0001-record-architecture-decisions.md
+      - "0002 Docs as code": adr/0002-docs-as-code.md
+      - "0003 Licence": adr/0003-licence.md
+      - "0004 Self-hosted, single tenant": adr/0004-self-hosted-single-tenant.md
+      - "0005 Accounting as a plugin": adr/0005-accounting-as-plugin.md
+      - "0006 Configuration over customisation": adr/0006-configuration-over-customisation.md
+  - Glossary: glossary.md
