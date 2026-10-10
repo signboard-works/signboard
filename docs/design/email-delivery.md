@@ -13,9 +13,10 @@ Sending customer email reliably and tracking what happened to it.
 
 ## Known constraints (to be expanded)
 
-- Candidate pattern: a transactional email service sends; delivery, bounce and complaint events are received by webhook or notification topic and written back to the record (e.g. Amazon SES with SNS, Postmark, Resend). Provider not yet decided.
-- Domain authentication (SPF, DKIM, DMARC) on a dedicated sending subdomain is mandatory.
-- Provider sits behind an interface so self-hosters can choose.
+- Decided in [ADR 0023](../adr/0023-email-sending.md): business and platform streams kept separate; businesses send from their own verified domain (DKIM and custom return path on a sending subdomain, aligned for DMARC), falling back to `send.signboard.works` with Reply-To until verified.
+- Outbox in the same transaction, background sending with retries; every email an object with delivery events written back; suppression lists per business and global; no open or click tracking.
+- Amazon SES in `ap-southeast-2` with events via SNS and a queue; plain SMTP supported for self-hosters, without delivery events.
+- Quotes and invoices sent with a PDF attachment and a link that carries no credentials.
 
 ## Design
 

@@ -13,7 +13,8 @@ Send quotes, proofs and invoices to customers reliably and professionally.
 
 ## Known requirements (to be expanded)
 
-- Emails send from the shop's own authenticated domain (SPF, DKIM, DMARC aligned), via a sending subdomain.
+- Emails send from the business's own authenticated domain (SPF, DKIM, DMARC aligned), via a sending subdomain, once verified. Until then they send "via Signboard" with Reply-To set to the business ([ADR 0023](../adr/0023-email-sending.md)).
+- Quotes and invoices go out with a PDF attachment and a link to view them online.
 - Bounces, complaints and deliveries are recorded against the customer and document, so staff can see when an email did not land.
 - Templates are plain, branded and configurable. See [email delivery](../design/email-delivery.md).
 

@@ -31,6 +31,7 @@ Every object type has one three-letter prefix and a fixed number of digits, a mu
 | `ORD` | Sales order | To be decided |
 | `JOB` | Job | To be decided |
 | `INV` | Invoice | To be decided |
+| `EML` | Email | To be decided |
 
 This list grows as the data model is designed.
 
