@@ -20,5 +20,7 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0014](0014-build-journal.md) | Build journal | Accepted |
 | [0015](0015-separate-deployments-one-origin.md) | Separate deployments for UI and API, served from one origin | Accepted |
 | [0016](0016-rql-queries.md) | API queries use RQL | Accepted |
+| [0017](0017-object-ids.md) | Object IDs | Accepted |
+| [0018](0018-soft-delete.md) | Soft deletion by default | Accepted |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/templates/adr-template.md).

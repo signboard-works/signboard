@@ -6,7 +6,7 @@ Trade terms and Signboard's own vocabulary. If a word appears in a PRD or design
 
 | Term | Meaning |
 |---|---|
-| **Quote** | A priced offer to a customer. Quotes are versioned; a sent quote is never edited, only revised. |
+| **Quote** | A priced offer to a customer. Quotes are versioned; a sent quote is never edited, only revised. A quote keeps one ID, and its versions are numbered beneath it. |
 | **Sales order** | An accepted quote, locked as the agreed scope and price. Deposits and invoices hang off it. |
 | **Job** | A unit of production work created from a sales order. One sales order can produce several jobs. |
 | **Work centre** | A stage or station in production, such as design, print, laminate, cut, fabricate or install. |
@@ -23,6 +23,8 @@ Trade terms and Signboard's own vocabulary. If a word appears in a PRD or design
 | **Customer** | An organisation or person that buys from a business: a customer account. Each customer belongs to one business, so an organisation that buys from two businesses is two customers. Its users sign in to that business's customer portal. |
 | **Customer portal** | The part of Signboard where customer users view and approve quotes and proofs, and see their orders and invoices. Each business has its own, at the business's subdomain. Uses the same API as everything else. |
 | **Actor** | Whoever is making an API request: a user acting in one membership, or an integration client belonging to a business or customer account. The actor decides the tenant and which records and fields are visible. |
+| **Object ID** | The one identifier every object in Signboard has, such as `JOB-4821-0937-1156`: a type prefix and random digits in groups of four, with the length fixed per type. It is also the database primary key. |
+| **Soft deletion** | Marking a row as deleted instead of removing it. The default for every object in Signboard. |
 | **RQL** | Resource Query Language: the query-string syntax Signboard's API uses for filtering, sorting, selecting fields and paging, for example `and(eq(status,in_production),ge(dueDate,2026-11-01))`. |
 | **Table view** | A user's saved arrangement of a grid: visible columns, order, widths, pinned columns, sort, filters, page size and density. Belongs to the user and is stored in their browser. |
 | **Default view** | A business's starting table view for a grid, set by a business administrator and used by anyone without a table view of their own. |

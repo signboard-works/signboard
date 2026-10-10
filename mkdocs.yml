@@ -82,6 +82,8 @@ nav:
       - "0014 Build journal": adr/0014-build-journal.md
       - "0015 Separate deployments, one origin": adr/0015-separate-deployments-one-origin.md
       - "0016 RQL queries": adr/0016-rql-queries.md
+      - "0017 Object IDs": adr/0017-object-ids.md
+      - "0018 Soft deletion": adr/0018-soft-delete.md
   - Build journal:
       - journal/index.md
       - "2026-10-10": journal/2026-10-10.md
