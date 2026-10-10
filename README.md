@@ -1,6 +1,6 @@
 # Signboard
 
-Open-source job management for sign and print shops. Quotes, sales orders, production kanban and invoicing in one self-hosted app.
+Open-source job management for sign and print shops. Quotes, sales orders, production kanban and invoicing in one app: hosted, or run it yourself.
 
 **Website:** [signboard.works](https://signboard.works)
 
@@ -33,4 +33,4 @@ mkdocs serve
 
 ## Licence
 
-To be decided. See [ADR 0003](docs/adr/0003-licence.md).
+[Apache License 2.0](LICENSE). See [ADR 0003](docs/adr/0003-licence.md) for the reasoning.

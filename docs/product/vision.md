@@ -17,7 +17,7 @@ A shop with four people on the floor should not be paying enterprise prices for 
 
 ## What Signboard is
 
-An open-source, self-hosted application that runs a sign or print shop's core workflow:
+An open-source, hosted application (which a shop can also run itself) that runs a sign or print shop's core workflow:
 
 ```mermaid
 flowchart LR
@@ -34,7 +34,7 @@ flowchart LR
 2. **Give the shop floor a clear, live view** of every job and where it is.
 3. **Get customer email to the inbox**: quotes, proofs and invoices that arrive reliably and look professional.
 4. **Keep the books in sync** with the shop's accounting system without double entry.
-5. **Be owned by the shop**: self-hosted, open source, with its data exportable at any time.
+5. **Be owned by the shop**: open source, hosted or self-hosted, with its data exportable at any time.
 6. **Stay small**: do the core workflow very well rather than everything adequately.
 
 ## Non-goals (for v1)
@@ -43,7 +43,6 @@ flowchart LR
 - Purchasing and supplier management
 - A full CRM (sales pipelines, campaigns)
 - Payroll, timesheets or HR
-- Multi-tenant SaaS hosting
 - An online storefront
 
 These may come later, but only when a real shop asks for them.
@@ -57,7 +56,8 @@ These may come later, but only when a real shop asks for them.
 | **Production staff** | Prints, laminates, cuts, routes and fabricates | Knowing what to work on next, with every spec they need on the job |
 | **Installer** | Fits signs and wraps on site | Site address, contact, date, and exactly what's being installed |
 | **Customer** | Businesses, organisations and individuals buying signage | Professional quotes and proofs that are easy to approve |
-| **Self-hosting admin** | The person who installs and maintains Signboard for a shop | Simple deployment, backups and upgrades |
+| **Platform operator** | Member of the operations account; runs the hosted Signboard service | Safe upgrades, monitoring, backups and tenant isolation, without seeing businesses' data unless they join a business account to help |
+| **Self-hosting admin** | Runs Signboard on a shop's own server instead of using the hosted service | Simple deployment, backups and upgrades |
 
 ## Design partner
 
@@ -83,6 +83,18 @@ In practice:
 
 Pricing rules, production stages, tax settings, branding and email templates are configuration. A new shop should be able to adopt Signboard without changing a line of code.
 
+### API first
+
+There is one API, used by the web app, by customers and by integrations alike. What each actor can see is decided by authorisation, not by which API they call ([ADR 0010](../adr/0010-api-first.md)).
+
+### Documentation is king, testing is queen
+
+Nothing is built until the problem and the proposed implementation are written down and approved ([ADR 0011](../adr/0011-documentation-first.md)). Every acceptance criterion is covered by an automated test ([ADR 0012](../adr/0012-testing.md)).
+
+### Work in the open
+
+Plans, decisions, bugs and mistakes are all public ([ADR 0013](../adr/0013-work-in-the-open.md)).
+
 ### Boring technology
 
 Signboard will be maintained in evenings and weekends. Every technical choice should favour tools that are stable, well documented and easy to pick up again after a fortnight away.
@@ -96,7 +108,7 @@ Everything can be exported in open formats. There is no lock-in, including to Si
 | Phase | Scope | Usable outcome |
 |---|---|---|
 | 1 | Foundations: users, customers, catalogue, pricing engine | Pricing can be tested against real past jobs |
-| 2 | Quotes, PDFs, customer email | The shop quotes from Signboard while still running its old system |
+| 2 | Quotes, PDFs, customer email, customer portal for quote and proof approval | The shop quotes from Signboard while still running its old system |
 | 3 | Sales orders, jobs, kanban | Production runs from the board |
 | 4 | Invoices and accounting sync | Billing runs from Signboard |
 | 5 | Migration and cut-over | The old system is switched off |

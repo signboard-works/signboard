@@ -9,11 +9,13 @@
 
 ## Context
 
-How a shop, or the person helping it, installs, backs up and upgrades Signboard.
+How the hosted, multi-tenant Signboard service is deployed, backed up, monitored and upgraded, and how a business can run the same application itself as a single tenant ([ADR 0004](../adr/0004-multi-tenant.md)).
 
 ## Known constraints (to be expanded)
 
-- Must be simple enough for a non-specialist to run.
+- Hosted service: zero-downtime upgrades, monitoring, point-in-time database recovery, and per-tenant export and restore.
+- Self-hosted: simple enough for a non-specialist to run, using Docker Compose with the same layout as the hosted service.
+- UI as static files behind a CDN, API as a container, one origin per business via an edge router ([ADR 0015](../adr/0015-separate-deployments-one-origin.md)).
 - Automated backups are part of the default install, not an extra.
 
 ## Design
