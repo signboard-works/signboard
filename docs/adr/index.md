@@ -23,5 +23,6 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0017](0017-object-ids.md) | Object IDs | Accepted |
 | [0018](0018-soft-delete.md) | Soft deletion by default | Accepted |
 | [0019](0019-audit-trail.md) | Audit trail | Proposed |
+| [0020](0020-url-structure.md) | URL structure | Accepted |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/templates/adr-template.md).
