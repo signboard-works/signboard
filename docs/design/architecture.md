@@ -13,6 +13,7 @@ The overall shape of the system: components, boundaries, and how they talk.
 
 ## Known constraints (to be expanded)
 
+- Modular monolith: one codebase and one database; modules (`accounts`, `catalog`, `sales`, `production`, `billing`, `notifications`, `system`) with boundaries enforced by architecture tests; deployables are the UI, API, background worker and identity service ([ADR 0026](../adr/0026-modular-monolith.md)).
 - Multi-tenant SaaS: shared database and schema, tenant isolation by PostgreSQL row-level security and EF Core query filters; also self-hostable as a single tenant ([ADR 0004](../adr/0004-multi-tenant.md)).
 - Accounting behind a plugin interface ([ADR 0005](../adr/0005-accounting-as-plugin.md)).
 - One API for every client and actor, with actor-scoped record and field visibility ([ADR 0010](../adr/0010-api-first.md)).

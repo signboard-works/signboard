@@ -30,6 +30,7 @@ Trade terms and Signboard's own vocabulary. If a word appears in a PRD or design
 | **Sending domain** | The domain a business's email is sent from. A business verifies its own with DNS records; until then email is sent "via Signboard". |
 | **Suppression list** | Addresses Signboard will not email because they bounced or complained. One per business, plus a global list. |
 | **Product analytics** | Anonymous measurement of how Signboard is used, through named events in PostHog. Never includes business data. |
+| **Module** | One area of Signboard, such as `sales` or `production`, with its own code, tables and public interface. Also the first segment of API paths. |
 | **Audit trail** | The record of every change to every object, with who made it and a snapshot of the object afterwards, plus security events. |
 | **Soft deletion** | Marking a row as deleted instead of removing it. The default for every object in Signboard. |
 | **RQL** | Resource Query Language: the query-string syntax Signboard's API uses for filtering, sorting, selecting fields and paging, for example `and(eq(status,in_production),ge(dueDate,2026-11-01))`. |

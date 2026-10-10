@@ -91,6 +91,7 @@ nav:
       - "0023 Email sending": adr/0023-email-sending.md
       - "0024 Product analytics": adr/0024-product-analytics.md
       - "0025 Observability": adr/0025-observability.md
+      - "0026 Modular monolith": adr/0026-modular-monolith.md
   - Build journal:
       - journal/index.md
       - "2026-10-10": journal/2026-10-10.md
