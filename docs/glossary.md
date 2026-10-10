@@ -32,6 +32,9 @@ Trade terms and Signboard's own vocabulary. If a word appears in a PRD or design
 | **RQL** | Resource Query Language: the query-string syntax Signboard's API uses for filtering, sorting, selecting fields and paging, for example `and(eq(status,in_production),ge(dueDate,2026-11-01))`. |
 | **Table view** | A user's saved arrangement of a grid: visible columns, order, widths, pinned columns, sort, filters, page size and density. Belongs to the user and is stored in their browser. |
 | **Default view** | A business's starting table view for a grid, set by a business administrator and used by anyone without a table view of their own. |
+| **Permission** | A named right to do one thing, such as `sales.quotes.send`. Defined in code. |
+| **Role** | A named set of permissions and field groups, such as Sales or Approver. A membership can hold several. |
+| **Field group** | A set of fields with the same sensitivity, such as `pricing.cost`. Seeing a field requires permission for its group. |
 | **Field visibility** | The rule that decides which fields of a record an actor can see. Hidden fields are left out of API responses entirely. |
 
 ## Trade terms

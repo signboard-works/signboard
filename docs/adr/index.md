@@ -25,5 +25,6 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0019](0019-audit-trail.md) | Audit trail | Proposed |
 | [0020](0020-url-structure.md) | URL structure | Accepted |
 | [0021](0021-authentication.md) | Authentication | Accepted |
+| [0022](0022-authorisation-and-roles.md) | Authorisation and roles | Accepted |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/templates/adr-template.md).
