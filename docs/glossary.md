@@ -24,6 +24,9 @@ Trade terms and Signboard's own vocabulary. If a word appears in a PRD or design
 | **Customer portal** | The part of Signboard where customer users view and approve quotes and proofs, and see their orders and invoices. Each business has its own, at the business's subdomain. It is the same app and the same URLs as the staff app, showing what a customer user may see, and uses the same API as everything else. |
 | **Actor** | Whoever is making an API request: a user acting in one membership, or an integration client belonging to a business or customer account. The actor decides the tenant and which records and fields are visible. |
 | **Object ID** | The one identifier every object in Signboard has, such as `JOB-4821-0937-1156`: a type prefix and random digits in groups of four, with the length fixed per type. It is also the database primary key. |
+| **Identity service** | Signboard's central sign-in service at `id.signboard.works`. Every business's host signs users in through it, so one sign-in works across businesses. |
+| **Passkey** | A sign-in credential stored on a device or password manager, used instead of a password. It cannot be phished and counts as multi-factor on its own. |
+| **API token** | A secret an API client uses to call the API. It belongs to one account, has fixed permissions and an expiry date, and is stored only as a hash. |
 | **Audit trail** | The record of every change to every object, with who made it and a snapshot of the object afterwards, plus security events. |
 | **Soft deletion** | Marking a row as deleted instead of removing it. The default for every object in Signboard. |
 | **RQL** | Resource Query Language: the query-string syntax Signboard's API uses for filtering, sorting, selecting fields and paging, for example `and(eq(status,in_production),ge(dueDate,2026-11-01))`. |
