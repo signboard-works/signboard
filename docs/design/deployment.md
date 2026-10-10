@@ -15,6 +15,7 @@ How the hosted, multi-tenant Signboard service is deployed, backed up, monitored
 
 - Hosted service: zero-downtime upgrades, monitoring, point-in-time database recovery, and per-tenant export and restore.
 - Self-hosted: simple enough for a non-specialist to run, using Docker Compose with the same layout as the hosted service.
+- Choose an OTLP-capable observability backend for logs, traces and metrics, with 90-day retention and email alerts ([ADR 0025](../adr/0025-observability.md)).
 - UI as static files behind a CDN, API as a container, one origin per business via an edge router ([ADR 0015](../adr/0015-separate-deployments-one-origin.md)).
 - Automated backups are part of the default install, not an extra.
 

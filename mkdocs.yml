@@ -90,6 +90,7 @@ nav:
       - "0022 Authorisation and roles": adr/0022-authorisation-and-roles.md
       - "0023 Email sending": adr/0023-email-sending.md
       - "0024 Product analytics": adr/0024-product-analytics.md
+      - "0025 Observability": adr/0025-observability.md
   - Build journal:
       - journal/index.md
       - "2026-10-10": journal/2026-10-10.md
