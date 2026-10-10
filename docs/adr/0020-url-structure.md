@@ -71,6 +71,23 @@ DELETE /api/v1/production/jobs/JOB-4821-0937-1156
 - **Exact paths:** lowercase, no trailing slash, no file extensions. The API does not redirect; a path that does not match exactly is `404 Not Found`.
 - **Field names** in JSON bodies and in RQL are camelCase, and are the same in both.
 
+### Responses
+
+Every request on a single object returns **the full object** as its response body, in its state after the request, so a client never needs to fetch it again after a write:
+
+| Request | Status | Body |
+|---|---|---|
+| `GET` an object | `200 OK` | The object |
+| `POST` to a collection (create) | `201 Created` | The new object, including its ID ([ADR 0017](0017-object-ids.md)) |
+| `PATCH` an object | `200 OK` | The object after the update |
+| `POST` an action (`/send`, `/approve`, …) | `200 OK` | The object after the action |
+| `DELETE` an object | `200 OK` | The soft-deleted object, with `deletedAt` and `deletedBy` set ([ADR 0018](0018-soft-delete.md)) |
+
+- **Full means the whole representation**, not only the fields that changed or were sent. An object's representation, including which dependent child objects it embeds, is defined in that object's design.
+- **Field visibility still applies** ([ADR 0010](0010-api-first.md)): the response omits every field the actor may not see, exactly as a `GET` would. Writing an object never reveals more of it.
+- The response is the same representation a `GET` immediately afterwards would return.
+- Collection requests return objects inside the paging envelope, and RQL `select` may narrow them ([ADR 0016](0016-rql-queries.md)).
+
 ### App paths
 
 App URLs mirror the API's modules, collections and object IDs, so a link means the same thing in both:
@@ -93,12 +110,15 @@ App URLs mirror the API's modules, collections and object IDs, so a link means t
 3. **Account in the path** (`/api/v1/accounts/{id}/quotes`): the acting account is visible in every URL; every path is longer, and the same object has a different URL for every account that can see it.
 4. **Business in the path instead of a subdomain** (`signboard.works/acme/...`): one host; loses the per-business origin that cookies and custom domains rely on ([ADR 0015](0015-separate-deployments-one-origin.md)).
 5. **`PUT` for updates**: widely used; full replacement makes partial updates awkward and risks wiping fields an actor cannot see.
-6. **A separate customer portal path or host** (`/portal/...` or `portal.<business>.signboard.works`): keeps customer screens apart; gives one object two URLs and fixes the split between business and customer screens before it is designed.
+6. **Minimal responses to writes** (`204 No Content`, an ID, or only the changed fields): smaller; every client must fetch again to see the result, and may see a later state than its own write produced.
+7. **Optional full responses** (via a `Prefer: return=representation` header): flexible; two behaviours to document and test for every endpoint.
+8. **A separate customer portal path or host** (`/portal/...` or `portal.<business>.signboard.works`): keeps customer screens apart; gives one object two URLs and fixes the split between business and customer screens before it is designed.
 
 ## Consequences
 
 - API paths and app routes can be generated and checked from the same list of modules and collections.
 - Every screen that both business staff and customer users can reach must handle both, by account kind.
+- Every write ends by loading and serialising the object through the same path and field-visibility policy as `GET`. Tests check that a write's response equals a subsequent `GET`, for each actor ([ADR 0012](0012-testing.md)). Objects that embed large child collections need a deliberate representation in their design.
 - Renaming a module or collection, or moving a collection between modules, is a breaking API change and needs a new API version ([ADR 0010](0010-api-first.md)).
 - Subdomain names need a reserved-word list and a redirect table for renamed businesses.
 - Where users sign in, given that users are global and each business has its own host, is a separate decision for the authentication design.
