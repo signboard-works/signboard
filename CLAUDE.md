@@ -23,7 +23,7 @@ Signboard is open-source, multi-tenant job management for sign and print shops: 
 
 - `docs/product/`: vision and PRDs (user stories with Given/When/Then acceptance criteria)
 - `docs/design/`: technical design documents
-- `docs/adr/`: Architecture Decision Records (one decision each, numbered, never rewritten; supersede instead)
+- `docs/adr/`: Architecture Decision Records (one decision each, numbered; edit freely during initial design, supersede once code implements them)
 - `docs/templates/`: templates for new PRDs, design docs and ADRs
 - `docs/glossary.md`: trade terms; add any new term used in a doc
 - `docs/product/open-questions.md`: questions for the design partner shop
