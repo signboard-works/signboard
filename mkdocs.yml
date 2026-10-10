@@ -92,6 +92,7 @@ nav:
       - "0024 Product analytics": adr/0024-product-analytics.md
       - "0025 Observability": adr/0025-observability.md
       - "0026 Modular monolith": adr/0026-modular-monolith.md
+      - "0027 File storage": adr/0027-file-storage.md
   - Build journal:
       - journal/index.md
       - "2026-10-10": journal/2026-10-10.md

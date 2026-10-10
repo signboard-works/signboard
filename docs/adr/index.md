@@ -30,5 +30,6 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0024](0024-product-analytics.md) | Product analytics | Accepted |
 | [0025](0025-observability.md) | Observability: logs, traces, metrics and alerts | Accepted |
 | [0026](0026-modular-monolith.md) | Modular monolith | Accepted |
+| [0027](0027-file-storage.md) | File storage | Accepted |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/templates/adr-template.md).
