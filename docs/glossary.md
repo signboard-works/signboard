@@ -27,6 +27,8 @@ Trade terms and Signboard's own vocabulary. If a word appears in a PRD or design
 | **Identity service** | Signboard's central sign-in service at `id.signboard.works`. Every business's host signs users in through it, so one sign-in works across businesses. |
 | **Passkey** | A sign-in credential stored on a device or password manager, used instead of a password. It cannot be phished and counts as multi-factor on its own. |
 | **API token** | A secret an API client uses to call the API. It belongs to one account, has fixed permissions and an expiry date, and is stored only as a hash. |
+| **Sending domain** | The domain a business's email is sent from. A business verifies its own with DNS records; until then email is sent "via Signboard". |
+| **Suppression list** | Addresses Signboard will not email because they bounced or complained. One per business, plus a global list. |
 | **Audit trail** | The record of every change to every object, with who made it and a snapshot of the object afterwards, plus security events. |
 | **Soft deletion** | Marking a row as deleted instead of removing it. The default for every object in Signboard. |
 | **RQL** | Resource Query Language: the query-string syntax Signboard's API uses for filtering, sorting, selecting fields and paging, for example `and(eq(status,in_production),ge(dueDate,2026-11-01))`. |

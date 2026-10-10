@@ -26,7 +26,7 @@ Each business has its own subdomain, serving both the app and the API from one o
 
 - A business's **subdomain name** is lowercase letters, digits and hyphens, 3 to 63 characters, starting with a letter. It is chosen at sign-up and unique across Signboard.
 - If a business's subdomain name changes, the old name redirects to the new one and is never given to another business.
-- Names for Signboard's own use are reserved and can never be a business's: for example `www`, `api`, `app`, `docs`, `ops`, `id`, `status`, `mail`, `admin`, `support`.
+- Names for Signboard's own use are reserved and can never be a business's: for example `www`, `api`, `app`, `docs`, `ops`, `id`, `status`, `mail`, `send`, `admin`, `support`.
 - Custom domains for businesses are a later decision ([ADR 0004](0004-multi-tenant.md)). The paths below are the same on any host.
 
 ### API paths
