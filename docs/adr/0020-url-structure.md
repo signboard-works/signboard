@@ -59,7 +59,7 @@ DELETE /api/v1/production/jobs/JOB-4821-0937-1156
     | `production` | Jobs, work centres |
     | `billing` | Invoices, payments |
     | `notifications` | Emails and their delivery events |
-    | `system` | Audit trail, settings |
+    | `system` | Audit trail, settings, files |
 
     The full list of modules and their collections is kept in the API design. Adding a module is a design decision; moving a collection between modules is a breaking change.
 - **Module and collection names are lowercase kebab-case, collections plural nouns:** `/sales/quotes`, `/sales/sales-orders`, `/production/work-centres`.
