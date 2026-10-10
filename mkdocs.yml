@@ -84,6 +84,7 @@ nav:
       - "0016 RQL queries": adr/0016-rql-queries.md
       - "0017 Object IDs": adr/0017-object-ids.md
       - "0018 Soft deletion": adr/0018-soft-delete.md
+      - "0019 Audit trail": adr/0019-audit-trail.md
   - Build journal:
       - journal/index.md
       - "2026-10-10": journal/2026-10-10.md
