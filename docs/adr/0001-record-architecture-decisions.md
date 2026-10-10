@@ -17,5 +17,5 @@ We will record every architecturally significant decision as an Architecture Dec
 ## Consequences
 
 - Reasoning survives beyond the people who made the decision.
-- A decision is changed by writing a new ADR that supersedes the old one, never by editing history.
+- During initial design, before any code implements it, an accepted ADR may be edited directly; Git keeps the history of how it changed. Once code implements an ADR, it is changed only by a new ADR that supersedes it.
 - Small overhead per decision, which is accepted.

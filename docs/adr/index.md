@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-Each significant decision gets one short, numbered record: the context, the decision, the options considered, and the consequences. Records are never deleted. A changed decision gets a new record that supersedes the old one.
+Each significant decision gets one short, numbered record: the context, the decision, the options considered, and the consequences. Records are never deleted. During initial design, before any code implements a decision, its record may be edited directly. After that, a changed decision gets a new record that supersedes the old one.
 
 | # | Decision | Status |
 |---|---|---|
