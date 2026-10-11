@@ -53,14 +53,15 @@ The database is shared, so a single business's data cannot be restored by rollin
 
 1. Restore a snapshot from the right time to a temporary database, inside production.
 2. Export that business's data from it, using the same **business export and import tooling** that data export and moving to self-hosting use ([ADR 0044](0044-privacy-and-data-export.md)).
-3. Import it into production, reviewed and confirmed by an operations user, then delete the temporary database.
+3. Apply the erasure log ([ADR 0044](0044-privacy-and-data-export.md#erasing-personal-information)) to the exported data, so nothing erased since the snapshot comes back.
+4. Import it into production, reviewed and confirmed by an operations user, then delete the temporary database.
 
 That tooling is built before the first paying business, as [ADR 0004](0004-multi-tenant.md) requires. Restoring one business is an audited operations action ([ADR 0019](0019-audit-trail.md)).
 
 ### Restore testing
 
 - **Monthly, automatically:** AWS Backup's restore testing restores the latest database snapshot to a temporary instance, a check confirms that it opens and that row counts and the latest migration are as expected, and the instance is deleted. A failure raises an alert ([ADR 0025](0025-observability.md)).
-- **Every quarter, by hand:** a full drill that restores the database and files from the Melbourne copies, restores one business, and times both against the recovery targets. The result is recorded in the journal ([ADR 0014](0014-build-journal.md)).
+- **Every quarter, by hand:** a full drill that restores the database and files from the Melbourne copies, restores one business, checks that the erasure log was applied, and times both against the recovery targets. The result is recorded in the journal ([ADR 0014](0014-build-journal.md)).
 - **Production data never goes to staging or preview environments**, not even for a drill. Restores happen only in the production and backup accounts ([ADR 0039](0039-security-baseline.md)).
 
 ### Migrations
@@ -128,3 +129,4 @@ The estimate assumes a database of about 5 GB and 20 GB of files, and grows with
 6. **Migrations as a separate step before each deploy**, never on start-up. Agreed?
 7. **Forward-fix only**, with no down migrations in production. Agreed?
 8. **One business export and import tool** serving data export, moving to self-hosting and single-business restore. Agreed?
+9. **Migrations in this ADR or their own.** This ADR covers backups, recovery and schema migrations together, as scoped in issue #36, because migrations are the commonest way data is lost. Keep them together, or split migrations into their own ADR?

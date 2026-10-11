@@ -25,9 +25,9 @@ Payment options, as published on 2026-10-11:
 | Invoices raised by hand, paid by bank transfer | No per-payment fees | — |
 | Stripe Billing, with cards | 1.65% + A$0.30 per domestic card payment, 3.5% + A$0.30 for international cards, plus Billing at 0.7% of billed volume | [Stripe Australia pricing](https://stripe.com/au/pricing) |
 | Paddle, as merchant of record | 5% + 50¢ per transaction | [Paddle pricing](https://www.paddle.com/pricing) |
-| Lemon Squeezy, as merchant of record | 5% + 50¢ per transaction, with possible extra fees outside the United States | [Lemon Squeezy pricing](https://www.lemonsqueezy.com/pricing) |
+| Lemon Squeezy, as merchant of record | 5% + 50¢ per transaction, plus 0.5% for subscription payments and 1.5% for payments from outside the United States | [Lemon Squeezy fees](https://docs.lemonsqueezy.com/help/getting-started/fees) |
 
-On a A$50 monthly subscription, Stripe would cost about A$1.48 (3%) and a merchant of record about A$3.00 (6%), before currency conversion.
+On a A$50 monthly subscription, Stripe would cost about A$1.48 (3%) Paddle about A$3.00 (6%), and Lemon Squeezy about A$4.00 (8%), before currency conversion.
 
 On tax: a business must register for GST once its GST turnover reaches A$75,000 a year, and needs an ABN to register; below that, registration is optional ([ATO: registering for GST](https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/registering-for-gst)). The hosted service's revenue is expected to stay below the threshold for some time. This is not tax advice: the operator of the hosted service confirms its GST treatment with an accountant.
 
@@ -38,7 +38,7 @@ On tax: a business must register for GST once its GST turnover reaches A$75,000 
 - **One paid plan at launch**, called Standard, with every feature. Its price is set to cover running costs, and is a question for review.
 - **No free plan.** A free plan on the hosted service costs real money for every business on it. The free option is self-hosting, which gets everything.
 - **A 30-day trial** of the full plan, with no payment details needed.
-- **Complimentary** status, set by an operations user, for businesses that should not pay, such as the design partner shop while Signboard is being built. Each complimentary arrangement has a reason and an optional end date, and is audited ([ADR 0019](0019-audit-trail.md)).
+- **Complimentary** status, set by an operations user, for businesses that should not pay, such as an open-source project or a charity. Each complimentary arrangement has a reason and an optional end date, and is audited ([ADR 0019](0019-audit-trail.md)).
 - More plans can be added later without code changes to features, because features are gated by entitlements ([ADR 0046](0046-entitlements.md)), never by plan names.
 
 ### Signing up
@@ -59,7 +59,7 @@ Self-hosted installations have no sign-up, plans or trial: the first run creates
 
 Each business account has a subscription, kept in the `accounts` module with the business account it belongs to ([ADR 0020](0020-url-structure.md)). It is platform-level data, outside any tenant ([ADR 0004](0004-multi-tenant.md)).
 
-The subscription records whether and how the business pays. Which features it gets is its edition assignment ([ADR 0046](0046-entitlements.md)), which the subscription sets: a trial is an assignment of Standard that ends with the trial, and `read_only` applies to the whole account, not to one feature.
+The subscription records whether and how the business pays. Which features it gets is its edition assignment ([ADR 0046](0046-entitlements.md)), which the subscription sets: a trial is an assignment of Standard that ends with the trial, and `read_only` applies to the whole account, not to one feature. A read-only business keeps its last edition assignment for reading and export, so it can still see and take out everything; every write is refused with `403 account_read_only`.
 
 ```mermaid
 stateDiagram-v2
@@ -73,7 +73,8 @@ stateDiagram-v2
     read_only --> active: paid
     active --> cancelled: business cancels
     read_only --> cancelled: business cancels
-    complimentary --> active: arrangement ends
+    complimentary --> active: arrangement ends, paid
+    complimentary --> read_only: arrangement ends unpaid
     cancelled --> [*]
 ```
 

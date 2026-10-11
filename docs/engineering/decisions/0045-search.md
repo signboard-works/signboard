@@ -51,7 +51,7 @@ If the query is a complete object ID, such as `JOB-4821-0937-1156`, in any case 
 
 ### The API
 
-- **`GET /api/v1/system/search?q=…`** returns a ranked list of typed results: each with the object's ID, type, title, a short excerpt and its URL ([ADR 0020](0020-url-structure.md)). Results never contain fields the caller cannot see.
+- **`GET /api/v1/system/search?q=…`** returns a ranked list of typed results: each with the object's ID, type, title, a short excerpt and its URL ([ADR 0020](0020-url-structure.md)). Results never contain fields the caller cannot see. Responses are `Cache-Control: no-store`, so no cache can serve one actor's results to another.
 - `type` narrows the results to object types, such as `type=quote,job`. Results are capped at 50, with no deep paging: search is for finding, and grids are for browsing.
 - Invalid queries return problem details ([ADR 0029](0029-api-errors-idempotency-versioning.md)). Search counts towards fair-use rate limits like any request ([ADR 0038](0038-rate-limiting.md)).
 - **Grids** keep RQL for filtering. Each collection may also offer a text filter on its allow-listed text fields, using the same matching rules; whether Mpt.Rql can express it directly or needs a custom operator is checked when the first grid is built.
@@ -64,7 +64,7 @@ If the query is a complete object ID, such as `JOB-4821-0937-1156`, in any case 
 ## Options considered
 
 1. **PostgreSQL full-text search and `pg_trgm`**: nothing new to run or pay for; results are transactionally current; row-level security applies; works the same self-hosted. Weaker relevance ranking and typo tolerance than a dedicated engine. **Chosen.**
-2. **A dedicated engine** (OpenSearch, Meilisearch, Typesense): better relevance, typo tolerance and facets; another service to run, pay for, secure and keep in step, with its own copy of every business's data outside row-level security, and another thing for self-hosters to install. Amazon OpenSearch Service alone would cost more each month than the database.
+2. **A dedicated engine** (OpenSearch, Meilisearch, Typesense): better relevance, typo tolerance and facets; another service to run, pay for, secure and keep in step, with its own copy of every business's data outside row-level security, and another thing for self-hosters to install. A managed service such as Amazon OpenSearch Service would be a separate monthly cost on top of the database.
 3. **RQL text filters only, no global search**: no new work; nobody can find a job from a half-remembered word without knowing which list to look in.
 
 ## Consequences
@@ -74,7 +74,7 @@ If the query is a complete object ID, such as `JOB-4821-0937-1156`, in any case 
 - The `pg_trgm` and `unaccent` extensions are enabled by migrations, and are available on standard PostgreSQL for self-hosters.
 - The ICU collation's behaviour, including `LIKE` support, is confirmed against RDS for PostgreSQL 18 in the first data-model work.
 - The web app gets one search box, available everywhere, with keyboard access and announced results ([ADR 0042](0042-accessibility.md)).
-- No cost is added.
+- No separate search service cost is added. The search table and its indexes use some database storage and work, within the database's current size.
 
 ## Questions for review
 

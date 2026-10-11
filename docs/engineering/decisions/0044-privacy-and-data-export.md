@@ -28,7 +28,7 @@ Several decisions already touch privacy:
 The law is the Privacy Act 1988 and its Australian Privacy Principles (APPs). Two points shape this ADR:
 
 - **Many sign shops are exempt.** Businesses with annual turnover of A$3 million or less are generally outside the Act ([OAIC: small business](https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/organisations/small-business)). Signboard cannot rely on its customers' exemptions, and its customers' own customers deserve the same care either way.
-- **The rules are tightening.** The Privacy and Other Legislation Amendment Act 2024 added a statutory tort for serious invasions of privacy from 10 June 2025, and transparency duties for automated decisions from 10 December 2026, with further reforms expected.
+- **The rules are tightening.** The Privacy and Other Legislation Amendment Act 2024 added a statutory tort for serious invasions of privacy from 10 June 2025, and transparency duties for automated decisions from 10 December 2026 ([the Act as made](https://www.legislation.gov.au/C2024A00128/asmade/text)).
 
 The Notifiable Data Breaches scheme requires an entity that suspects an eligible data breach (one likely to cause serious harm) to assess it, taking all reasonable steps to finish within 30 days, and to notify affected individuals and the OAIC of an eligible breach ([OAIC: Notifiable Data Breaches scheme](https://www.oaic.gov.au/privacy/notifiable-data-breaches/about-the-notifiable-data-breaches-scheme); Privacy Act section 26WH).
 
@@ -56,9 +56,10 @@ This is a design decision, not legal advice.
 |---|---|---|
 | AWS (database, files, email, backups, logs) | All hosted data | Sydney; backup copies in Melbourne |
 | AWS CloudFront | The static UI only; API responses are never cached ([ADR 0030](0030-hosting-aws.md)) | Global edge |
-| PostHog | Usage events with object IDs, no business or personal data | EU |
+| PostHog | Usage events identified by user and account IDs, with no other business or personal data ([ADR 0024](0024-product-analytics.md)) | EU |
 | GitHub, CodeRabbit | Source code and public issues, never business data ([ADR 0040](0040-backlog-and-issues.md)) | United States |
 
+- **PostHog is the one exception to keeping data in Australia.** Its events carry no names, emails or business data, but they are identified by user and account IDs, which Signboard can link back to a person. They are therefore treated as personal information: the privacy policy discloses the transfer to the EU as an overseas disclosure under APP 8, and de-identifying a user also deletes their person record in PostHog.
 - An accounting system a business connects, such as Xero ([ADR 0005](0005-accounting-as-plugin.md)), receives data **at the business's direction**, under the business's own agreement with that provider. The connection screen says so.
 - A new sub-processor that receives business or personal data needs an update to this ADR first, and notice to businesses.
 
@@ -85,8 +86,10 @@ Keeping records such as invoices for as long as tax law requires is the business
 ### Erasing personal information
 
 - Erasure uses **de-identification**, as [ADR 0018](0018-soft-delete.md) decided: personal fields are cleared or replaced, such as with "Former contact", while the row, its ID and its references remain, so invoices and history still add up.
-- De-identification also clears the person from **audit snapshots** ([ADR 0019](0019-audit-trail.md)), from **search indexes** ([ADR 0045](0045-search.md)), and marks their **files** for review, because a file's content cannot be edited automatically.
-- **Backups** keep erased data until they expire ([ADR 0043](0043-backups-recovery-and-migrations.md)). A restore re-applies a log of erasures, so restored data stays erased.
+- **The ID that remains identifies no one.** Every field that could identify the person is cleared, IDs are random and never reused ([ADR 0017](0017-object-ids.md)), and the links to the person elsewhere are severed: their person record in PostHog is deleted, and logs and traces, which hold IDs only, expire within 90 days ([ADR 0025](0025-observability.md)). A test checks that no personal field survives de-identification.
+- De-identification also clears the person from **audit snapshots** ([ADR 0019](0019-audit-trail.md)) and from **search indexes** ([ADR 0045](0045-search.md)).
+- **Files** that may contain the person, such as artwork or signed approvals, are listed for the business to review, because a file's content cannot be edited automatically. The erasure is not complete until each listed file has been deleted or replaced with a redacted copy, and until then the files are excluded from exports.
+- **Backups** keep erased data until they expire ([ADR 0043](0043-backups-recovery-and-migrations.md)). Every erasure is recorded in a durable erasure log, and the restore tooling applies that log to restored data **before** it reaches production, so a restore can never bring erased information back. Restore tests check it.
 - Every erasure is audited, without recording the erased values.
 - We do not use per-person encryption keys ("crypto-shredding"). They would make every query and search harder, for a guarantee that de-identification and expiring backups already give.
 
@@ -153,3 +156,4 @@ Keeping records such as invoices for as long as tax law requires is the business
 5. **30 days read-only after a business leaves**, then hard deletion. Longer, such as 90 days, or shorter?
 6. **Tell affected businesses within 72 hours** of confirming their data was involved in a breach. Agreed, or a different window?
 7. **A lawyer reviews the privacy policy and terms** before the first paying business, which is a cost. Or start from a reputable template and review later?
+8. **One ADR or several.** This ADR covers roles, residency, retention, erasure, export, leaving and breaches together, as scoped in issue #37, because they share one subject: what happens to people's data. Keep it whole, or split it?
