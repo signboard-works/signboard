@@ -37,6 +37,10 @@ What can go wrong (network, third-party outages, bad data) and how the design re
 
 Authentication, authorisation, secrets, and personal data handled. Where the design crosses a trust boundary (customer access, files, webhooks, integrations, anything a business can configure), a short threat model: what could go wrong, and what prevents it ([ADR 0039](../decisions/0039-security-baseline.md)).
 
+## Accessibility
+
+How the screens meet [ADR 0042](../decisions/0042-accessibility.md): keyboard use, screen-reader names and announcements, touch, and anything beyond the baseline that needs its own acceptance criteria.
+
 ## Alternatives considered
 
 Other approaches and why they were not chosen. Significant choices should also get an ADR.

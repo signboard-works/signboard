@@ -35,7 +35,7 @@ We will build the front end as a single-page application in React and TypeScript
 - **Kanban board:** built on a drag-and-drop library, chosen in a spike between dnd-kit (MIT) and Atlassian's Pragmatic drag and drop (Apache 2.0). **Drag and drop must work by touch on a tablet.** This is a hard requirement.
 - **Calendar:** chosen in the scheduling design doc. Candidates include FullCalendar's MIT-licensed standard edition and react-big-calendar (MIT). FullCalendar's per-resource (per-crew) views are a paid edition, so the choice waits until we know whether installs are scheduled by crew.
 - **API client:** generated from the OpenAPI contract, never hand-written.
-- **Accessibility:** WCAG 2.2 AA, including keyboard alternatives to every drag-and-drop action.
+- **Accessibility:** WCAG 2.2 AA, including keyboard alternatives to every drag-and-drop action. Devices, browsers, documents and testing are in [ADR 0042](0042-accessibility.md).
 
 Data fetching, routing, forms, state, formatting and the design of table views are covered in the [front-end design doc](../design/front-end.md).
 

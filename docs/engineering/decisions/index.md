@@ -45,5 +45,6 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0039](0039-security-baseline.md) | Security baseline | Accepted |
 | [0040](0040-backlog-and-issues.md) | Backlog and issue tracking | Accepted |
 | [0041](0041-coding-with-ai.md) | Coding with AI | Accepted |
+| [0042](0042-accessibility.md) | Accessibility | Accepted |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/engineering/templates/adr-template.md).
