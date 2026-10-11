@@ -32,5 +32,6 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0026](0026-modular-monolith.md) | Modular monolith | Accepted |
 | [0027](0027-file-storage.md) | File storage | Accepted |
 | [0028](0028-branching-ci-and-releases.md) | Branching, CI and releases | Accepted |
+| [0029](0029-api-errors-idempotency-versioning.md) | API errors, idempotency and versioning | Accepted |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/engineering/templates/adr-template.md).

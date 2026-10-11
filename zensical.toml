@@ -64,6 +64,7 @@ nav = [
         { "0017 Object IDs" = "engineering/decisions/0017-object-ids.md" },
         { "0018 Soft deletion" = "engineering/decisions/0018-soft-delete.md" },
         { "0020 URL structure" = "engineering/decisions/0020-url-structure.md" },
+        { "0029 Errors, idempotency and versioning" = "engineering/decisions/0029-api-errors-idempotency-versioning.md" },
       ] },
       { "Security" = [
         { "0019 Audit trail" = "engineering/decisions/0019-audit-trail.md" },
