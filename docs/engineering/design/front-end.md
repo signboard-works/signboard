@@ -26,6 +26,7 @@ How the React single-page application is structured: the shared components every
 To be written. Areas to cover:
 
 - **Data fetching and caching:** TanStack Query, with the generated API client.
+- **Live updates:** one Server-Sent Events stream per tab; notifications invalidate the matching TanStack Query caches; grids refetch the visible page in place, detail pages refetch silently, forms being edited show a "changed by" banner, kanban cards animate to their new place ([ADR 0032](../decisions/0032-events-webhooks-live-updates.md)).
 - **Routing:** React Router (or TanStack Router), with the RQL query in the URL for grids.
 - **Forms and validation:** Mantine's form library behind the wrapper, with server-side validation errors mapped to fields.
 - **Formatting:** dates, numbers, currency and tax from the business's settings ([ADR 0006](../decisions/0006-configuration-over-customisation.md)), never hard-coded. Interface text in English at first, structured so it can be translated later.

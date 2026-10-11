@@ -78,6 +78,7 @@ nav = [
         { "0024 Product analytics" = "engineering/decisions/0024-product-analytics.md" },
         { "0025 Observability" = "engineering/decisions/0025-observability.md" },
         { "0027 File storage" = "engineering/decisions/0027-file-storage.md" },
+        { "0032 Events, webhooks and live updates" = "engineering/decisions/0032-events-webhooks-live-updates.md" },
       ] },
       { "Process" = [
         { "0011 Documentation first" = "engineering/decisions/0011-documentation-first.md" },

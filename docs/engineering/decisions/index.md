@@ -35,5 +35,6 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0029](0029-api-errors-idempotency-versioning.md) | API errors, idempotency and versioning | Accepted |
 | [0030](0030-hosting-aws.md) | Hosting: AWS in Sydney | Accepted |
 | [0031](0031-concurrency.md) | Concurrency | Accepted |
+| [0032](0032-events-webhooks-live-updates.md) | Events, webhooks and live updates | Accepted |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/engineering/templates/adr-template.md).
