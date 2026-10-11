@@ -12,7 +12,7 @@ Signboard is used in an office, on a tablet on the shop floor, on a screen on th
 
 [ADR 0009](0009-frontend-react.md) already sets the target, WCAG 2.2 AA, and requires a keyboard alternative to every drag-and-drop action and touch support for grids and the kanban board. What is missing is how that target is met and kept: which devices and browsers, what documents and emails must do, and how it is tested. Like localisation ([ADR 0037](0037-localisation.md)), accessibility is cheap from the first screen and expensive to retrofit.
 
-In Australia, the Disability Discrimination Act 1992 applies to services like Signboard, and government buyers apply WCAG through the EN 301 549 standard, so WCAG 2.2 AA is the recognised benchmark.
+In Australia, the Disability Discrimination Act 1992 applies to services like Signboard. The Australian standard for accessible technology, AS EN 301 549:2024, still incorporates WCAG 2.1, and the Australian Human Rights Commission's guidelines advise using WCAG 2.2 where appropriate ([standards and guidelines on digital accessibility](https://humanrights.gov.au/our-work/disability-rights/chapter-3-standards-and-guidelines-digital-accessibility)). WCAG 2.2 AA meets both.
 
 ## Decision
 
@@ -26,7 +26,7 @@ In Australia, the Disability Discrimination Act 1992 applies to services like Si
 
 ### Documents and emails
 
-- **Quote, invoice and other PDFs sent to customers are tagged for screen readers**, meeting PDF/UA (ISO 14289): reading order, headings, table structure and alternative text for images. How PDFs are produced is decided in the documents and templates ADR, which must meet this.
+- **Every PDF Signboard generates is tagged for screen readers**, whether it is sent to a customer, such as a quote or invoice, or used internally, such as a job sheet. Tagging meets PDF/UA (ISO 14289): reading order, headings, table structure and alternative text for images. How PDFs are produced is decided in the documents and templates ADR, which must meet this.
 - **Emails** use semantic HTML, with a plain-text part ([ADR 0023](0023-email-sending.md)), real text rather than text in images, and alternative text for logos.
 
 ### Devices
@@ -66,7 +66,7 @@ Accessibility is the default in Signboard's wrapper components ([ADR 0009](0009-
 ### Sign-in
 
 - Sign-in meets WCAG 2.2's criterion on accessible authentication: passkeys and emailed codes need no memory test or puzzle, and code fields accept pasting and password managers ([ADR 0021](0021-authentication.md)).
-- **No CAPTCHA on sign-in.** If sign-ups are abused, the WAF CAPTCHA allowed by [ADR 0038](0038-rate-limiting.md) may be added to sign-up only. AWS documents its puzzles as offering audio and visual versions, screen-reader and keyboard support, and meeting WCAG.
+- **No CAPTCHA on sign-in.** If sign-ups are abused, the WAF CAPTCHA allowed by [ADR 0038](0038-rate-limiting.md) may be added to sign-up only. AWS documents its puzzles as offering audio and visual versions, screen-reader and keyboard support, and meeting WCAG ([AWS WAF CAPTCHA puzzles](https://docs.aws.amazon.com/waf/latest/developerguide/waf-captcha-puzzle.html)). That is AWS's own claim, without a stated WCAG version or an independent audit, so the sign-up page is checked with a screen reader before CAPTCHA is turned on.
 
 ### Business branding
 
