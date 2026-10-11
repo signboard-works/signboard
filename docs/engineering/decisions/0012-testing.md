@@ -30,7 +30,7 @@ Rules:
 - The pricing engine is also tested against real past jobs from the design partner shop (anonymised), and with property-based tests for rounding and tax.
 - Every endpoint has a cross-tenant test, and a schema test fails if any tenant-owned table lacks `tenant_id` or a row-level security policy.
 - Tests use real PostgreSQL, never an in-memory database substitute.
-- All automated tests run in CI on every pull request and must pass before merge.
+- All unit, integration, contract and component tests run in CI on every pull request and must pass before merge. End-to-end tests run in tiers: a smoke subset on every pull request and the full suite on `main`, nightly and before every release ([ADR 0028](0028-branching-ci-and-releases.md)).
 - Every pull request that changes code must keep line coverage at or above **95%**, measured separately for the back end (coverlet) and the front end (Vitest). CI fails the pull request below that threshold. The gate applies from the first line of code, so it never has to be retrofitted. Generated code (EF Core migrations, the generated API client) is excluded, and every other exclusion must be explicit in configuration with a comment giving the reason.
 - Coverage is a floor, not the goal. Reviews check that tests assert behaviour, and acceptance-criterion traceability still applies.
 - Exploratory testing with Claude in Chrome is used when a change is visual or interaction-heavy, or before a release. It is not a merge gate, and its findings become issues or automated tests.

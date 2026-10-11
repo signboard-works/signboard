@@ -81,6 +81,7 @@ nav = [
         { "0012 Testing strategy" = "engineering/decisions/0012-testing.md" },
         { "0013 Work in the open" = "engineering/decisions/0013-work-in-the-open.md" },
         { "0014 Build journal" = "engineering/decisions/0014-build-journal.md" },
+        { "0028 Branching, CI and releases" = "engineering/decisions/0028-branching-ci-and-releases.md" },
       ] },
     ] },
     { "How we work" = "engineering/how-we-work.md" },
