@@ -6,6 +6,7 @@ Signboard is built part-time, mostly with AI assistance, in the open. These rule
 - **Testing** ([ADR 0012](decisions/0012-testing.md)). Every acceptance criterion has an automated test that names its story ID. Every bug fix starts with a failing test. Code pull requests need 95% line coverage, and tests run against real PostgreSQL.
 - **Work in the open** ([ADR 0013](decisions/0013-work-in-the-open.md)). Nothing about the project is secret, and we are honest about bugs and mistakes. The exceptions are security issues, which stay private until fixed, and personal or business data, which never appears.
 - **Build journal** ([ADR 0014](decisions/0014-build-journal.md)). Every pull request that changes the repository updates the [journal](../journal/index.md), including what the AI got wrong or was overruled on. CI enforces it.
+- **Branching, CI and releases** ([ADR 0028](decisions/0028-branching-ci-and-releases.md)). Trunk-based development: short-lived branches, squash-merged into `main` through pull requests whose titles follow Conventional Commits. Every pull request passes the required checks (including a Playwright smoke tier) and gets a preview environment. The full suite runs on `main`, and releases are semantic versions cut by release-please.
 
 ## Templates
 
