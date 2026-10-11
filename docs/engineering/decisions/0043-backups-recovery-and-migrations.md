@@ -54,7 +54,7 @@ The database is shared, so a single business's data cannot be restored by rollin
 1. Restore a snapshot from the right time to a temporary database, inside production.
 2. Export that business's data from it, using the same **business export and import tooling** that data export and moving to self-hosting use ([ADR 0044](0044-privacy-and-data-export.md)).
 3. Apply the erasure log ([ADR 0044](0044-privacy-and-data-export.md#erasing-personal-information)) to the exported data, so nothing erased since the snapshot comes back.
-4. Import it into production, reviewed and confirmed by an operations user, then delete the temporary database.
+4. Import it into production, reviewed and confirmed by an operations user, including recreating its files in object storage from the restored versions ([ADR 0027](0027-file-storage.md)), then delete the temporary database.
 
 That tooling is built before the first paying business, as [ADR 0004](0004-multi-tenant.md) requires. Restoring one business is an audited operations action ([ADR 0019](0019-audit-trail.md)).
 
@@ -113,6 +113,7 @@ The estimate assumes a database of about 5 GB and 20 GB of files, and grows with
 
 ## Consequences
 
+- **This changes [ADR 0030](0030-hosting-aws.md)**, which keeps every data-storing service, backups included, in Sydney. Backup copies in Melbourne stay in Australia, so the residency commitment holds, but ADR 0030 is updated to match when this ADR is accepted.
 - [ADR 0030](0030-hosting-aws.md) gains a fourth account, the backup account, and about A$10 a month before paying businesses, taking that total to about A$475.
 - The business export and import tooling becomes a shared component, designed with [ADR 0044](0044-privacy-and-data-export.md).
 - The deployment design adds the migration step, the migration role, AWS Backup plans and the restore test, all in the CDK code.

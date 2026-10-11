@@ -59,7 +59,7 @@ This is a design decision, not legal advice.
 | PostHog | Usage events identified by user and account IDs, with no other business or personal data ([ADR 0024](0024-product-analytics.md)) | EU |
 | GitHub, CodeRabbit | Source code and public issues, never business data ([ADR 0040](0040-backlog-and-issues.md)) | United States |
 
-- **PostHog is the one exception to keeping data in Australia.** Its events carry no names, emails or business data, but they are identified by user and account IDs, which Signboard can link back to a person. They are therefore treated as personal information: the privacy policy discloses the transfer to the EU as an overseas disclosure under APP 8, and de-identifying a user also deletes their person record in PostHog.
+- **PostHog is the one exception to keeping data in Australia.** Its events carry no names, emails or business data, but they are identified by user and account IDs, which Signboard can link back to a person. They are therefore treated as personal information: the privacy policy discloses the transfer to the EU as an overseas disclosure under APP 8, and de-identifying a user also deletes their person record in PostHog together with all of their events. The erasure test covers it.
 - An accounting system a business connects, such as Xero ([ADR 0005](0005-accounting-as-plugin.md)), receives data **at the business's direction**, under the business's own agreement with that provider. The connection screen says so.
 - A new sub-processor that receives business or personal data needs an update to this ADR first, and notice to businesses.
 
@@ -86,7 +86,7 @@ Keeping records such as invoices for as long as tax law requires is the business
 ### Erasing personal information
 
 - Erasure uses **de-identification**, as [ADR 0018](0018-soft-delete.md) decided: personal fields are cleared or replaced, such as with "Former contact", while the row, its ID and its references remain, so invoices and history still add up.
-- **The ID that remains identifies no one.** Every field that could identify the person is cleared, IDs are random and never reused ([ADR 0017](0017-object-ids.md)), and the links to the person elsewhere are severed: their person record in PostHog is deleted, and logs and traces, which hold IDs only, expire within 90 days ([ADR 0025](0025-observability.md)). A test checks that no personal field survives de-identification.
+- **The ID that remains identifies no one.** Every field that could identify the person is cleared, IDs are random and never reused ([ADR 0017](0017-object-ids.md)), and the links to the person elsewhere are severed: their person record and events in PostHog are deleted, and logs and traces, which hold IDs only, expire within 90 days ([ADR 0025](0025-observability.md)). A test checks that no personal field survives de-identification.
 - De-identification also clears the person from **audit snapshots** ([ADR 0019](0019-audit-trail.md)) and from **search indexes** ([ADR 0045](0045-search.md)).
 - **Files** that may contain the person, such as artwork or signed approvals, are listed for the business to review, because a file's content cannot be edited automatically. The erasure is not complete until each listed file has been deleted or replaced with a redacted copy, and until then the files are excluded from exports.
 - **Backups** keep erased data until they expire ([ADR 0043](0043-backups-recovery-and-migrations.md)). Every erasure is recorded in a durable erasure log, and the restore tooling applies that log to restored data **before** it reaches production, so a restore can never bring erased information back. Restore tests check it.
@@ -113,7 +113,7 @@ Keeping records such as invoices for as long as tax law requires is the business
 ### A business leaving
 
 1. An administrator closes the business. The business becomes **read-only for 30 days**, with export available, and administrators are emailed. A business that only stops paying becomes read-only but is not deleted for non-payment alone ([ADR 0047](0047-sign-up-plans-and-billing.md)).
-2. After 30 days, the business's data is **hard-deleted**: database rows, files, search indexes and email records ([ADR 0018](0018-soft-delete.md), exception 1). Users remain, because they are global, but lose their memberships.
+2. After 30 days, the business's data is **hard-deleted**: database rows, files, search indexes and email records ([ADR 0018](0018-soft-delete.md), exception 1). Users remain, because they are global, but lose their memberships. The closure is recorded in the erasure log, so a restore from an earlier snapshot never brings a closed business back; restore tests cover it.
 3. Backups age out on their own schedule. The business is told the date by which its data will be gone from backups too.
 
 ### Breaches
