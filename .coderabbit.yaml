@@ -1,0 +1,43 @@
+# CodeRabbit review configuration (ADR 0041). Free for public repositories.
+# Reviews are advice: every comment is fixed or answered before merge.
+# CodeRabbit reads AGENTS.md as the project's coding guidelines.
+language: "en-GB"
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  review_status: true
+  collapse_walkthrough: true
+  sequence_diagrams: false
+  poem: false
+  in_progress_fortune: false
+  auto_review:
+    enabled: true
+    drafts: false
+  path_instructions:
+    - path: "docs/**"
+      instructions: |
+        Check against AGENTS.md. In particular:
+        - British English spelling.
+        - The tenant is a "business", never a "shop", in the model, API or UI. "Shop" is fine in the trade sense.
+        - No personal or business data: nothing that names or identifies the design partner shop, its staff, customers or prices (ADR 0013).
+        - People are "they" or not referred to by pronoun.
+        - Diagrams in Mermaid; code examples use curly braces even for single-line blocks.
+        - Facts that change (licences, prices, service limits, library status) should cite a source.
+        - Links between documents should resolve; flag a decision restated in a document instead of linked to its ADR.
+    - path: "docs/engineering/decisions/**"
+      instructions: |
+        Each ADR records one decision, with a status header, Context, Decision, Options considered (the chosen option marked) and Consequences.
+        Check that it does not contradict another accepted ADR without saying so and updating it, and that related ADRs link to it.
+        Accepted ADRs may be edited in place during initial design (ADR 0001).
+    - path: "docs/journal/**"
+      instructions: |
+        Every journal entry records what the AI got wrong or was overruled on (ADR 0014). Flag an entry that claims nothing went wrong when the pull request suggests otherwise.
+    - path: ".github/workflows/**"
+      instructions: |
+        Apply ADR 0028 and ADR 0039: least `permissions`; actions outside GitHub's own `actions/` organisation pinned to a full commit SHA with the version in a comment; never `pull_request_target`; no secrets reachable from pull requests from forks.
+    - path: ".claude/skills/**"
+      instructions: |
+        Skills sequence steps and link to the ADRs and AGENTS.md; they must not restate a rule (ADR 0041). Flag guardrails that conflict with the ADRs.
+chat:
+  art: false

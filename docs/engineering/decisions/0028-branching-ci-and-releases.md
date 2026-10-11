@@ -95,7 +95,7 @@ Every journey belongs to the full suite. A journey is tagged `@smoke` only if it
 
 ### Reviews
 
-- While there is one maintainer, every change still goes through a pull request and its required checks, but no approval is required, and the maintainer, or an AI assistant acting for the maintainer, may admin-merge.
+- While there is one maintainer, every change still goes through a pull request and its required checks, but no approval is required, and the maintainer, or an AI assistant acting for the maintainer, may admin-merge. The review layers, including the maintainer reading every pull request that changes code before it merges, are in [ADR 0041](0041-coding-with-ai.md#review-in-layers).
 - When contributors arrive, we will add a `CODEOWNERS` file and require one approval from a code owner.
 
 ### Releases
