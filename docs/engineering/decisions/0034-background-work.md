@@ -42,7 +42,7 @@ A job is enqueued **in the same database transaction** as the change that needs 
 ### Running jobs
 
 - **Delivery is at least once.** Every job handler must be safe to run twice, using object revisions ([ADR 0031](0031-concurrency.md)), idempotency keys or its own checks.
-- **Retries** use exponential backoff with jitter, with a maximum number of attempts set per job type. The general rules for retrying calls to outside services are decided in the retries ADR.
+- **Retries** use exponential backoff with jitter, with a maximum number of attempts set per job type. Retries of individual calls to outside services follow [ADR 0035](0035-retries-and-resilience.md).
 - **Failed jobs** move to a failed state after their last attempt. They are never silently dropped. They are listed in the operations app, through the API, with actions to retry or discard, and they raise an alert ([ADR 0025](0025-observability.md)).
 - **Fairness and ordering:**
     - **Per business:** jobs are claimed fairly across businesses, so one business's large import cannot starve another's emails.
