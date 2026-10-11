@@ -16,6 +16,9 @@ The reference for each module will be generated from its OpenAPI contract, which
 | Authentication | Cookie sessions in the browser; hashed, scoped, expiring API tokens for integrations | [ADR 0021](../engineering/decisions/0021-authentication.md) |
 | Authorisation | Each request acts as one membership. Permissions are checked per request and deny by default; fields are visible per actor | [ADR 0022](../engineering/decisions/0022-authorisation-and-roles.md) |
 | Deletion | Deleting an object soft-deletes it | [ADR 0018](../engineering/decisions/0018-soft-delete.md) |
+| Errors | Problem details with a stable `code`, a `traceId` and field errors. Clients branch on `code`, never on wording | [ADR 0029](../engineering/decisions/0029-api-errors-idempotency-versioning.md) |
+| Retries | Send an `Idempotency-Key` header on every `POST`; a retry with the same key returns the original response | [ADR 0029](../engineering/decisions/0029-api-errors-idempotency-versioning.md) |
+| Versioning | Additive changes happen within `v1`, so clients must ignore unknown fields and handle unknown enumeration values and error codes | [ADR 0029](../engineering/decisions/0029-api-errors-idempotency-versioning.md) |
 
 A collection response looks like this:
 
@@ -27,3 +30,20 @@ A collection response looks like this:
   "data": []
 }
 ```
+
+An error looks like this:
+
+```json
+{
+  "type": "https://docs.signboard.works/api/errors/validation-failed",
+  "title": "The request has invalid fields.",
+  "status": 422,
+  "code": "validation_failed",
+  "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+  "errors": [
+    { "pointer": "/lines/2/quantity", "code": "must_be_positive", "message": "Quantity must be greater than zero." }
+  ]
+}
+```
+
+A page for each error code will be added here with the first endpoints.
