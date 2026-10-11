@@ -43,7 +43,7 @@ The two streams use separate sending configurations, so a business's sending rep
 ### Providers
 
 - The provider sits behind an interface.
-- **Hosted service:** Amazon SES in the Sydney region (`ap-southeast-2`), with events delivered through Amazon SNS to a queue that the worker reads.
+- **Hosted service:** Amazon SES in the Sydney region (`ap-southeast-2`), with events delivered through Amazon SNS to an SQS queue that the worker reads ([ADR 0034](0034-background-work.md)).
 - **Self-hosted:** Amazon SES or plain SMTP. SMTP sends but cannot report delivery events, and the app says so plainly wherever delivery status would appear.
 
 ## Options considered

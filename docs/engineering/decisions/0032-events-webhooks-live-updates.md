@@ -45,7 +45,7 @@ Rules:
 - Delivery to every consumer is **at least once**. Every consumer must cope with the same event twice, and uses the object's revision to ignore anything older than what it already has.
 - Events are kept for **7 days**, which covers live-update replay and webhook retries, then hard-deleted as short-lived technical data ([ADR 0018](0018-soft-delete.md)).
 - Events are not the audit trail. The audit trail ([ADR 0019](0019-audit-trail.md)) is the permanent history of every change. Events are short-lived notices that something happened.
-- How the background worker runs event handlers and webhook deliveries (its job queue, retries and scheduling) is decided in the background work ADR.
+- The background worker runs event handlers and webhook deliveries on its job queue ([ADR 0034](0034-background-work.md)).
 
 ### Between modules
 
