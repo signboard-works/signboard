@@ -2,11 +2,10 @@
 
 | | |
 |---|---|
-| **Status** | Proposed |
+| **Status** | Accepted |
 | **Date** | 2026-10-11 |
 | **Deciders** | Stuart Meeks |
 
-> **Draft for review.** Written from Claude's recommendations. The choices still open are listed under [Questions for review](#questions-for-review).
 
 ## Context
 
@@ -23,19 +22,19 @@ That brings real gains: decisions are researched and written up in minutes, and 
 
 [ADR 0011](0011-documentation-first.md) (documents first), [ADR 0012](0012-testing.md) (testing), [ADR 0014](0014-build-journal.md) (the journal), [ADR 0028](0028-branching-ci-and-releases.md) (branching and CI) and [ADR 0039](0039-security-baseline.md) (security) already contain much of the answer. This ADR adds the rules that are specific to working with AI, and a skill that walks contributors through the process.
 
-The approach is modelled on [softwareone-platform/mpt-extension-skills](https://github.com/softwareone-platform/mpt-extension-skills) (Apache 2.0), cut down for a single repository: one entry file every agent reads, workflow skills that link to the rules rather than restating them, explicit guardrails, and an AI reviewer that checks changes against the project's own documents. Its plugin packaging, installers, shared standards library and cross-runtime adapters exist to serve many repositories, and are not needed here.
+The approach is deliberately small for a single repository: one entry file every agent reads, a workflow skill that links to the rules rather than restating them, explicit guardrails, and an AI reviewer that checks changes against the project's own documents.
 
 ## Decision
 
 ### People are accountable, whoever typed it
 
 - The person who opens a pull request is responsible for every line in it, whether they wrote it, an AI wrote it, or both. "The AI did it" is never a reason a change is wrong.
-- AI-assisted contributions are welcome. Pull requests say whether and how AI was used, and AI-written commits carry a `Co-Authored-By` trailer naming the model.
+- AI-assisted contributions are welcome. AI-written commits carry a `Co-Authored-By` trailer naming the model. There is no separate disclosure form: accountability rests with the person opening the pull request either way.
 - The build journal records what the AI got wrong or was overruled on ([ADR 0014](0014-build-journal.md)). That record is how the process improves.
 
 ### One set of instructions for every agent
 
-- **`AGENTS.md`** at the repository root is the single set of instructions for any AI agent, the convention read by most coding agents. It holds what `CLAUDE.md` holds today: the principles, where things are, the conventions and the commands.
+- **`AGENTS.md`** at the repository root is the single set of instructions for any AI agent, the convention read by most coding agents. It holds the principles, where things are, the conventions and the commands.
 - **`CLAUDE.md`** becomes one line that imports `AGENTS.md`, so Claude Code reads the same file. Nothing is written twice.
 - Instructions stay short and link to the ADRs, which are the source of truth. An instruction file that restates a decision drifts from it.
 
@@ -67,7 +66,7 @@ The approach is modelled on [softwareone-platform/mpt-extension-skills](https://
 | **3. Adversarial review** | A separate agent or session, with no memory of writing the change, asked to break it | Pull requests touching a high-risk area |
 | **4. Maintainer review** | The maintainer reads the change and its tests | Every pull request that changes code, before merge |
 
-- An automated reviewer's comments are advice. Each is fixed or answered; none is merged unanswered.
+- An automated reviewer's comments are advice. Each is fixed or answered; nothing merges with a comment unanswered, so a pull request waits for CodeRabbit's review to finish.
 - Documentation-only pull requests during the documentation phase may be merged by the agent with the maintainer's standing permission ([ADR 0028](0028-branching-ci-and-releases.md#reviews)), because the maintainer has already agreed their content in the conversation that produced them.
 
 ### Adversarial review
@@ -110,29 +109,20 @@ Code is not copied from other projects unless its licence is allowed by [ADR 003
 ### Process
 
 1. **A short ADR, one instruction file and one workflow skill that links to the rules**: enough structure to keep AI work consistent, with nothing to maintain beyond what one repository needs. **Chosen.**
-2. **A full skills package like the model repository**: plugins, installers, shared standards and many small skills; designed for many repositories, and too much to maintain for one.
+2. **A full skills package**, with plugins, installers, a shared standards library and many small skills: suits an organisation with many repositories; too much to maintain for one.
 3. **No special process**: rely on the existing ADRs; leaves the AI-specific risks, such as weakened tests and untrusted input, to chance.
 
 ### Automated review
 
-1. **CodeRabbit**: free for public repositories, reviews pull requests from forks without our secrets, and can be configured per path to check against our ADRs. **Chosen.**
+1. **CodeRabbit**: free for public repositories (A$0), reviews pull requests from forks without our secrets, and can be configured per path to check against our ADRs. **Chosen.**
 2. **A Claude Code review in GitHub Actions**: the same model family that writes the code, and it needs an API key, so it cannot review pull requests from forks without `pull_request_target`, which [ADR 0028](0028-branching-ci-and-releases.md) rules out.
 3. **No automated review**: one less tool; every pull request depends on one person's attention.
 
 ## Consequences
 
-- `CLAUDE.md` moves into `AGENTS.md`, and `CLAUDE.md` imports it.
-- CodeRabbit is installed on the repository with a `.coderabbit.yaml` whose path instructions point to the ADRs, and a pull request template asks how AI was used.
+- `CLAUDE.md`'s contents moved into `AGENTS.md`, which `CLAUDE.md` now imports.
+- CodeRabbit is installed on the repository, with a `.coderabbit.yaml` whose path instructions point to the ADRs. It reads `AGENTS.md` as the project's coding guidelines.
 - Mutation testing is added to the nightly run once there is code in the high-risk areas, and the high-risk path list and labelling come with the first code.
 - The maintainer reads every code pull request, which limits how fast code can merge. That is deliberate.
 - The skill is kept in step with the ADRs: a change to the process changes the ADR and the skill together.
 
-## Questions for review
-
-1. **`AGENTS.md` as the single instruction file**, with `CLAUDE.md` importing it, so contributors using other agents get the same rules. Or keep `CLAUDE.md` as the only file?
-2. **CodeRabbit as the automated reviewer**, free for public repositories and able to review forks. Or a Claude-based review in GitHub Actions, or none?
-3. **Adversarial review only for high-risk areas**, rather than every code pull request?
-4. **Maintainer review for every code pull request**, with the agent merging documentation-only pull requests under standing permission. Or should the agent also merge code once the checks and reviews pass?
-5. **Nightly mutation testing** on pricing, tax, authorisation and tenancy, reported but not blocking?
-6. **A pull request template asking how AI was used**, for every contributor?
-7. **Credit the model repository** in the Context section, as drafted. Or leave the reference out?
