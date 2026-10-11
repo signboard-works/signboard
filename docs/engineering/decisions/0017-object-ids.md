@@ -45,7 +45,7 @@ JOB-4821-0937-1156
 
 **IDs never change and are never reissued.** An object keeps its ID for life. Rows are soft-deleted by default ([ADR 0018](0018-soft-delete.md)), so a deleted object's row, and its ID, stay in the table, and the primary key constraint keeps the ID from being issued again. For the rare object types that are hard-deleted, an ID could in theory be issued again after deletion; that is accepted.
 
-**Versions are not objects.** Where an object has versions, it keeps one ID for its whole life and its versions are numbered beneath it. For example, a quote is always `QUO-…`, and its revisions are versions 1, 2, 3 of that quote.
+**Versions are not objects.** Where an object has versions, it keeps one ID for its whole life and its versions are numbered beneath it. For example, a quote is always `QUO-…`, and its versions are numbered 1, 2, 3 beneath that ID. ("Revision" means something else: the concurrency counter every object carries, [ADR 0031](0031-concurrency.md).)
 
 ## Options considered
 
