@@ -40,7 +40,7 @@ Signboard is a multi-tenant application. A **tenant** is one **business**: a sig
 - A user belongs to no tenant, but every request they make runs inside exactly one ([ADR 0010](0010-api-first.md)). A user who is a member of two businesses is the strongest cross-tenant test case, and is tested explicitly.
 - Configuration is stored per tenant ([ADR 0006](0006-configuration-over-customisation.md)), which makes "configuration, not code" non-negotiable: one schema and one codebase serve every business.
 - Restoring a single tenant from a shared database is harder than restoring a whole database. Per-tenant export and import tooling is needed before the first paying business.
-- Per-tenant rate limiting is needed so one business cannot slow down the rest.
+- Per-tenant rate limiting is needed so one business cannot slow down the rest ([ADR 0038](0038-rate-limiting.md)).
 - Accounting connections ([ADR 0005](0005-accounting-as-plugin.md)) and email sending domains are configured per tenant, with secrets encrypted per tenant.
 - Running a service brings obligations a self-hosted app does not: uptime, monitoring, backups, security response, and privacy obligations under the Australian Privacy Act for each business's customer data. On a weekends-only project these need deliberate design, not good intentions.
 - Sign-up, plans and billing are separate decisions, to be made in their own ADR and PRD.

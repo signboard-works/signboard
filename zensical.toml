@@ -73,6 +73,7 @@ nav = [
         { "0019 Audit trail" = "engineering/decisions/0019-audit-trail.md" },
         { "0021 Authentication" = "engineering/decisions/0021-authentication.md" },
         { "0022 Authorisation and roles" = "engineering/decisions/0022-authorisation-and-roles.md" },
+        { "0038 Rate limiting" = "engineering/decisions/0038-rate-limiting.md" },
       ] },
       { "Platform services" = [
         { "0023 Email sending" = "engineering/decisions/0023-email-sending.md" },
@@ -83,6 +84,7 @@ nav = [
         { "0033 Feature flags" = "engineering/decisions/0033-feature-flags.md" },
         { "0034 Background work" = "engineering/decisions/0034-background-work.md" },
         { "0035 Retries and resilience" = "engineering/decisions/0035-retries-and-resilience.md" },
+        { "0037 Localisation" = "engineering/decisions/0037-localisation.md" },
       ] },
       { "Process" = [
         { "0011 Documentation first" = "engineering/decisions/0011-documentation-first.md" },

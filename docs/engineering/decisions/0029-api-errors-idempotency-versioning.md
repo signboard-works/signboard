@@ -48,7 +48,7 @@ Every error response is **problem details** ([RFC 9457](https://www.rfc-editor.o
 
 Rules:
 
-- Clients rely on `code`, the field `code`s and `status`. The wording of `title`, `detail` and `message` may change, and may be translated later.
+- Clients rely on `code`, the field `code`s and `status`. The wording of `title`, `detail` and `message` may change, and may be translated later ([ADR 0037](0037-localisation.md)).
 - An error code, once published, keeps its meaning. New codes may be added at any time ([versioning](#versioning)).
 - Error responses never contain stack traces, SQL, internal identifiers other than object IDs, or anything from another business. Server errors give a generic message and the `traceId`.
 
@@ -64,7 +64,7 @@ Rules:
 | `409 Conflict` | The object's state does not allow the request, such as sending a quote that has already been accepted; or a retry arrives while the original request is still running | `invalid_state`, `request_in_progress` |
 | `412 Precondition Failed`, `428 Precondition Required` | Concurrency checks ([ADR 0031](0031-concurrency.md)) | `precondition_failed`, `precondition_required` |
 | `422 Unprocessable Content` | The request is well-formed but its values are invalid; or an idempotency key is reused for a different request | `validation_failed`, `idempotency_key_reused` |
-| `429 Too Many Requests` | Rate limited, with a `Retry-After` header | `rate_limited` |
+| `429 Too Many Requests` | Rate limited, with a `Retry-After` header ([ADR 0038](0038-rate-limiting.md)) | `rate_limited` |
 | `500 Internal Server Error` | An unexpected failure on our side | `internal_error` |
 | `503 Service Unavailable` | Temporarily unavailable, with `Retry-After` when known | `unavailable` |
 
