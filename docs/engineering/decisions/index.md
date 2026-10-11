@@ -37,5 +37,6 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0031](0031-concurrency.md) | Concurrency | Accepted |
 | [0032](0032-events-webhooks-live-updates.md) | Events, webhooks and live updates | Accepted |
 | [0033](0033-feature-flags.md) | Feature flags | Accepted |
+| [0034](0034-background-work.md) | Background work | Accepted |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/engineering/templates/adr-template.md).

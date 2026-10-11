@@ -80,6 +80,7 @@ nav = [
         { "0027 File storage" = "engineering/decisions/0027-file-storage.md" },
         { "0032 Events, webhooks and live updates" = "engineering/decisions/0032-events-webhooks-live-updates.md" },
         { "0033 Feature flags" = "engineering/decisions/0033-feature-flags.md" },
+        { "0034 Background work" = "engineering/decisions/0034-background-work.md" },
       ] },
       { "Process" = [
         { "0011 Documentation first" = "engineering/decisions/0011-documentation-first.md" },

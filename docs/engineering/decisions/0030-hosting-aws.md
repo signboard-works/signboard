@@ -45,6 +45,7 @@ Every service that stores data runs in Sydney: the database, its backups, files,
 | Files and UI assets | **S3**, with all public access blocked. CloudFront reads UI assets through origin access control. Files use signed URLs and lifecycle rules for cheaper tiers ([ADR 0027](0027-file-storage.md)) |
 | Malware scanning | **GuardDuty Malware Protection for S3** scans each upload. The worker records the result on the file ([ADR 0027](0027-file-storage.md)) |
 | Email | **SES** in Sydney, with delivery events through SNS ([ADR 0023](0023-email-sending.md)) |
+| Notifications to the worker | **SQS**: SES delivery events and GuardDuty scan results arrive on a queue the worker reads ([ADR 0034](0034-background-work.md)) |
 | Secrets and configuration | **Secrets Manager** for credentials, with rotation; **Parameter Store** for other settings |
 | Container images | **ECR** for the hosted service. Releases are also published to GitHub Container Registry for self-hosters ([ADR 0028](0028-branching-ci-and-releases.md)) |
 | DNS | **Route 53** hosts the `signboard.works` zone. `docs.signboard.works` stays a CNAME to GitHub Pages |
