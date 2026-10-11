@@ -57,6 +57,7 @@ nav = [
         { "0009 Front end: React" = "engineering/decisions/0009-frontend-react.md" },
         { "0015 Separate deployments, one origin" = "engineering/decisions/0015-separate-deployments-one-origin.md" },
         { "0026 Modular monolith" = "engineering/decisions/0026-modular-monolith.md" },
+        { "0030 Hosting: AWS" = "engineering/decisions/0030-hosting-aws.md" },
       ] },
       { "API and data" = [
         { "0010 API first" = "engineering/decisions/0010-api-first.md" },

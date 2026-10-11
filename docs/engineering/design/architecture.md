@@ -20,6 +20,7 @@ The overall shape of the system: components, boundaries, and how they talk.
 - Back end: .NET LTS and ASP.NET Core ([ADR 0007](../decisions/0007-backend-dotnet.md)); PostgreSQL via EF Core ([ADR 0008](../decisions/0008-database-postgresql.md)).
 - Front end: React and TypeScript single-page app ([ADR 0009](../decisions/0009-frontend-react.md)).
 - UI and API deployed separately, served from one origin per business by an edge router ([ADR 0015](../decisions/0015-separate-deployments-one-origin.md)).
+- Hosted on AWS in Sydney, with every data store in Australia; every AWS service has a self-hosted equivalent ([ADR 0030](../decisions/0030-hosting-aws.md)).
 
 ## Design
 
