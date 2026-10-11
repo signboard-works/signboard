@@ -8,7 +8,7 @@
 
 ## Context
 
-Signboard is maintained in evenings and weekends, so the back end must be something the maintainer can debug quickly after a fortnight away ("boring technology" in the [vision](../product/vision.md)). The maintainer's deep experience is in .NET.
+Signboard is maintained in evenings and weekends, so the back end must be something the maintainer can debug quickly after a fortnight away ("boring technology" in the [vision](../../vision.md)). The maintainer's deep experience is in .NET.
 
 ## Decision
 

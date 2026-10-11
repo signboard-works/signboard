@@ -1,0 +1,53 @@
+/* Small adjustments on top of Zensical's modern theme. */
+
+/* One accent colour for links and highlights, dark enough for WCAG AA contrast. */
+:root,
+[data-md-color-scheme="default"][data-md-color-primary] {
+  --md-accent-fg-color: #c2410c;
+  --md-typeset-a-color: #c2410c;
+}
+
+[data-md-color-scheme="slate"][data-md-color-primary] {
+  --md-accent-fg-color: #fb923c;
+  --md-typeset-a-color: #fb923c;
+}
+
+/* Links: no underline until hovered. */
+.md-typeset a {
+  text-decoration: none;
+}
+
+.md-typeset a:hover {
+  text-decoration: underline;
+}
+
+/* The metadata table at the top of each document (Status, Owner, Date) has an empty header row. */
+.md-typeset table:not([class]) thead:not(:has(th:not(:empty))) {
+  display: none;
+}
+
+/* Wide tables use the full content width. */
+.md-typeset__table {
+  width: 100%;
+}
+
+.md-typeset__table table:not([class]) {
+  display: table;
+  width: 100%;
+}
+
+/* ...except the metadata table, which stays compact. */
+.md-typeset h1 + .md-typeset__scrollwrap .md-typeset__table,
+.md-typeset h1 + .md-typeset__table {
+  width: auto;
+}
+
+.md-typeset h1 + .md-typeset__scrollwrap table:not([class]),
+.md-typeset h1 + .md-typeset__table table:not([class]) {
+  width: auto;
+}
+
+.md-typeset h1 + table:not([class]) {
+  display: table;
+  width: auto;
+}

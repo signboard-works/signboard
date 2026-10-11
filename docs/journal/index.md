@@ -1,6 +1,6 @@
 # Build journal
 
-A dated record of how Signboard is being built, mostly with AI assistance: what we did, what we decided, and where the AI got it wrong. Every pull request that changes the repository updates it ([ADR 0014](../adr/0014-build-journal.md)).
+A dated record of how Signboard is being built, mostly with AI assistance: what we did, what we decided, and where the AI got it wrong. Every pull request that changes the repository updates it ([ADR 0014](../engineering/decisions/0014-build-journal.md)).
 
 | Date | Summary |
 |---|---|

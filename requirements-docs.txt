@@ -1,2 +1,2 @@
-mkdocs>=1.6,<2
-mkdocs-material>=9.7,<10
+# Zensical is pre-1.0 and may change between releases, so pin it exactly and upgrade deliberately.
+zensical==0.0.69

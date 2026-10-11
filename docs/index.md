@@ -1,17 +1,17 @@
 # Signboard
 
-Open-source job management for sign and print shops.
+Open-source job management for sign and print shops: quotes, sales orders, jobs, a production kanban, invoices and accounting sync.
 
-Signboard is being **documented before it is built**. This site holds the product requirements, technical design and architecture decisions that the code will follow.
+Signboard is being **documented before it is built**. This site holds the product requirements, technical design and architecture decisions that the code will follow, and a journal of how it is being built.
 
-## How the docs are organised
+## Where to start
 
-| Section | What it holds | Audience |
+| Tab | What it holds | For |
 |---|---|---|
-| [Product](product/vision.md) | Vision, principles and Product Requirements Documents (PRDs) with user stories and acceptance criteria | Anyone who wants to know *what* Signboard does and *why* |
-| [Design](design/architecture.md) | Technical design documents: architecture, data model, integrations, deployment | Contributors who want to know *how* it works |
-| [Decisions](adr/index.md) | Architecture Decision Records (ADRs): one significant decision per record, with context and consequences | Anyone asking "why did we do it this way?" |
-| [Glossary](glossary.md) | Sign and print trade terms, and Signboard's own vocabulary | Everyone, especially developers new to the trade |
+| **Overview** | This page, the [vision](vision.md) and the [glossary](glossary.md) of trade terms | Anyone who wants to know what Signboard is and why |
+| [**Engineering**](engineering/index.md) | Requirements (PRDs), design documents, architecture decisions (ADRs) and how we work | Contributors, and anyone asking "why did we do it this way?" |
+| [**API reference**](api/index.md) | The public API's conventions, then one page per module | Integrators and front-end developers |
+| [**Journal**](journal/index.md) | A dated record of how Signboard is being built with AI assistance, mistakes included | Anyone curious about the process |
 
 ## Document status
 
@@ -24,4 +24,4 @@ Every document carries a status in its header:
 
 ## Contributing to the docs
 
-Docs change through pull requests, exactly like code. Templates for new documents are in [`docs/templates/`](https://github.com/signboard-works/signboard/tree/main/docs/templates).
+Docs change through pull requests, exactly like code. Every page has an edit link to its source on GitHub, and templates for new documents are in [`docs/engineering/templates/`](https://github.com/signboard-works/signboard/tree/main/docs/engineering/templates).

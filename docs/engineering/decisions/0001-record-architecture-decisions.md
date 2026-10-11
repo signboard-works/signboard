@@ -12,7 +12,7 @@ Signboard is open source and maintained part-time. Decisions made early will be 
 
 ## Decision
 
-We will record every architecturally significant decision as an Architecture Decision Record in `docs/adr/`, numbered sequentially, using the format described by Michael Nygard.
+We will record every architecturally significant decision as an Architecture Decision Record in `docs/engineering/decisions/`, numbered sequentially, using the format described by Michael Nygard.
 
 ## Consequences
 

@@ -46,7 +46,7 @@ Signboard has **one API**. It is the only way to read or change data, for every 
 
 ## Consequences
 
-- The field-level authorisation layer is foundational and must be designed in full before the first endpoint ([vision: plan the foundations](../product/vision.md)).
+- The field-level authorisation layer is foundational and must be designed in full before the first endpoint ([vision: plan the foundations](../../vision.md)).
 - Every endpoint is tested as each account kind and role, including that hidden fields are absent ([ADR 0012](0012-testing.md)). Tests also cover a user with memberships in two businesses, to prove that acting in one never exposes the other.
 - Users and the index of their memberships are platform-level data, outside any tenant, so a user can list the accounts they belong to. Everything a membership gives access to stays inside its tenant.
 - Email addresses are identities, so changing one, verifying one and handling a person who leaves a business or customer need careful design (removing the membership, not the user).

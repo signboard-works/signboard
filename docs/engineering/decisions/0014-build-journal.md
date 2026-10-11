@@ -15,7 +15,7 @@ Signboard is built with heavy AI assistance, and the project intends to publish 
 We will keep a dated build journal in `docs/journal/`, published with the docs site.
 
 - Every working session that changes the repository adds or updates a journal entry, **in the same pull request** as the change.
-- One file per day worked, named `YYYY-MM-DD.md`, using the [journal template](https://github.com/signboard-works/signboard/blob/main/docs/templates/journal-template.md).
+- One file per day worked, named `YYYY-MM-DD.md`, using the [journal template](https://github.com/signboard-works/signboard/blob/main/docs/engineering/templates/journal-template.md).
 - Each entry records what was done, the decisions made and by whom, where the AI was wrong or was overruled, and what comes next.
 - Entries are honest and specific. Mistakes are recorded, not tidied away.
 - Entries follow the same privacy limits as everything else: no shop, customer or staff names, and no customer pricing.

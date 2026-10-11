@@ -85,15 +85,15 @@ Pricing rules, production stages, tax settings, branding and email templates are
 
 ### API first
 
-There is one API, used by the web app, by customers and by integrations alike. What each actor can see is decided by authorisation, not by which API they call ([ADR 0010](../adr/0010-api-first.md)).
+There is one API, used by the web app, by customers and by integrations alike. What each actor can see is decided by authorisation, not by which API they call ([ADR 0010](engineering/decisions/0010-api-first.md)).
 
 ### Documentation is king, testing is queen
 
-Nothing is built until the problem and the proposed implementation are written down and approved ([ADR 0011](../adr/0011-documentation-first.md)). Every acceptance criterion is covered by an automated test ([ADR 0012](../adr/0012-testing.md)).
+Nothing is built until the problem and the proposed implementation are written down and approved ([ADR 0011](engineering/decisions/0011-documentation-first.md)). Every acceptance criterion is covered by an automated test ([ADR 0012](engineering/decisions/0012-testing.md)).
 
 ### Work in the open
 
-Plans, decisions, bugs and mistakes are all public ([ADR 0013](../adr/0013-work-in-the-open.md)).
+Plans, decisions, bugs and mistakes are all public ([ADR 0013](engineering/decisions/0013-work-in-the-open.md)).
 
 ### Boring technology
 

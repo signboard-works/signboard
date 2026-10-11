@@ -25,7 +25,7 @@ What goes wrong today, for whom, and how often. Use real examples from the shop 
 
 ## Users
 
-Which personas from the [vision](../product/vision.md#personas) use this, and in what situations.
+Which personas from the [vision](../../vision.md#personas) use this, and in what situations.
 
 ## User stories
 
