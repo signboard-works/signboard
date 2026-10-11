@@ -61,7 +61,7 @@ A link in an email to a customer opens the object it is about ([ADR 0020](0020-u
 ## Consequences
 
 - Business hosts talk to the identity service only through standard OpenID Connect, so the service can be replaced by Keycloak or a hosted provider later without changing the rest of Signboard.
-- Owning the identity service means owning its security: it gets its own design doc, the strictest tests, and an independent security review before the first paying business.
+- Owning the identity service means owning its security: it gets its own design doc, the strictest tests, and an independent security review before the first paying business, as part of the whole product's penetration test ([ADR 0039](0039-security-baseline.md)).
 - Email delivery becomes part of signing in, not just of sending quotes. It must be fast and reliable ([email delivery design](../design/email-delivery.md)).
 - Passkeys are tied to a domain. The authentication design must choose that domain so passkeys work on every business's host, and for self-hosted installations.
 - Sign-ins, failed sign-ins, MFA changes and session ends are security events in the audit trail ([ADR 0019](0019-audit-trail.md)).

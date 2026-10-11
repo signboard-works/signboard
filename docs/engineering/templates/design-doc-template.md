@@ -35,7 +35,7 @@ What can go wrong (network, third-party outages, bad data) and how the design re
 
 ## Security and privacy
 
-Authentication, authorisation, secrets, and personal data handled.
+Authentication, authorisation, secrets, and personal data handled. Where the design crosses a trust boundary (customer access, files, webhooks, integrations, anything a business can configure), a short threat model: what could go wrong, and what prevents it ([ADR 0039](../decisions/0039-security-baseline.md)).
 
 ## Alternatives considered
 
