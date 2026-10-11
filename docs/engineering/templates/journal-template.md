@@ -20,7 +20,3 @@ Be specific. "Nothing" is allowed only if it is true.
 ## Lessons
 
 What we would do differently, including changes to how we work with AI.
-
-## Next
-
-What the next session should pick up.

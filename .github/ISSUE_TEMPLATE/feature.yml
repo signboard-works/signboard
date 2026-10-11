@@ -1,0 +1,34 @@
+name: Feature request
+description: Suggest something Signboard should do.
+type: Feature
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. Please start with the problem, not the solution: what are you trying to do, and what gets in the way today?
+
+        **Never include personal or business data**, such as customer names, email addresses or prices.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to do, and why is it hard today?
+    validations:
+      required: true
+  - type: textarea
+    id: who
+    attributes:
+      label: Who it affects
+      description: For example, the person quoting, the shop floor, a customer approving a proof, or an integration.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Ideas for a solution
+      description: Optional. How you imagine it working, or how another tool does it.
+  - type: textarea
+    id: today
+    attributes:
+      label: How you manage today
+      description: Optional. The workaround you use now.

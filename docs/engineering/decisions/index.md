@@ -43,5 +43,6 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0037](0037-localisation.md) | Localisation | Accepted |
 | [0038](0038-rate-limiting.md) | Rate limiting | Accepted |
 | [0039](0039-security-baseline.md) | Security baseline | Accepted |
+| [0040](0040-backlog-and-issues.md) | Backlog and issue tracking | Accepted |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/engineering/templates/adr-template.md).
