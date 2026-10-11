@@ -46,5 +46,11 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0040](0040-backlog-and-issues.md) | Backlog and issue tracking | Accepted |
 | [0041](0041-coding-with-ai.md) | Coding with AI | Accepted |
 | [0042](0042-accessibility.md) | Accessibility | Accepted |
+| [0043](0043-backups-recovery-and-migrations.md) | Backups, recovery and migrations | Proposed |
+| [0044](0044-privacy-and-data-export.md) | Privacy, data residency and data export | Proposed |
+| [0045](0045-search.md) | Search | Proposed |
+| [0046](0046-entitlements.md) | Entitlements | Proposed |
+| [0047](0047-sign-up-plans-and-billing.md) | Sign-up, plans and billing | Proposed |
+| [0048](0048-documents-and-templates.md) | Documents and templates | Proposed |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/engineering/templates/adr-template.md).
