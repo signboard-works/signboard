@@ -14,6 +14,8 @@ Trade terms and Signboard's own vocabulary. If a word appears in a PRD or design
 | **Invoice** | A bill raised from a sales order: full, deposit or progress. Synced to the accounting system. |
 | **Tax rate** | A business's named rate of tax, such as GST 10% or GST-free, with its code in the accounting system. Each document line has one, fixed once the document is issued. |
 | **Tax-exclusive pricing** | Prices entered and shown before tax, with tax added on top. Signboard's default; a business can choose tax-inclusive pricing instead. |
+| **Locale** | A business's choice of number, currency and date formats, such as `en-AU`. Everyone working on the business's data sees its formats. |
+| **Document language** | The language a customer's quotes, invoices and emails are written in, set per customer by the business. |
 | **Pricing method** | How a quote line component is priced: by area, length, time, unit, or a fixed amount. |
 | **Proof** | Artwork sent to the customer for approval before production. |
 | **Business** | A sign or print shop using Signboard, with its staff as members of its business account. Signboard says "business" rather than "shop" in its model, because "shop" suggests an online store. In the trade sense ("sign shop", "shop floor"), "shop" is still used. |

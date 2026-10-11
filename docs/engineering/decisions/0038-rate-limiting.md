@@ -2,11 +2,10 @@
 
 | | |
 |---|---|
-| **Status** | Proposed |
+| **Status** | Accepted |
 | **Date** | 2026-10-11 |
 | **Deciders** | Stuart Meeks |
 
-> **Draft for review.** Written from Claude's recommendations. The limits are starting values, to be tuned from real traffic. The choices still open are listed under [Questions for review](#questions-for-review).
 
 ## Context
 
@@ -15,6 +14,8 @@ Every business shares one hosted service ([ADR 0004](0004-multi-tenant.md)), and
 Some requests are attractive to attackers whatever their volume: guessing an emailed sign-in code, trying leaked passwords against many accounts, creating accounts in bulk, or using Signboard to send email to people who did not ask for it ([ADR 0023](0023-email-sending.md)).
 
 Signboard is also a client of other services, but pacing our own outgoing calls is already decided in [ADR 0035](0035-retries-and-resilience.md). This ADR is about requests coming in.
+
+The limits below are starting values, to be tuned from real traffic.
 
 ADR 0029 already defines the response: `429 Too Many Requests`, code `rate_limited`, with `Retry-After`. The CloudFront flat-rate plan ([ADR 0030](0030-hosting-aws.md)) includes AWS WAF with IP-based rate limiting on every tier.
 
@@ -113,11 +114,3 @@ These limits must be exact and survive restarts and deploys, so they are counted
 - Bulk operations that integrators and the migration need, such as importing many customers, must exist as bulk or import endpoints that run as jobs, so nobody has to make thousands of single requests.
 - Every limit has an integration test that reaches it and checks the `429` and `Retry-After`, and the sign-in limits have tests for each attack they are meant to stop ([ADR 0012](0012-testing.md)).
 
-## Questions for review
-
-1. **Approximate fair-use limits held in memory**, rather than adding Redis for exact ones. Agreed?
-2. **The starting numbers.** 20 requests a second per user, 10 per API token and 100 per business, with bursts. Too generous, or too tight for a busy shop?
-3. **No lockouts**, only growing delays after failed password attempts. Agreed?
-4. **A daily email limit per business** on the hosted service, starting at 1,000. Reasonable for a sign shop, or too low for invoice runs?
-5. **`RateLimit` headers when they become an RFC**, rather than sending the current draft's headers now?
-6. **Self-hosters can turn off fair-use limits** but not the sign-in and abuse limits. Agreed?

@@ -2,11 +2,10 @@
 
 | | |
 |---|---|
-| **Status** | Proposed |
+| **Status** | Accepted |
 | **Date** | 2026-10-11 |
 | **Deciders** | Stuart Meeks |
 
-> **Draft for review.** Written from Claude's recommendations. The choices still open are listed under [Questions for review](#questions-for-review).
 
 ## Context
 
@@ -40,6 +39,7 @@ This ADR decides how text is written, whose language and formats apply, and how 
 | **Document language** | Customer | The language of quotes, invoices and emails sent to that customer | The business's language |
 
 - **Formats follow the business, not the viewer.** Everyone working on a business's data sees the same dates and amounts as its documents show, just as times are shown in the business's time zone ([ADR 0036](0036-money-tax-and-time.md)).
+- **Dates are never shown in an all-number format that depends on the locale**, such as `3/11/2026`, which is 3 November in Australia and 11 March in the United States. Dates are shown with the month as a word, such as `3 Nov 2026` or `Tue 3 Nov`, on screen, in emails and on documents. The month name follows the language, so a German interface shows `3. Nov. 2026`. The one numeric exception is ISO 8601, `2026-11-03`, which cannot be misread and may be used wherever a compact date is wanted, such as dense grids and exports. Date inputs accept typing in the locale's order and show the date they understood with the month as a word.
 - **A user's interface language is theirs**, across every business they belong to, because users are global ([ADR 0010](0010-api-first.md)).
 - **What a customer receives is in the customer's language**, chosen by the business, never the language of whoever pressed "send".
 
@@ -102,8 +102,9 @@ Names, descriptions, terms and conditions, and email and document templates are 
 
 ### Whose formats
 
-1. **The business's locale for all of its data**: everyone sees the same as the documents. **Chosen.**
-2. **Each viewer's own locale**: natural for one person; a quote's dates would look different to staff and to the customer reading the PDF.
+1. **The business's locale for all of its data, with dates never in a locale-dependent numeric format**: everyone sees the same as the documents, and nobody can misread a date's day and month whatever their own country. **Chosen**, by Stuart, with ISO 8601 (`2026-11-03`) allowed as the one numeric format.
+2. **Each viewer's own locale**: familiar formats for everyone; screens and documents can disagree, and a quote's dates would look different to staff and to the customer reading the PDF.
+3. **The business's locale for staff, each customer's document locale in the customer portal and on what they receive**: familiar for customers; two sets of formats for one business's data.
 
 ## Consequences
 
@@ -113,11 +114,3 @@ Names, descriptions, terms and conditions, and email and document templates are 
 - The design for each module lists its catalogue, and its PDFs and emails use the recipient's language.
 - Adding a language later needs a translation platform, a reviewer who speaks the language, and its fallback rules, but no code changes. A right-to-left language also needs a review of the layouts.
 
-## Questions for review
-
-1. **Australian English as the source language**, with US English a translation later. Or US English as the source, as most open-source projects use, to make contributions easier?
-2. **Formats follow the business's locale** for every viewer. Or should each user's own locale apply to the screens they see, with only documents following the business?
-3. **Customers have a document language** from the start, even though only English exists. Or leave it out until a second language is needed?
-4. **i18next**, for its reach, over FormatJS's ICU MessageFormat standard?
-5. **Phone numbers in E.164 and structured addresses** from the start. Agreed? It makes the migration and data entry slightly stricter.
-6. **A pseudo-locale smoke run in CI.** Worth the extra run time on every pull request, or only in nightly runs?
