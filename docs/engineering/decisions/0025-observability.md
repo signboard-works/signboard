@@ -27,7 +27,7 @@ Hosting has not been decided yet, so the decision must not depend on where Signb
 
 - The back end logs through .NET's standard `ILogger`, and produces **logs, traces and metrics** with the OpenTelemetry SDK, exported with OTLP.
 - No code depends on a particular observability product. Where the data goes is configuration only.
-- **Destination: decided with hosting.** The hosting decision chooses the backend (for example Grafana Cloud, or the hosting provider's own service). Until then, development uses a local OpenTelemetry collector and viewer.
+- **Destination:** for the hosted service, an AWS Distro for OpenTelemetry collector sends logs to CloudWatch Logs, traces to X-Ray and metrics to CloudWatch, all in Sydney ([ADR 0030](0030-hosting-aws.md)). Development uses a local OpenTelemetry collector and viewer.
 - **Self-hosted installations** write structured JSON logs to the console by default, which the container runtime collects, and may point the OTLP exporter wherever they like.
 
 ### What is recorded
@@ -76,6 +76,6 @@ Logs, traces and metrics are kept for **90 days**, to be reviewed once real volu
 ## Consequences
 
 - An incident overnight is not looked at until the morning. Businesses should know this, and the status page and incident reviews ([ADR 0013](0013-work-in-the-open.md)) must be honest about it.
-- The hosting decision must choose an observability backend that supports OTLP.
+- The backend can change later with a collector configuration change, because the code only speaks OTLP.
 - Every log statement written uses structured fields with IDs only. Reviews check this, and the redaction step backs it up.
 - Ninety days of logs and traces may cost more than a free tier allows once there are several businesses. Retention is reviewed then.
