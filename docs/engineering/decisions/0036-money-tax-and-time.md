@@ -84,7 +84,7 @@ Each needs one rule, decided before the first price is calculated. The JSON type
 
 ### Formatting
 
-Numbers, amounts and dates are formatted for display from the business's settings, using the browser's `Intl` formatting, never hard-coded ([front-end design](../design/front-end.md)). Formatting is for display only: the values in the API are never formatted.
+Numbers, amounts and dates are formatted for display from the business's locale, using the browser's `Intl` formatting, never hard-coded ([front-end design](../design/front-end.md)). Dates are shown with the month as a word, such as `3 Nov 2026`, or as ISO 8601 (`2026-11-03`), never in a locale-dependent numeric format such as `3/11/2026` ([ADR 0037](0037-localisation.md)). Formatting is for display only: the values in the API are never formatted.
 
 ### Arithmetic outside the API
 
