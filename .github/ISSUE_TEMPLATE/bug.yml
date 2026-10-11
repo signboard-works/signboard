@@ -1,0 +1,49 @@
+name: Bug report
+description: Something in Signboard doesn't work the way it should.
+type: Bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. Two things first:
+
+        - **Security problems must not be reported here.** Use [private vulnerability reporting](https://github.com/signboard-works/signboard/security/advisories/new) instead.
+        - **Never include personal or business data**, such as customer names, email addresses, prices or screenshots showing them. Describe the data instead ("a quote with three lines and a discount").
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where did it happen?
+      options:
+        - The hosted service (signboard.works)
+        - A self-hosted installation
+        - The documentation site
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: For a self-hosted installation, the release you are running. Leave blank for the hosted service.
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open a quote
+        2. Change a line's quantity
+        3. …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected to happen
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead
+      description: Include any error message and its trace ID, if one was shown.
+    validations:
+      required: true

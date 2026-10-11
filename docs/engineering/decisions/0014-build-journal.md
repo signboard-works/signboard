@@ -16,7 +16,7 @@ We will keep a dated build journal in `docs/journal/`, published with the docs s
 
 - Every working session that changes the repository adds or updates a journal entry, **in the same pull request** as the change.
 - One file per day worked, named `YYYY-MM-DD.md`, using the [journal template](https://github.com/signboard-works/signboard/blob/main/docs/engineering/templates/journal-template.md).
-- Each entry records what was done, the decisions made and by whom, where the AI was wrong or was overruled, and what comes next.
+- Each entry records what was done, the decisions made and by whom, and where the AI was wrong or was overruled. What comes next is on the project board ([ADR 0040](0040-backlog-and-issues.md)).
 - Entries are honest and specific. Mistakes are recorded, not tidied away.
 - Entries follow the same privacy limits as everything else: no shop, customer or staff names, and no customer pricing.
 - A CI check fails any pull request that changes files outside `docs/journal/` without also changing a file inside it. Trivial changes (typos, dependency bumps) may skip it with a `no-journal` label, used sparingly.
