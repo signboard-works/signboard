@@ -67,6 +67,7 @@ nav = [
         { "0020 URL structure" = "engineering/decisions/0020-url-structure.md" },
         { "0029 Errors, idempotency and versioning" = "engineering/decisions/0029-api-errors-idempotency-versioning.md" },
         { "0031 Concurrency" = "engineering/decisions/0031-concurrency.md" },
+        { "0036 Money, tax and time" = "engineering/decisions/0036-money-tax-and-time.md" },
       ] },
       { "Security" = [
         { "0019 Audit trail" = "engineering/decisions/0019-audit-trail.md" },
