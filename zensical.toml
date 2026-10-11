@@ -1,0 +1,159 @@
+# Documentation site, built with Zensical (https://zensical.org/). See ADR 0002.
+#
+# Each top-level nav section is a tab. Keep the left nav short: add pages inside an
+# existing section, and put each new ADR in the theme group that fits it.
+
+[project]
+site_name = "Signboard"
+site_description = "Open-source job management for sign and print shops."
+site_url = "https://docs.signboard.works/"
+repo_url = "https://github.com/signboard-works/signboard"
+repo_name = "signboard-works/signboard"
+edit_uri = "edit/main/docs/"
+copyright = "Signboard is open source under the Apache License 2.0."
+extra_css = ["assets/extra.css"]
+
+nav = [
+  { "Overview" = [
+    "index.md",
+    { "Vision" = "vision.md" },
+    { "Glossary" = "glossary.md" },
+  ] },
+  { "Engineering" = [
+    "engineering/index.md",
+    { "Requirements" = [
+      "engineering/requirements/index.md",
+      { "Quotes" = "engineering/requirements/prd-quotes.md" },
+      { "Sales orders" = "engineering/requirements/prd-sales-orders.md" },
+      { "Jobs and kanban" = "engineering/requirements/prd-jobs-kanban.md" },
+      { "Invoices" = "engineering/requirements/prd-invoices.md" },
+      { "Customer email" = "engineering/requirements/prd-customer-email.md" },
+      { "Migration" = "engineering/requirements/prd-migration.md" },
+      { "Open questions" = "engineering/requirements/open-questions.md" },
+    ] },
+    { "Design" = [
+      "engineering/design/index.md",
+      { "Architecture" = "engineering/design/architecture.md" },
+      { "Data model" = "engineering/design/data-model.md" },
+      { "Front end" = "engineering/design/front-end.md" },
+      { "Pricing engine" = "engineering/design/pricing-engine.md" },
+      { "Accounting integration" = "engineering/design/accounting-integration.md" },
+      { "Email delivery" = "engineering/design/email-delivery.md" },
+      { "Deployment" = "engineering/design/deployment.md" },
+    ] },
+    { "Decisions" = [
+      "engineering/decisions/index.md",
+      { "Foundations" = [
+        { "0001 Record architecture decisions" = "engineering/decisions/0001-record-architecture-decisions.md" },
+        { "0002 Docs as code" = "engineering/decisions/0002-docs-as-code.md" },
+        { "0003 Licence" = "engineering/decisions/0003-licence.md" },
+        { "0004 Multi-tenant SaaS" = "engineering/decisions/0004-multi-tenant.md" },
+        { "0005 Accounting as a plugin" = "engineering/decisions/0005-accounting-as-plugin.md" },
+        { "0006 Configuration over customisation" = "engineering/decisions/0006-configuration-over-customisation.md" },
+      ] },
+      { "Architecture and stack" = [
+        { "0007 Back end: .NET" = "engineering/decisions/0007-backend-dotnet.md" },
+        { "0008 Database: PostgreSQL" = "engineering/decisions/0008-database-postgresql.md" },
+        { "0009 Front end: React" = "engineering/decisions/0009-frontend-react.md" },
+        { "0015 Separate deployments, one origin" = "engineering/decisions/0015-separate-deployments-one-origin.md" },
+        { "0026 Modular monolith" = "engineering/decisions/0026-modular-monolith.md" },
+      ] },
+      { "API and data" = [
+        { "0010 API first" = "engineering/decisions/0010-api-first.md" },
+        { "0016 RQL queries" = "engineering/decisions/0016-rql-queries.md" },
+        { "0017 Object IDs" = "engineering/decisions/0017-object-ids.md" },
+        { "0018 Soft deletion" = "engineering/decisions/0018-soft-delete.md" },
+        { "0020 URL structure" = "engineering/decisions/0020-url-structure.md" },
+      ] },
+      { "Security" = [
+        { "0019 Audit trail" = "engineering/decisions/0019-audit-trail.md" },
+        { "0021 Authentication" = "engineering/decisions/0021-authentication.md" },
+        { "0022 Authorisation and roles" = "engineering/decisions/0022-authorisation-and-roles.md" },
+      ] },
+      { "Platform services" = [
+        { "0023 Email sending" = "engineering/decisions/0023-email-sending.md" },
+        { "0024 Product analytics" = "engineering/decisions/0024-product-analytics.md" },
+        { "0025 Observability" = "engineering/decisions/0025-observability.md" },
+        { "0027 File storage" = "engineering/decisions/0027-file-storage.md" },
+      ] },
+      { "Process" = [
+        { "0011 Documentation first" = "engineering/decisions/0011-documentation-first.md" },
+        { "0012 Testing strategy" = "engineering/decisions/0012-testing.md" },
+        { "0013 Work in the open" = "engineering/decisions/0013-work-in-the-open.md" },
+        { "0014 Build journal" = "engineering/decisions/0014-build-journal.md" },
+      ] },
+    ] },
+    { "How we work" = "engineering/how-we-work.md" },
+  ] },
+  { "API reference" = [
+    "api/index.md",
+  ] },
+  { "Journal" = [
+    "journal/index.md",
+    { "2026-10-10" = "journal/2026-10-10.md" },
+  ] },
+]
+
+[project.theme]
+language = "en"
+features = [
+  "content.action.edit",
+  "content.code.copy",
+  "content.tabs.link",
+  "navigation.footer",
+  "navigation.indexes",
+  "navigation.instant",
+  "navigation.instant.prefetch",
+  "navigation.path",
+  "navigation.tabs",
+  "navigation.top",
+  "navigation.tracking",
+  "search.highlight",
+  "toc.follow",
+]
+
+[project.theme.icon]
+logo = "lucide/signpost"
+
+[project.theme.font]
+text = "Inter"
+code = "JetBrains Mono"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+primary = "white"
+accent = "deep orange"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+primary = "black"
+accent = "deep orange"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/signboard-works/signboard"
+
+# Templates are copied by hand into new documents; they are not pages of the site.
+[project.plugins.exclude]
+glob = ["engineering/templates/*"]
+
+[project.markdown_extensions]
+admonition = {}
+attr_list = {}
+md_in_html = {}
+tables = {}
+toc.permalink = true
+pymdownx.details = {}
+pymdownx.highlight.anchor_linenums = true
+pymdownx.inlinehilite = {}
+pymdownx.tasklist.custom_checkbox = true
+pymdownx.superfences.custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+]
+pymdownx.tabbed.alternate_style = true

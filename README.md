@@ -24,13 +24,13 @@ The name comes from *kanban* (看板), the Japanese word for a shop sign or sign
 
 ## Documentation
 
-The docs live in [`docs/`](docs/index.md) and are built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
+The docs live in [`docs/`](docs/index.md), are built with [Zensical](https://zensical.org/), and are published at [docs.signboard.works](https://docs.signboard.works/).
 
 ```bash
 pip install -r requirements-docs.txt
-mkdocs serve
+zensical serve
 ```
 
 ## Licence
 
-[Apache License 2.0](LICENSE). See [ADR 0003](docs/adr/0003-licence.md) for the reasoning.
+[Apache License 2.0](LICENSE). See [ADR 0003](docs/engineering/decisions/0003-licence.md) for the reasoning.

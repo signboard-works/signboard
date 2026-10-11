@@ -13,7 +13,7 @@ Sending customer email reliably and tracking what happened to it.
 
 ## Known constraints (to be expanded)
 
-- Decided in [ADR 0023](../adr/0023-email-sending.md): business and platform streams kept separate; businesses send from their own verified domain (DKIM and custom return path on a sending subdomain, aligned for DMARC), falling back to `send.signboard.works` with Reply-To until verified.
+- Decided in [ADR 0023](../decisions/0023-email-sending.md): business and platform streams kept separate; businesses send from their own verified domain (DKIM and custom return path on a sending subdomain, aligned for DMARC), falling back to `send.signboard.works` with Reply-To until verified.
 - Outbox in the same transaction, background sending with retries; every email an object with delivery events written back; suppression lists per business and global; no open or click tracking.
 - Amazon SES in `ap-southeast-2` with events via SNS and a queue; plain SMTP supported for self-hosters, without delivery events.
 - Quotes and invoices sent with a PDF attachment and a link that carries no credentials.

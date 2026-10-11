@@ -32,4 +32,4 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0026](0026-modular-monolith.md) | Modular monolith | Accepted |
 | [0027](0027-file-storage.md) | File storage | Accepted |
 
-New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/templates/adr-template.md).
+New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/engineering/templates/adr-template.md).
