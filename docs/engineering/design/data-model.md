@@ -33,6 +33,8 @@ Every object type has one three-letter prefix and a fixed number of digits, a mu
 | `INV` | Invoice | To be decided |
 | `EML` | Email | To be decided |
 | `FIL` | File | To be decided |
+| `EVT` | Event ([ADR 0032](../decisions/0032-events-webhooks-live-updates.md)) | To be decided |
+| `WHK` | Webhook ([ADR 0032](../decisions/0032-events-webhooks-live-updates.md)) | To be decided |
 
 This list grows as the data model is designed.
 

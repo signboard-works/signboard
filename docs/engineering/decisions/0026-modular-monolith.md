@@ -30,6 +30,7 @@ Signboard is a **modular monolith**: one codebase and one database, divided into
 - **A module never reads or writes another module's tables.** It calls the other module's interface.
 - **Boundaries are enforced by architecture tests** (with a library such as ArchUnitNET or NetArchTest). A dependency that crosses a boundary any other way fails the build ([ADR 0012](0012-testing.md)).
 - Work that spans modules, such as accepting a quote, runs in **one database transaction**, coordinated through the modules' interfaces.
+- Work that can happen afterwards, such as notifying people, reacts to another module's business events ([ADR 0032](0032-events-webhooks-live-updates.md)).
 
 ### Deployables
 

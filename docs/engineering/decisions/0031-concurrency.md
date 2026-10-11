@@ -72,7 +72,7 @@ The worker follows the same rule. It reads the object, makes its change with the
 ## Consequences
 
 - Every aggregate root table has `revision` and `updated_at` columns and the revision trigger, and every owned table has its parent-bump trigger. A schema test fails if any is missing, like the `tenant_id` test ([ADR 0012](0012-testing.md)).
-- The triggers sit alongside the audit trail's triggers ([ADR 0019](0019-audit-trail.md)), and are created by EF Core migrations.
+- The triggers sit alongside the audit trail's triggers ([ADR 0019](0019-audit-trail.md)), and are created by EF Core migrations. The revision trigger also writes each change to the event outbox, which drives live updates and webhooks ([ADR 0032](0032-events-webhooks-live-updates.md)).
 - The API reference explains `ETag`, `If-Match` and `If-Match: *`, and the generated client sends `If-Match` automatically from the object it last read.
 - Every endpoint that changes an object has tests for a missing `If-Match` (428), a stale one (412) and a correct one.
 - The UI needs a conflict dialog and the comparison logic. It is designed once in the front-end design doc and used by every form.
