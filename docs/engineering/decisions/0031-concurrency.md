@@ -2,11 +2,10 @@
 
 | | |
 |---|---|
-| **Status** | Proposed |
+| **Status** | Accepted |
 | **Date** | 2026-10-11 |
 | **Deciders** | Stuart Meeks |
 
-> **Draft for review.** Written from Claude's recommendations. The choices still open are listed under [Questions for review](#questions-for-review).
 
 ## Context
 
@@ -78,12 +77,5 @@ The worker follows the same rule. It reads the object, makes its change with the
 - Every endpoint that changes an object has tests for a missing `If-Match` (428), a stale one (412) and a correct one.
 - The UI needs a conflict dialog and the comparison logic. It is designed once in the front-end design doc and used by every form.
 - Integrations must read before they write, or use `If-Match: *` knowingly.
+- A presence indicator ("Alex is viewing this quote"), without any locking, is to be considered when live updates are designed.
 
-## Questions for review
-
-1. **Actions need `If-Match`** as well as `PATCH` and `DELETE`. This protects against sending or approving a quote that changed a minute ago, but every action call needs the ETag. Agreed?
-2. **`If-Match: *` is allowed** for integrations that want last-write-wins, recorded in the audit trail. Or should it be refused, forcing every client to read first?
-3. **The UI reapplies non-overlapping changes automatically** and only asks when the same field was changed, or the action depends on the whole object. Or should it always ask?
-4. **`revision` appears in the JSON** as well as the `ETag` header, so grids can edit items from a collection. Agreed?
-5. **`If-None-Match` and `304`** on single-object reads from the start, or later when there is a need?
-6. **A presence indicator** ("Alex is viewing this quote") with live updates later, without locks. Worth keeping on the list?
