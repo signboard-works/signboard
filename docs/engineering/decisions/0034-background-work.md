@@ -54,7 +54,7 @@ A job is enqueued **in the same database transaction** as the change that needs 
 ### Recurring jobs
 
 - Recurring jobs are declared in code with a cron expression, and run **once per scheduled time** however many worker tasks are running.
-- Schedules a business would notice, such as "send reminders at 9 am", run in **the business's time zone**. How time zones are stored is decided in the money, tax and time ADR.
+- Schedules a business would notice, such as "send reminders at 9 am", run in **the business's time zone**. How time zones are stored is decided in [ADR 0036](0036-money-tax-and-time.md).
 
 ### Notifications from AWS
 

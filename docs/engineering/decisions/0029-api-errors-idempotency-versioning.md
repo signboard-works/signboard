@@ -12,6 +12,7 @@ Signboard has one public API for its own web app, customers and integrations ([A
 
 - **Errors.** Clients need to tell what went wrong without parsing English, show the right message against the right field, and give support something to search for. ASP.NET Core's default error output is problem details with a generic `type` that links to the HTTP standard's definition of the status code, a dictionary of field messages, and the parser's own wording. It is a sensible default, but it does not identify the error.
 - **Retries.** A network failure part-way through a `POST` leaves the client unsure whether it worked. Retrying blindly can create a second invoice or send a quote twice.
+- **JSON types.** JSON has few types, and clients in different languages read them differently. Every field must mean the same thing to every client.
 - **Change.** The API will change as Signboard grows. Integrators need to know which changes can break them, and our own UI and API are deployed separately ([ADR 0015](0015-separate-deployments-one-origin.md)), so for a short time a UI build talks to an API one release newer.
 
 ## Decision
@@ -61,7 +62,7 @@ Rules:
 | `403 Forbidden` | The business's plan does not include the feature | `not_entitled` |
 | `404 Not Found` | The object does not exist, is deleted ([ADR 0018](0018-soft-delete.md)), belongs to another business, or is not visible to the caller | `not_found` |
 | `409 Conflict` | The object's state does not allow the request, such as sending a quote that has already been accepted; or a retry arrives while the original request is still running | `invalid_state`, `request_in_progress` |
-| `412 Precondition Failed`, `428 Precondition Required` | Concurrency checks, decided in the concurrency ADR | `precondition_failed`, `precondition_required` |
+| `412 Precondition Failed`, `428 Precondition Required` | Concurrency checks ([ADR 0031](0031-concurrency.md)) | `precondition_failed`, `precondition_required` |
 | `422 Unprocessable Content` | The request is well-formed but its values are invalid; or an idempotency key is reused for a different request | `validation_failed`, `idempotency_key_reused` |
 | `429 Too Many Requests` | Rate limited, with a `Retry-After` header | `rate_limited` |
 | `500 Internal Server Error` | An unexpected failure on our side | `internal_error` |
@@ -86,6 +87,25 @@ Choices within that table:
 - Keys are **optional**. The generated API client ([ADR 0009](0009-frontend-react.md)) sends one on every `POST` automatically, reusing it for retries, so the web app is always protected. The API reference recommends keys to every integrator.
 - `GET`, `PATCH` (JSON Merge Patch) and `DELETE` are already safe to repeat, and ignore the header.
 - Work started by a request but done later, such as sending an email or syncing to the accounting system, is protected separately by the outbox ([ADR 0023](0023-email-sending.md)).
+
+### JSON types
+
+- **Numbers are numbers.** Amounts, rates, percentages and quantities are plain JSON numbers, never strings, so integrators never need to look up a numeric field's type. Their precision and rounding are decided in [ADR 0036](0036-money-tax-and-time.md).
+    - Decimal values have at most 15 significant digits, and integers stay below 2^53, so every value is exact when read as a JavaScript number.
+    - The server writes numbers without exponents (`0.0001`, never `1E-4`), and accepts either on input.
+    - Clients must not rely on trailing zeros: `1234.50` may arrive as `1234.5`. Amounts are formatted for display by the client, using the currency's minor unit.
+    - A value with more decimal places or digits than its field allows is refused with `422`, field code `too_many_decimal_places`, never silently rounded.
+- **Percentages are written as percent**: `10` means 10%. Their names end in `Percent`, such as `taxRatePercent` or `discountPercent`.
+- **Moments in time** are RFC 3339 strings in UTC, such as `2026-10-11T03:15:00Z`, with names ending in `At`. **Calendar dates** are `YYYY-MM-DD`, with names ending in `Date` ([ADR 0036](0036-money-tax-and-time.md)).
+- **Durations** are decimal hours, with names that say so, such as `machineHours: 1.5`.
+- **Quantities** sit next to a `unit` field from a fixed list, such as `"quantity": 2.5, "unit": "m2"` ([ADR 0036](0036-money-tax-and-time.md)).
+- **Amounts on a document** share the document's `currency` field. They are not wrapped in `{amount, currency}` objects.
+- **`null` versus a missing field.** Every field the caller can see is always present in a response, even when it has no value. So:
+    - `null` means the field has no value;
+    - a missing field means it is not available to this caller: hidden from them ([ADR 0010](0010-api-first.md)), not selected with RQL ([ADR 0016](0016-rql-queries.md)), or behind a feature flag that is off ([ADR 0033](0033-feature-flags.md)).
+    - In a `PATCH`, JSON Merge Patch applies: a value sets the field, `null` clears it, and a missing field leaves it unchanged ([ADR 0020](0020-url-structure.md)).
+- **No stand-ins for nothing.** `""` and `0` are never used to mean "no value": a discount of `0` is a deliberate value, while `null` means none has been set. An empty string sent for a text field is stored and returned as `null`.
+- **Enumerations** are `snake_case` strings, such as `in_production`, never integers. **Booleans** are `true` and `false`, never `"Y"` or `1`. JSON has no `NaN` or `Infinity`, and Signboard never needs them.
 
 ### Versioning
 
@@ -137,4 +157,5 @@ Choices within that table:
 - Refusing unknown fields means clients must not send back fields they read, such as `id` or computed totals, unless they are writable. The generated client's request types only contain writable fields.
 - Idempotency needs a small table and a check in the request pipeline, plus tests for replays, mismatches and concurrent retries.
 - Expand-then-contract makes some changes take two releases. It is the price of deploying the UI and API separately.
+- JSON serialisation is configured once, so the rules on numbers, dates, `null` and enumerations hold for every endpoint, with contract tests to check them.
 - Integrators must be told plainly, in the API reference, to tolerate unknown fields, enumeration values and error codes.

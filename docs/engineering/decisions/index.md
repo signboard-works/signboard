@@ -39,5 +39,6 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0033](0033-feature-flags.md) | Feature flags | Accepted |
 | [0034](0034-background-work.md) | Background work | Accepted |
 | [0035](0035-retries-and-resilience.md) | Retries and resilience | Accepted |
+| [0036](0036-money-tax-and-time.md) | Money, tax, time and quantities | Accepted |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/engineering/templates/adr-template.md).
