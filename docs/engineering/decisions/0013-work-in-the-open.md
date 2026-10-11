@@ -22,7 +22,7 @@ Nothing about how Signboard is built is secret.
 
 Two limits apply, and both protect people rather than the project:
 
-1. **Security vulnerabilities** are reported privately (GitHub private vulnerability reporting) and disclosed publicly in an advisory once a fix is released.
+1. **Security vulnerabilities** are reported privately (GitHub private vulnerability reporting) and disclosed publicly in an advisory once a fix is released. How reports are handled, and the target times for fixes, are in [`SECURITY.md`](https://github.com/signboard-works/signboard/blob/main/SECURITY.md) and [ADR 0039](0039-security-baseline.md#vulnerability-response).
 2. **Personal and business data** is never published: no shop, customer or staff names, no customer pricing. The design partner shop stays anonymous until it chooses otherwise.
 
 ## Options considered

@@ -92,7 +92,7 @@ Prices from AWS's price list for Sydney on 2026-10-11, using ARM processors, con
 | **Total at launch** | **206** | **324** |
 | **Total before paying businesses** | **287** | **452** |
 
-The largest items are the database (about 30–35% of production), the load balancer and Fargate. Not included: growth beyond the first handful of businesses, traces and metrics beyond basic volumes, and the domain registration. A one-year commitment (reserved database instances and a Compute Savings Plan) would cut roughly 20–35% from the database and Fargate lines once usage is steady. Credits from AWS programmes for new accounts and open-source projects should be applied for.
+The largest items are the database (about 30–35% of production), the load balancer and Fargate. Not included: growth beyond the first handful of businesses, traces and metrics beyond basic volumes, and the domain registration. A one-year commitment (reserved database instances and a Compute Savings Plan) would cut roughly 20–35% from the database and Fargate lines once usage is steady. Credits from AWS programmes for new accounts and open-source projects should be applied for. The security services in [ADR 0039](0039-security-baseline.md) (GuardDuty threat detection and KMS keys) add about A$15 a month, bringing the launch total to about A$340.
 
 ### Staying portable
 

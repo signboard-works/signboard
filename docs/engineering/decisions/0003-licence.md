@@ -27,5 +27,5 @@ We will license Signboard under the **Apache License 2.0**. The full text is in 
 
 - Anyone, including the maintainer, may run Signboard as a paid hosted service, with or without publishing changes.
 - Contributions are accepted under Apache 2.0 by default (section 5). No contributor licence agreement is needed.
-- Dependencies must have licences compatible with Apache 2.0. GPL and AGPL libraries cannot be bundled.
+- Dependencies must have licences compatible with Apache 2.0. GPL and AGPL libraries cannot be bundled. The full licence policy, enforced in CI, is in [ADR 0039](0039-security-baseline.md#supply-chain).
 - Source files do not need a per-file licence header. The root `LICENSE` file is enough.

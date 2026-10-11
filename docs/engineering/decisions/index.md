@@ -42,5 +42,6 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0036](0036-money-tax-and-time.md) | Money, tax, time and quantities | Accepted |
 | [0037](0037-localisation.md) | Localisation | Accepted |
 | [0038](0038-rate-limiting.md) | Rate limiting | Accepted |
+| [0039](0039-security-baseline.md) | Security baseline | Accepted |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/engineering/templates/adr-template.md).

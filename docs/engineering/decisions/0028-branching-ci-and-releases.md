@@ -73,7 +73,7 @@ The `CI` workflow's required checks on every pull request:
 - **Coverage:** the 95% line coverage gate, separately for the back end and the front end ([ADR 0012](0012-testing.md)).
 - **API contract:** the OpenAPI document matches the code, the generated client is up to date, and breaking changes to a published API version fail the check unless the pull request is marked as breaking ([ADR 0020](0020-url-structure.md)).
 - **End to end, smoke:** the Playwright journeys tagged `@smoke` (see below).
-- **Security:** CodeQL, dependency review, and secret scanning with push protection.
+- **Security:** CodeQL, dependency review (including the licence policy in [ADR 0039](0039-security-baseline.md#supply-chain)), and secret scanning with push protection.
 - **Containers:** the API, worker and identity service images build. Images are only pushed on release.
 
 ### End-to-end tests
