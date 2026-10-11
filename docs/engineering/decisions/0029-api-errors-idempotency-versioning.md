@@ -100,6 +100,7 @@ Choices within that table:
     - changing default behaviour, such as default sorting or page size.
 - **CI enforces this** by comparing each pull request's OpenAPI contract with `main` and failing on a breaking change unless the pull request is marked as breaking ([ADR 0028](0028-branching-ci-and-releases.md)).
 - **Before public launch, `v1` may change freely.** There are no outside integrators yet, and getting the design right matters more. From public launch, `v1` is stable under the rules above.
+- **Endpoints and fields behind a feature flag** are not part of the stable contract until their flag is removed ([ADR 0033](0033-feature-flags.md)).
 - **Retiring a version.** When a new major version ships, the previous one keeps working for at least **12 months**. Its responses carry the `Deprecation` header ([RFC 9745](https://www.rfc-editor.org/rfc/rfc9745)) and the `Sunset` header ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)), and the API changelog announces the dates.
 - **Our own UI and API stay compatible across one release.** Because they deploy separately, every API release keeps working with the previous UI build. Changes to the database and API use **expand, then contract**: add the new field or endpoint, move every client to it, then remove the old one in a later release.
 - The API version is independent of Signboard's release version ([ADR 0028](0028-branching-ci-and-releases.md)). Webhook payloads are versioned in the events and webhooks ADR.

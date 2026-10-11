@@ -14,7 +14,7 @@ The forces:
 
 - `main` must stay trustworthy, because the hosted service and self-hosters both build from it.
 - The testing rules in [ADR 0012](0012-testing.md) (real PostgreSQL, a 95% coverage gate, traceable acceptance criteria) need a pipeline that enforces them.
-- Unfinished features must be able to merge without being switched on ([feature flags](#follow-up-decisions), decided separately).
+- Unfinished features must be able to merge without being switched on ([feature flags](0033-feature-flags.md)).
 - Self-hosters need versioned releases they can pin, upgrade and roll back.
 - The repository is public, so pull requests from forks must not be able to reach secrets.
 
@@ -25,7 +25,7 @@ The forces:
 - We will use **trunk-based development**. `main` is always releasable. All work happens on short-lived branches and comes back to `main` through a pull request. There is no `develop` branch and no long-lived release branch.
 - Pull requests are **squash-merged**, so `main` has one commit per pull request and a linear history.
 - Branches are named `type/short-description`, such as `feat/quote-versions` or `fix/gst-rounding`. This is a convention, not enforced.
-- Unfinished work merges behind a **feature flag**, switched off in staging and production until it is ready.
+- Unfinished work merges behind a **feature flag** ([ADR 0033](0033-feature-flags.md)), switched off in production until it is ready.
 - If `main` breaks, fixing it comes before any other work: fix forward or revert the pull request.
 
 ### Pull request titles
@@ -108,7 +108,7 @@ Every journey belongs to the full suite. A journey is tagged `@smoke` only if it
 
 ### Follow-up decisions
 
-- **Feature flags:** how flags are defined, evaluated, switched and retired, in their own ADR.
+- **Feature flags:** decided in [ADR 0033](0033-feature-flags.md).
 - **Hosting:** how preview environments, staging and production deployments are built.
 
 ## Options considered
