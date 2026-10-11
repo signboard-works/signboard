@@ -19,7 +19,7 @@ How the React single-page application is structured: the shared components every
 - Signs in with a secure, HttpOnly session cookie on the same origin as the API ([ADR 0015](../decisions/0015-separate-deployments-one-origin.md)).
 - One app for business staff and the customer portal, code-split by route.
 - Must tolerate an API one release ahead, and prompt the user to reload when a newer UI is deployed.
-- WCAG 2.2 AA. Drag and drop works by touch and has a keyboard alternative.
+- WCAG 2.2 AA, with 44-pixel touch targets and reduced motion respected. Drag and drop works by touch and has a keyboard and "Move to…" alternative. Desktop, tablet, a read-only wall-screen kanban view, and the customer portal on phones ([ADR 0042](../decisions/0042-accessibility.md)).
 
 ## Design
 

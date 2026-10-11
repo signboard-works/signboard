@@ -71,7 +71,7 @@ These limits must be exact and survive restarts and deploys, so they are counted
 | Invitations to join an account | 50 a day per account |
 
 - Sign-in responses do not reveal whether an address has an account, whether or not a limit has been reached.
-- If sign-ups or sign-ins are abused despite these limits, the WAF's CAPTCHA challenge, included in the Pro plan, can be added to those pages without code changes.
+- If sign-ups are abused despite these limits, the WAF's CAPTCHA challenge, included in the Pro plan, can be added to the sign-up page without code changes. It is never used on sign-in ([ADR 0042](0042-accessibility.md#sign-in)).
 
 ### Responses
 
