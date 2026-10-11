@@ -90,6 +90,7 @@ nav = [
   ] },
   { "Journal" = [
     "journal/index.md",
+    { "2026-10-11" = "journal/2026-10-11.md" },
     { "2026-10-10" = "journal/2026-10-10.md" },
   ] },
 ]
