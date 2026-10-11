@@ -20,6 +20,7 @@ The reference for each module will be generated from its OpenAPI contract, which
 | Concurrency | Every object has a `revision`, returned as the `ETag`. `PATCH`, `DELETE` and actions must send `If-Match`; a stale one gets `412` | [ADR 0031](../engineering/decisions/0031-concurrency.md) |
 | Live updates | `GET /api/v1/system/events/stream` is a Server-Sent Events stream of thin notifications ("this object changed") for objects you can see. Fetch the object to get its data | [ADR 0032](../engineering/decisions/0032-events-webhooks-live-updates.md) |
 | Webhooks | Signed with the Standard Webhooks specification; the payload includes the object as the webhook's owner sees it. Deduplicate on `webhook-id`, order by `revision` | [ADR 0032](../engineering/decisions/0032-events-webhooks-live-updates.md) |
+| Unreleased features | Features behind a feature flag don't exist for you until released: `404`, no fields, not in this reference. `GET /api/v1/system/features` lists the flags that are on for you | [ADR 0033](../engineering/decisions/0033-feature-flags.md) |
 | Retries | Send an `Idempotency-Key` header on every `POST`; a retry with the same key returns the original response | [ADR 0029](../engineering/decisions/0029-api-errors-idempotency-versioning.md) |
 | Versioning | Additive changes happen within `v1`, so clients must ignore unknown fields and handle unknown enumeration values and error codes | [ADR 0029](../engineering/decisions/0029-api-errors-idempotency-versioning.md) |
 
