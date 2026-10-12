@@ -59,7 +59,7 @@ Self-hosted installations have no sign-up, plans or trial: the first run creates
 
 Each business account has a subscription, kept in the `accounts` module with the business account it belongs to ([ADR 0020](0020-url-structure.md)). It is platform-level data, outside any tenant ([ADR 0004](0004-multi-tenant.md)).
 
-The subscription records whether and how the business pays. Which features it gets is its edition assignment ([ADR 0046](0046-entitlements.md)), which the subscription sets: a trial is an assignment of Standard that ends with the trial, and `read_only` applies to the whole account, not to one feature. A read-only business keeps its last edition assignment for reading and export, so it can still see and take out everything; every write is refused with `403 account_read_only`, which is checked before entitlements ([ADR 0046](0046-entitlements.md#evaluation)).
+The subscription records whether and how the business pays. Which features it gets is its edition assignment ([ADR 0046](0046-entitlements.md)), which the subscription sets: a trial is an assignment of Standard that ends with the trial, and `read_only` applies to the whole account, not to one feature. A read-only business keeps its last edition assignment for reading and export, so it can still see and take out everything; a write that passes the feature-flag and permission checks is refused with `403 account_read_only`, before entitlements are checked ([ADR 0046](0046-entitlements.md#evaluation)).
 
 ```mermaid
 stateDiagram-v2
