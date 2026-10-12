@@ -58,7 +58,8 @@ Some things are in every edition, because Signboard's principles depend on them:
 - Every endpoint, action and field group that belongs to an entitled feature **declares the feature it needs**, next to its permission ([ADR 0022](0022-authorisation-and-roles.md)), and whether it **uses** the feature or only **reads data** the business already has. The check runs centrally on every request, in this order:
     1. **Feature flag** ([ADR 0033](0033-feature-flags.md)): a feature that is not released does not exist, so the request gets `404`.
     2. **Permission**: a user without the permission gets `403 forbidden`, whatever the plan.
-    3. **Entitlement**: using a feature the plan does not include gets `403 not_entitled`. Reading data the business already has is never gated by entitlement.
+    3. **Account status**: any write to a business whose account is read-only, because it has stopped paying or is closing, gets `403 account_read_only` ([ADR 0047](0047-sign-up-plans-and-billing.md#subscription-status)), whatever the feature. That is the problem to fix first, so it comes before the entitlement.
+    4. **Entitlement**: using a feature the plan does not include gets `403 not_entitled`, and going beyond a limit gets `403 limit_reached`. Reading data the business already has is never gated by entitlement.
 - **Customer users get their business's entitlements**, as they get its flags ([ADR 0033](0033-feature-flags.md)).
 - **Self-hosted installations** run a built-in **everything** edition: every feature, no limits. It is defined in code, needs no licence key and contacts no outside service.
 
