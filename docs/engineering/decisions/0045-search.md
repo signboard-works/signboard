@@ -68,7 +68,7 @@ If the query is a complete object ID, such as `JOB-4821-0937-1156`, in any case 
 
 ### Search engine
 
-1. **PostgreSQL full-text search and `pg_trgm`**: nothing new to run or pay for; results are transactionally current; row-level security applies; works the same self-hosted. Weaker relevance ranking and typo tolerance than a dedicated engine. **Chosen.**
+1. **PostgreSQL full-text search and `pg_trgm`**: nothing new to run or pay for; an object's own fields are searchable as soon as it is saved, and text copied from related objects within seconds; row-level security applies; works the same self-hosted. Weaker relevance ranking and typo tolerance than a dedicated engine. **Chosen.**
 2. **A dedicated engine** (OpenSearch, Meilisearch, Typesense): better relevance, typo tolerance and facets; another service to run, pay for, secure and keep in step, with its own copy of every business's data outside row-level security, and another thing for self-hosters to install. A managed service such as Amazon OpenSearch Service would be a separate monthly cost on top of the database.
 3. **RQL text filters only, no global search**: no new work; nobody can find a job from a half-remembered word without knowing which list to look in.
 
