@@ -8,7 +8,7 @@
 
 ## Context
 
-Most businesses would rather sign up for Signboard than run it ([ADR 0004](0004-multi-tenant.md)). The hosted service costs about A$340 a month to run at launch, and about A$500 once it is ready for paying businesses ([ADR 0030](0030-hosting-aws.md), [ADR 0039](0039-security-baseline.md), [ADR 0043](0043-backups-and-recovery.md), [ADR 0048](0048-documents-and-templates.md)), and Signboard is not a money-making exercise ([ADR 0003](0003-licence.md)): what businesses pay should cover the running costs, with as little cost and effort spent on collecting it as possible.
+Most businesses would rather sign up for Signboard than run it ([ADR 0004](0004-multi-tenant.md)). The hosted service costs about A$345 a month to run at launch, and about A$500 once it is ready for paying businesses ([ADR 0030](0030-hosting-aws.md), [ADR 0039](0039-security-baseline.md), [ADR 0043](0043-backups-and-recovery.md), [ADR 0048](0048-documents-and-templates.md)), and Signboard is not a money-making exercise ([ADR 0003](0003-licence.md)): what businesses pay should cover the running costs, with as little cost and effort spent on collecting it as possible.
 
 Already decided:
 

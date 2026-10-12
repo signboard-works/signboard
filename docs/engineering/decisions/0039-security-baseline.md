@@ -175,7 +175,7 @@ Self-hosted installations get the same defaults in the documented proxy configur
 ## Consequences
 
 - The design doc template's security section now asks for a threat model, and reviews check it.
-- ADR 0030's costs grow by about **A$15 a month**: GuardDuty threat detection with runtime monitoring in production (about A$10), GuardDuty in the other accounts, and a KMS key per environment (US$1 a month each). CloudTrail's first copy of management events is free. Total running costs at launch become about A$340 a month, close to the first budget alert at A$350.
+- ADR 0030's costs grow by about **A$15 a month**: GuardDuty threat detection with runtime monitoring in production (about A$10), GuardDuty in the other accounts, and a KMS key per environment (US$1 a month each). CloudTrail's first copy of management events is free. Total running costs at launch become about A$340 a month, close to the first budget alert at A$350, and about A$345 with PDF rendering ([ADR 0048](0048-documents-and-templates.md#where-rendering-runs)).
 - The repository needs a `SECURITY.md`, and its GitHub settings need private vulnerability reporting, secret scanning with push protection, and Dependabot security updates turned on.
 - The front-end design confirms the Content Security Policy against Mantine, and the deployment design writes the CloudFront Function and the TLS policies.
 - The penetration test and incident runbook are tasks before the first paying business, alongside the Multi-AZ database ([ADR 0030](0030-hosting-aws.md)).
