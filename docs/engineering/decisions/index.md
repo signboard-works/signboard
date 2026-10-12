@@ -50,7 +50,7 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0044](0044-privacy-and-data-residency.md) | Privacy and data residency | Accepted |
 | [0045](0045-search.md) | Search | Accepted |
 | [0046](0046-entitlements.md) | Entitlements | Accepted |
-| [0047](0047-sign-up-plans-and-billing.md) | Sign-up, plans and billing | Proposed |
+| [0047](0047-sign-up-plans-and-billing.md) | Sign-up, plans and billing | Accepted |
 | [0048](0048-documents-and-templates.md) | Documents and templates | Proposed |
 | [0049](0049-scope-made-to-order-businesses.md) | Scope: built for sign and print, open to any made-to-order business | Accepted |
 | [0050](0050-database-migrations.md) | Database migrations | Accepted |

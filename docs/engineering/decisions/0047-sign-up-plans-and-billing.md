@@ -2,15 +2,13 @@
 
 | | |
 |---|---|
-| **Status** | Proposed |
-| **Date** | 2026-10-11 |
+| **Status** | Accepted |
+| **Date** | 2026-10-12 |
 | **Deciders** | Stuart Meeks |
-
-> **Draft for review.** Written from Claude's recommendations. The choices still open are listed under [Questions for review](#questions-for-review).
 
 ## Context
 
-Most shops would rather sign up for Signboard than run it ([ADR 0004](0004-multi-tenant.md)). The hosted service costs about A$340 a month to run at launch ([ADR 0030](0030-hosting-aws.md), [ADR 0039](0039-security-baseline.md)), and Signboard is not a money-making exercise ([ADR 0003](0003-licence.md)): what businesses pay should cover the running costs, with as little cost and effort spent on collecting it as possible.
+Most businesses would rather sign up for Signboard than run it ([ADR 0004](0004-multi-tenant.md)). The hosted service costs about A$340 a month to run at launch, and about A$475 once it is ready for paying businesses ([ADR 0030](0030-hosting-aws.md), [ADR 0039](0039-security-baseline.md), [ADR 0043](0043-backups-and-recovery.md)), and Signboard is not a money-making exercise ([ADR 0003](0003-licence.md)): what businesses pay should cover the running costs, with as little cost and effort spent on collecting it as possible.
 
 Already decided:
 
@@ -35,7 +33,8 @@ On tax: a business must register for GST once its GST turnover reaches A$75,000 
 
 ### Plans
 
-- **One paid plan at launch**, called Standard, with every feature. Its price is set to cover running costs, and is a question for review.
+- **One paid plan at launch**, called Standard, with every feature.
+- **One price per business, with unlimited users**: **A$49 a month, or A$490 a year** (two months free), including GST if the operator charges it. Charging per user would work against the vision, which counts per-seat pricing among the problems with the tools businesses use today. About ten businesses paying monthly, or twelve paying yearly, cover the running costs. The price is reviewed against costs as the service grows.
 - **No free plan.** A free plan on the hosted service costs real money for every business on it. The free option is self-hosting, which gets everything.
 - **A 30-day trial** of the full plan, with no payment details needed.
 - **Complimentary** status, set by an operations user, for businesses that should not pay, such as an open-source project or a charity. Each complimentary arrangement has a reason and an optional end date, and is audited ([ADR 0019](0019-audit-trail.md)).
@@ -71,16 +70,20 @@ stateDiagram-v2
     past_due --> active: paid
     past_due --> read_only: 14 days later
     read_only --> active: paid
-    active --> cancelled: business cancels
-    read_only --> cancelled: business cancels
     complimentary --> active: arrangement ends, paid
     complimentary --> read_only: arrangement ends unpaid
-    cancelled --> [*]
+    active --> closing: business closes
+    read_only --> closing: business closes, or trial never paid
+    closing --> [*]: deleted after 30 days
+    note right of closing: Cancelling the closure returns the business to the status it would otherwise have
 ```
 
-- **Business administrators** see their plan, status and paid-until date, and receive email reminders before a trial ends, when a payment is missed, and before read-only starts ([ADR 0023](0023-email-sending.md)).
+- **Past due** lasts 14 days. Administrators are emailed when the payment is missed, 7 days later, and the day before read-only starts ([ADR 0023](0023-email-sending.md)).
+- **Business administrators** see their plan, status and paid-until date, and are also emailed before a trial ends.
+- **Closing** is the closure in [ADR 0051](0051-data-export-and-leaving.md#a-business-leaving): read-only for 30 days, with export, reminders and the option to cancel, then deletion. Cancelling the closure returns the business to the status it would otherwise have: its trial if the trial has not ended, active if it is paid up, and read-only otherwise. An administrator can close the business from any status; the diagram shows the usual cases.
 - **Read-only** means the business's people can still sign in, see and export everything ([ADR 0051](0051-data-export-and-leaving.md)), and its customers can still see what was sent to them, but nothing can be created or changed. Changes are refused with `403`, code `account_read_only`.
-- **Nothing is deleted for non-payment.** Data is deleted only after a business cancels, and then only as [ADR 0051](0051-data-export-and-leaving.md) sets out, after notice and a chance to export.
+- **A business that has paid is never deleted for non-payment.** It stays read-only, with everything visible and exportable, until it pays or closes.
+- **A trial that is never paid for is closed.** A business that has never paid, and is not complimentary, starts closing 90 days after its trial ends, after its administrators are emailed 14 days and 1 day beforehand. It then has the usual 30 days of closure, with export. Without this, every abandoned trial would be kept, and paid for, for ever.
 
 ### Paying, at launch
 
@@ -91,12 +94,14 @@ stateDiagram-v2
 
 - **Stripe Billing** with Stripe's hosted Checkout and Customer Portal. Card details are entered only on Stripe's pages and never reach Signboard, which keeps Signboard to the simplest PCI DSS self-assessment (SAQ A).
 - Stripe's events arrive as signed webhooks, are processed as background jobs ([ADR 0034](0034-background-work.md)), and update the subscription status. The status, not Stripe, is what the rest of Signboard reads.
-- **Not a merchant of record.** Paddle and Lemon Squeezy would handle tax in every country for us, but at about twice Stripe's cost, and selling mostly to Australian businesses does not need it. This is revisited if Signboard sells widely abroad.
+- **Not a merchant of record.** A merchant of record, such as Paddle or Lemon Squeezy, would resell the subscription to each business and handle its sales tax in every country, at about twice Stripe's cost. Signboard sells only to businesses, so the rules that make one most worthwhile, which are about selling to consumers, mostly do not apply. In the EU, for example, a business customer usually accounts for VAT itself under the reverse charge ([European Commission: place of taxation](https://taxation-customs.ec.europa.eu/taxation/vat/vat-directive/place-taxation_en)). This is revisited if Signboard sells widely abroad. The United States in particular is an assumption to check then: its states tax software services under their own rules and thresholds.
 
 ### Tax on subscriptions
 
 - Prices are shown and invoiced in Australian dollars at launch.
-- If the operator is registered for GST, subscription invoices are tax invoices that show GST; if not, they do not charge GST. Signboard supports both, and the operator decides with an accountant.
+- If the operator is not registered for GST, no invoice charges GST.
+- If it is registered, GST is worked out for each invoice from the business's country. A business in Australia is charged GST, on a tax invoice. A business outside Australia may be GST-free, as a service supplied to a non-resident outside Australia ([ATO: exports and GST](https://www.ato.gov.au/businesses-and-organisations/international-tax-for-business/australians-doing-business-overseas/exports-and-gst)). The operator's accountant confirms the treatment for each country before the first business there pays.
+- **Who the operator is**, Stuart as a sole trader or a company, and whether it registers for GST, is decided with an accountant before the first paying business. It decides whose ABN is on the invoices and who holds the liability, but nothing in this ADR depends on it, which is why it says "the operator".
 
 ## Options considered
 
@@ -112,6 +117,16 @@ stateDiagram-v2
 2. **Stripe Billing from the first business**: automated from day one; a build and about 3% of revenue before it saves any time.
 3. **A merchant of record (Paddle or Lemon Squeezy)**: handles tax everywhere; about 6% of revenue, and unnecessary while customers are mostly Australian.
 
+### Price
+
+1. **One price per business, with unlimited users**: simple, and matches the vision's complaint about per-seat pricing. **Chosen.**
+2. **A price per user**: grows with larger businesses; makes adding production staff a cost decision, which works against the product.
+
+### Unpaid trials
+
+1. **Closed 90 days after a trial ends unpaid, with notice and the usual closure**: abandoned trials do not cost money for ever, and a business that comes back within three months finds its data. **Chosen.**
+2. **Kept read-only for ever, like a business that has paid**: never surprises anyone; every abandoned trial is kept and paid for indefinitely.
+
 ### Where subscriptions live
 
 1. **In `accounts`, with the business account**: the subscription describes the account, and stays clear of the business's own `billing` module. **Chosen.**
@@ -119,20 +134,11 @@ stateDiagram-v2
 
 ## Consequences
 
-- Subscriptions are new objects, and need an ID prefix registered in the [data model](../design/data-model.md).
+- Subscriptions are new objects, with the `SUB` prefix registered in the [data model](../design/data-model.md).
 - `account_read_only` is a new error code ([ADR 0029](0029-api-errors-idempotency-versioning.md)).
+- [ADR 0051](0051-data-export-and-leaving.md) gains the closing of trials that were never paid for.
+- The operator's legal form and GST registration are a task on the board, for Stuart and an accountant.
 - The operations app needs subscription views: trials ending, payments due, complimentary arrangements.
 - Terms of service and a privacy policy must exist before the first sign-up. The privacy policy follows [ADR 0044](0044-privacy-and-data-residency.md).
 - Moving to Stripe later is a design doc and a feature behind a flag ([ADR 0033](0033-feature-flags.md)), not a change to this decision.
 - A sign-up PRD is needed, with its stories, before the sign-up screens are built.
-
-## Questions for review
-
-1. **No free plan**, with self-hosting as the free option and a 30-day trial without payment details. Or a free plan with limits?
-2. **One plan, Standard, at launch.** Or several editions from the start?
-3. **The price.** Lean: a monthly price, with a yearly option at a discount, set so that about ten paying businesses cover the running costs. What price does Stuart have in mind?
-4. **Manual invoicing and bank transfer at launch**, moving to Stripe Billing when it gets too slow or businesses ask for cards. Or Stripe from the first paying business?
-5. **No merchant of record**, accepting that Signboard's operator handles its own tax. Or Paddle, at about twice the cost, for simplicity abroad?
-6. **Grace and read-only.** 14 days past due, then read-only, never deletion for non-payment. Are the lengths right?
-7. **Subscriptions in the `accounts` module**, managed by operations users at launch. Or a module of their own?
-8. **Who operates the hosted service** for invoicing and GST: Stuart as a sole trader, or a separate entity? This decides whose ABN appears on invoices, and is a question for an accountant.

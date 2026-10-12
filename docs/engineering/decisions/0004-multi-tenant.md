@@ -8,7 +8,7 @@
 
 ## Context
 
-Signboard is built first for one shop and then offered to any shop that wants it. Most small shops do not want to run a server, back it up or upgrade it. They want to sign up and use it. The maintainer intends to offer Signboard as a hosted service, possibly a for-profit one, and the licence allows this ([ADR 0003](0003-licence.md)).
+Signboard is built first for one shop and then offered to any shop that wants it. Most small shops do not want to run a server, back it up or upgrade it. They want to sign up and use it ([ADR 0047](0047-sign-up-plans-and-billing.md)). The maintainer intends to offer Signboard as a hosted service, possibly a for-profit one, and the licence allows this ([ADR 0003](0003-licence.md)).
 
 Running one instance per business keeps the data model simple, but every business then costs a container, a database, a backup schedule and an upgrade. That works for dozens of businesses and becomes an operations job beyond that. Adding tenancy to a system that already holds live data is far more expensive than designing it in from the start, and the [vision](../../vision.md) says foundations are designed in full, up front.
 
