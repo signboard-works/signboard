@@ -36,7 +36,7 @@ These targets are stated publicly, so businesses know what to expect, and each r
 - **Automated backups and point-in-time recovery** stay as in [ADR 0030](0030-hosting-aws.md): kept for 14 days, with transaction logs every 5 minutes. RDS backup storage up to the size of the database is free.
 - **A copy outside production.** Before the first paying business, alongside Multi-AZ, a daily copy of the database snapshot goes to a **separate backup account, in Melbourne**, through **AWS Backup**. Copies are kept for 35 days. The backup account is the fourth account in the organisation ([ADR 0030](0030-hosting-aws.md)); nothing in production can delete what is in it.
 - **Backups cannot be deleted early.** The backup vault uses **AWS Backup Vault Lock**, so no one, including an attacker with administrator access to production, can delete a copy before it expires. It starts in **governance mode**, which can still be changed while the setup settles, and moves to **compliance mode**, which no one can change or remove, once the setup has run unchanged for a month. Compliance mode also fixes the 35-day retention, so it is checked before the switch.
-- **No long-term archives.** There are no monthly or yearly backups. Businesses' records, including those kept for tax, are kept in the live database (and their accounting system) for as long as they need them; backups are for recovery only. This keeps personal data from living on in old backups ([ADR 0044](0044-privacy-and-data-export.md)).
+- **No long-term archives.** There are no monthly or yearly backups. Businesses' records, including those kept for tax, are kept in the live database (and their accounting system) for as long as they need them; backups are for recovery only. This keeps personal data from living on in old backups ([ADR 0044](0044-privacy-and-data-residency.md)).
 
 ### Files
 
@@ -45,7 +45,7 @@ These targets are stated publicly, so businesses know what to expect, and each r
 
 ### The erasure log
 
-A restore brings back the data as it was at the recovery point, including anything erased since ([ADR 0044](0044-privacy-and-data-export.md#erasing-personal-information)). The log of erasures and business closures that undoes that must therefore survive whatever the restore is recovering from, so it cannot live only in the database being restored.
+A restore brings back the data as it was at the recovery point, including anything erased since ([ADR 0044](0044-privacy-and-data-residency.md#erasing-personal-information)). The log of erasures and business closures that undoes that must therefore survive whatever the restore is recovering from, so it cannot live only in the database being restored.
 
 - Each erasure or closure is written to the database in the same transaction as the change, and an outbox job ([ADR 0032](0032-events-webhooks-live-updates.md)) appends it to an **erasure log bucket** in S3, with Object Lock so entries cannot be changed or deleted.
 - The bucket is **replicated to the backup account in Melbourne**, so the log survives the loss of the production account or the Sydney region. Replication starts with the other copies, before the first paying business.
@@ -57,7 +57,7 @@ A restore brings back the data as it was at the recovery point, including anythi
 The database is shared, so a single business's data cannot be restored by rolling the whole database back. Instead:
 
 1. Restore a snapshot from the right time to a temporary database, inside production.
-2. Export that business's data from it, using the same **business export and import tool** that data export and moving to self-hosting use ([ADR 0044](0044-privacy-and-data-export.md)). One tool serves all three, so there is one thing to build and test.
+2. Export that business's data from it, using the same **business export and import tool** that data export and moving to self-hosting use ([ADR 0051](0051-data-export-and-leaving.md#one-export-and-import-tool)). One tool serves all three, so there is one thing to build and test.
 3. Apply the [erasure log](#the-erasure-log) to the exported data, so nothing erased since the snapshot comes back.
 4. Import it into production, reviewed and confirmed by an operations user, including recreating its files in object storage from the restored versions ([ADR 0027](0027-file-storage.md)), then delete the temporary database.
 
@@ -104,7 +104,7 @@ The estimate assumes a database of about 5 GB and 20 GB of files, and grows with
 ## Consequences
 
 - [ADR 0030](0030-hosting-aws.md) gains a fourth account, the backup account; backup copies in Melbourne, which stay in Australia; and about A$10 a month before paying businesses, taking that total to about A$475.
-- The business export and import tool becomes a shared component, designed with [ADR 0044](0044-privacy-and-data-export.md).
+- The business export and import tool is a shared component ([ADR 0051](0051-data-export-and-leaving.md#one-export-and-import-tool)).
 - The deployment design adds the AWS Backup plans, the vault and its lock, the erasure log bucket and its replication, and the restore test, all in the CDK code.
 - Backups hold personal data for up to 35 days after it is de-identified or deleted, which the privacy ADR and the privacy policy state.
 - The switch of Vault Lock to compliance mode is a dated task on the board once the backup account is set up.

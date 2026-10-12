@@ -77,7 +77,8 @@ nav = [
         { "0022 Authorisation and roles" = "engineering/decisions/0022-authorisation-and-roles.md" },
         { "0038 Rate limiting" = "engineering/decisions/0038-rate-limiting.md" },
         { "0039 Security baseline" = "engineering/decisions/0039-security-baseline.md" },
-        { "0044 Privacy and data export" = "engineering/decisions/0044-privacy-and-data-export.md" },
+        { "0044 Privacy and data residency" = "engineering/decisions/0044-privacy-and-data-residency.md" },
+        { "0051 Data export and leaving" = "engineering/decisions/0051-data-export-and-leaving.md" },
       ] },
       { "Platform services" = [
         { "0023 Email sending" = "engineering/decisions/0023-email-sending.md" },

@@ -47,7 +47,7 @@ An entitlement is easily confused with three other things, each decided elsewher
 Some things are in every edition, because Signboard's principles depend on them:
 
 - **Security**: passkeys, second factors, sessions and the audit trail ([ADR 0021](0021-authentication.md), [ADR 0019](0019-audit-trail.md)).
-- **Data export**: a business can always take all of its data out ([vision](../../vision.md), [ADR 0044](0044-privacy-and-data-export.md)).
+- **Data export**: a business can always take all of its data out ([vision](../../vision.md), [ADR 0051](0051-data-export-and-leaving.md)).
 - **Accessibility** ([ADR 0042](0042-accessibility.md)).
 - **The API.** Entitlements gate features, never channels. A feature included in an edition can be used through the web app and the API alike ([ADR 0010](0010-api-first.md)).
 
