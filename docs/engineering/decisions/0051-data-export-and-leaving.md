@@ -42,7 +42,7 @@ A business that leaves also needs a clear end: how long its data stays, how it i
 3. After 30 days, the business's data is **hard-deleted**: database rows, files, search indexes and email records ([ADR 0018](0018-soft-delete.md), exception 1). Users remain, because they are global, but lose their memberships. The closure is recorded in the [erasure log](0043-backups-and-recovery.md#the-erasure-log), so a restore from an earlier snapshot never brings a closed business back; restore tests cover it.
 4. Backups age out on their own schedule. The business is told the date by which its data will be gone from backups too.
 
-A business that only stops paying becomes read-only but is never deleted for non-payment alone ([ADR 0047](0047-sign-up-plans-and-billing.md)).
+A business that has paid and then stops paying becomes read-only but is never deleted for non-payment alone. A trial that was never paid for starts this closure 90 days after it ends, with notice ([ADR 0047](0047-sign-up-plans-and-billing.md#subscription-status)).
 
 ## Options considered
 

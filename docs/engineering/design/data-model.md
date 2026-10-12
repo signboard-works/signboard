@@ -29,6 +29,7 @@ Every object type has one three-letter prefix and a fixed number of digits, a mu
 | `USR` | User | To be decided |
 | `ACC` | Account (business, customer or operations) | To be decided |
 | `MEM` | Membership | To be decided |
+| `SUB` | Subscription to the hosted service ([ADR 0047](../decisions/0047-sign-up-plans-and-billing.md#subscription-status)) | To be decided |
 | `QUO` | Quote | To be decided |
 | `ORD` | Sales order | To be decided |
 | `JOB` | Job | To be decided |
