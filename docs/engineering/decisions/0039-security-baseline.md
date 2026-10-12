@@ -119,7 +119,7 @@ Self-hosted installations get the same defaults in the documented proxy configur
 
 **Images and releases.**
 
-- Container images use Microsoft's **chiseled Ubuntu images** for .NET, which have no shell or package manager and run as a non-root user. We use the `-extra` variant, which includes ICU ([ADR 0037](0037-localisation.md)).
+- Container images use Microsoft's **chiseled Ubuntu images** for .NET, which have no shell or package manager and run as a non-root user. We use the `-extra` variant, which includes ICU ([ADR 0037](0037-localisation.md)). The one exception is the PDF renderer, which needs Chromium and its libraries ([ADR 0048](0048-documents-and-templates.md#where-rendering-runs)): it still runs as a non-root user with a read-only root filesystem, and has no database access, secrets or outbound network.
 - Containers run with a read-only root filesystem.
 - Every release publishes a **software bill of materials** (CycloneDX) and **signed build provenance** through GitHub's artifact attestations, so self-hosters can check that an image was built from this repository by our release workflow ([ADR 0028](0028-branching-ci-and-releases.md)).
 - ECR scans images when they are pushed, and Dependabot keeps base images current.
@@ -175,7 +175,7 @@ Self-hosted installations get the same defaults in the documented proxy configur
 ## Consequences
 
 - The design doc template's security section now asks for a threat model, and reviews check it.
-- ADR 0030's costs grow by about **A$15 a month**: GuardDuty threat detection with runtime monitoring in production (about A$10), GuardDuty in the other accounts, and a KMS key per environment (US$1 a month each). CloudTrail's first copy of management events is free. Total running costs at launch become about A$340 a month, close to the first budget alert at A$350.
+- ADR 0030's costs grow by about **A$15 a month**: GuardDuty threat detection with runtime monitoring in production (about A$10), GuardDuty in the other accounts, and a KMS key per environment (US$1 a month each). CloudTrail's first copy of management events is free. Total running costs at launch become about A$340 a month, close to the first budget alert at A$350, and about A$345 with PDF rendering ([ADR 0048](0048-documents-and-templates.md#where-rendering-runs)).
 - The repository needs a `SECURITY.md`, and its GitHub settings need private vulnerability reporting, secret scanning with push protection, and Dependabot security updates turned on.
 - The front-end design confirms the Content Security Policy against Mantine, and the deployment design writes the CloudFront Function and the TLS policies.
 - The penetration test and incident runbook are tasks before the first paying business, alongside the Multi-AZ database ([ADR 0030](0030-hosting-aws.md)).

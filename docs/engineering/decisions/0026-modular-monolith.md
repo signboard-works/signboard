@@ -41,9 +41,10 @@ One codebase produces a few deployables:
 | UI | Static files behind a CDN ([ADR 0015](0015-separate-deployments-one-origin.md)) |
 | API | Serves `/api` on every business's host |
 | Background worker | Email sending, accounting sync, imports and other long-running jobs. Same code and image as the API with a different start-up, so it scales and restarts independently |
+| PDF renderer | Prints HTML to PDF with headless Chromium, from before the first paying business. It has no database access, secrets or outbound network, so a Chromium bug cannot reach any data ([ADR 0048](0048-documents-and-templates.md#where-rendering-runs)) |
 | Identity service | `id.signboard.works` ([ADR 0021](0021-authentication.md)). Kept separate so security-critical code is smaller, easier to review and easier to lock down |
 
-All of them share the one PostgreSQL database, each with its own database role and only the permissions it needs.
+All of them except the UI and the PDF renderer share the one PostgreSQL database, each with its own database role and only the permissions it needs.
 
 ### When to split a service out
 

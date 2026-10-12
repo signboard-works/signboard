@@ -47,7 +47,7 @@ A job is enqueued **in the same database transaction** as the change that needs 
 - **Fairness and ordering:**
     - **Per business:** jobs are claimed fairly across businesses, so one business's large import cannot starve another's emails.
     - **Per key:** jobs that must not overlap share a key and run one at a time, such as one accounting sync per business.
-    - **Per job type:** each type has a concurrency limit, so heavy jobs such as PDF generation and imports cannot swamp the worker.
+    - **Per job type:** each type has a concurrency limit, so heavy jobs such as PDF generation and imports cannot swamp the worker. PDF rendering also has a deadline and a page limit ([ADR 0048](0048-documents-and-templates.md#where-rendering-runs)).
 - **Long jobs** (imports, exports, large PDFs) work in chunks, record their progress, and can be cancelled.
 - **Shutting down cleanly.** When ECS stops a worker task, such as during a deploy ([ADR 0030](0030-hosting-aws.md)), the worker stops claiming new jobs, finishes what it can within the stop timeout, and releases the rest. Jobs interrupted any other way are reclaimed after a timeout and retried.
 
