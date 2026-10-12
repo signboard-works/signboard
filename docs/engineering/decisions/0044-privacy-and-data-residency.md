@@ -128,7 +128,7 @@ A business's export, and what happens to its data when it leaves, are decided in
 
 ### Former users on a business's records
 
-1. **Keep the name, marked "(Deactivated)"**: a business's history keeps saying who did what, as tools like Confluence do; the business can still remove the name on request. **Chosen.**
+1. **Keep the name, marked "(Deactivated)"**: a business's history keeps saying who did what, and shows who no longer has access; the business can still remove the name on request. **Chosen.**
 2. **Replace the name with "Former user" everywhere when the account closes**: removes the most; erases who did what from records that belong to the business, without the business deciding.
 
 ## Consequences
