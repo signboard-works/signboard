@@ -29,7 +29,7 @@ The vision also warns against the opposite mistake: generic tools fail these bus
 
 ### Starter packs carry the trade
 
-- A **starter pack** is configuration only: pricing templates, products, materials and processes, production stages and document wording for one trade, applied when a business is set up and freely changed afterwards.
+- A **starter pack** is configuration only: pricing templates, products, materials, work centres, document wording and the capabilities to switch on, such as proofs and site visits, for one trade, applied when a business is set up and freely changed afterwards.
 - Signboard launches with one starter pack, **sign and print**, built with the design partner shop. Another trade would get its own pack, with no code change.
 
 ### The pitch and the scope stay specific
@@ -47,7 +47,7 @@ The vision also warns against the opposite mistake: generic tools fail these bus
 
 - The PRDs, design docs, glossary and other ADRs are reviewed once for sign-specific names in the model and corrected in the same pull request as this ADR.
 - The glossary separates model terms, defined in general, from sign and print trade terms, kept as examples, and adds material, unit of measure, site visit, capability and starter pack.
-- Pricing methods are general: a measured quantity in a unit the business configures, of which area and length are the sign and print cases, rather than a fixed list ([pricing engine](../design/pricing-engine.md)). A quote line has no fixed width and height.
+- Pricing methods are general: a measured quantity in one of Signboard's units ([ADR 0036](0036-money-tax-and-time.md)), of which area and length are the sign and print cases, rather than a fixed list ([pricing engine](../design/pricing-engine.md)). A quote line has no fixed width and height.
 - The built-in Installer role becomes **Field staff**, offered when a business uses site visits ([ADR 0022](0022-authorisation-and-roles.md)).
 - Details of a customer's item, such as a vehicle for a wrap, are not fixed fields in the model. How a business records them is designed with jobs.
 - The vision says "built for sign and print first; works for any made-to-order business".
