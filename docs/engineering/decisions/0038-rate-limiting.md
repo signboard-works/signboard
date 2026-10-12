@@ -83,7 +83,7 @@ These limits must be exact and survive restarts and deploys, so they are counted
 
 - Limits are configuration per environment, not code, and are documented in the API reference so integrators know them.
 - An operations user can raise a business's limits for a period, such as during a data migration ([migration PRD](../requirements/prd-migration.md)). The change is audited ([ADR 0019](0019-audit-trail.md)).
-- On the hosted service, different editions may get different fair-use limits. That is decided in the entitlements ADR.
+- On the hosted service, different editions may get different fair-use limits. They are configured with the edition and enforced by the rate limiter ([ADR 0046](0046-entitlements.md)).
 - Self-hosted installations ship with the same defaults, and can change or turn off layer 2 in configuration. Layer 3 cannot be turned off, only adjusted.
 
 ### Visibility

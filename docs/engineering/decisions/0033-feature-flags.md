@@ -14,7 +14,7 @@ Feature flags are easy to add and hard to remove. Left alone, they pile up, ever
 
 Feature flags are not:
 
-- **Entitlements**: what a business's plan includes. That is permanent and commercial, and gets its own ADR.
+- **Entitlements**: what a business's plan includes. That is permanent and commercial, and decided in [ADR 0046](0046-entitlements.md).
 - **Business settings**: how a business wants Signboard to behave ([ADR 0006](0006-configuration-over-customisation.md)).
 - **Permissions**: what a user may do ([ADR 0022](0022-authorisation-and-roles.md)).
 - **Experiments** (A/B tests), which are out of scope.

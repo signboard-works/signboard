@@ -72,7 +72,7 @@ Names, descriptions, terms and conditions, and email and document templates are 
 - **Phone numbers** are stored in international E.164 format, such as `+61412345678`, validated and formatted with **libphonenumber** (libphonenumber-csharp, Apache 2.0, on the server; libphonenumber-js, MIT, in the browser). They are shown in the national format of the business's country.
 - **Addresses** are stored as structured fields: address lines, locality, region, postcode and an ISO 3166-1 country code. They are validated and laid out per country from Google's open address metadata (libaddressinput, Apache 2.0), so an address prints correctly on a quote or a label in any country.
 - **Paper size** for PDFs comes from the country: A4 by default, US Letter for the United States and Canada.
-- **Sorting and searching text** by locale is decided in the search ADR.
+- **Sorting and searching text** by locale is decided in [ADR 0045](0045-search.md#language-case-and-accents).
 
 ### Translations
 
