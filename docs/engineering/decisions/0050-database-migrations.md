@@ -12,7 +12,7 @@ Schema changes are the commonest way a release damages data. Signboard has one s
 
 The API and the UI deploy separately ([ADR 0015](0015-separate-deployments-one-origin.md)), and each API release must keep working with the previous UI build ([ADR 0029](0029-api-errors-idempotency-versioning.md)). During a deploy, old and new code run side by side. So a migration must never break the code running beside it. The application's database role cannot change the schema ([ADR 0004](0004-multi-tenant.md)), and several tasks start at once.
 
-This was first drafted as part of ADR 0043, and split out because it is a rule developers follow in every pull request, while backups are an operations concern.
+[ADR 0008](0008-database-postgresql.md) chose EF Core migrations, and now points here for how they run. This was first drafted as part of ADR 0043, and split out because it is a rule developers follow in every pull request, while backups are an operations concern.
 
 ## Decision
 
