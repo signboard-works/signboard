@@ -12,7 +12,7 @@ Signboard is a multi-tenant service whose tenants share one database, with isola
 
 ## Decision
 
-We will use PostgreSQL (current supported major version) as the only supported database, accessed through Entity Framework Core with the Npgsql provider. Schema changes are EF Core migrations, applied automatically on upgrade.
+We will use PostgreSQL (current supported major version) as the only supported database, accessed through Entity Framework Core with the Npgsql provider. Schema changes are EF Core migrations, applied by a separate step before each deploy, never when the application starts ([ADR 0050](0050-database-migrations.md)).
 
 ## Options considered
 

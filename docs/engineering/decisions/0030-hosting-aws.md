@@ -26,11 +26,11 @@ We will host Signboard on **Amazon Web Services in the Sydney region (`ap-southe
 
 ### Where data lives
 
-Every service that stores data runs in Sydney: the database, its backups, files, email, secrets, logs, traces and metrics. CloudFront serves the UI from edge locations, but caches only the static UI, never API responses. Customer and business data stays in Australia.
+Every service that stores data runs in Sydney: the database, its backups, files, email, secrets, logs, traces and metrics. The one exception is the backup copies kept outside production, which are in AWS Melbourne, also in Australia ([ADR 0043](0043-backups-and-recovery.md)). CloudFront serves the UI from edge locations, but caches only the static UI, never API responses. Customer and business data stays in Australia.
 
 ### Accounts and access
 
-- An **AWS Organization** with three accounts: a management account for billing only, **production**, and **non-production** (staging and preview environments). The account boundary keeps a mistake in staging from touching production.
+- An **AWS Organization** with four accounts: a management account for billing only, **production**, **non-production** (staging and preview environments) and, from before the first paying business, **backup**, which holds locked copies of production's backups in Melbourne ([ADR 0043](0043-backups-and-recovery.md)). The account boundaries keep a mistake in staging from touching production, and a compromise of production from deleting its backups.
 - People sign in through **IAM Identity Center** with multi-factor authentication. Nobody uses the root user or long-lived access keys.
 - **GitHub Actions deploys through OpenID Connect**, assuming a role in the target account. There are no AWS keys stored in GitHub.
 
@@ -62,7 +62,7 @@ Every service that stores data runs in Sydney: the database, its backups, files,
 
 - **At launch:** the database runs in one availability zone, with automated backups kept for 14 days and point-in-time recovery. Each service runs one task, and ECS replaces a failed task within a minute or two.
 - **Before the first paying business:** the database moves to **Multi-AZ**, with a standby in a second zone and automatic failover. The API and identity service run at least two tasks, in different zones.
-- Recovery targets, cross-region backup copies and restore testing are decided in the backups and disaster recovery ADR.
+- Recovery targets, backup copies outside production and restore testing are decided in [ADR 0043](0043-backups-and-recovery.md).
 
 ### Environments
 
@@ -92,7 +92,7 @@ Prices from AWS's price list for Sydney on 2026-10-11, using ARM processors, con
 | **Total at launch** | **206** | **324** |
 | **Total before paying businesses** | **287** | **452** |
 
-The largest items are the database (about 30–35% of production), the load balancer and Fargate. Not included: growth beyond the first handful of businesses, traces and metrics beyond basic volumes, and the domain registration. A one-year commitment (reserved database instances and a Compute Savings Plan) would cut roughly 20–35% from the database and Fargate lines once usage is steady. Credits from AWS programmes for new accounts and open-source projects should be applied for. The security services in [ADR 0039](0039-security-baseline.md) (GuardDuty threat detection and KMS keys) add about A$15 a month, bringing the launch total to about A$340.
+The largest items are the database (about 30–35% of production), the load balancer and Fargate. Not included: growth beyond the first handful of businesses, traces and metrics beyond basic volumes, and the domain registration. A one-year commitment (reserved database instances and a Compute Savings Plan) would cut roughly 20–35% from the database and Fargate lines once usage is steady. Credits from AWS programmes for new accounts and open-source projects should be applied for. The security services in [ADR 0039](0039-security-baseline.md) (GuardDuty threat detection and KMS keys) add about A$15 a month, bringing the launch total to about A$340. Backup copies to Melbourne and restore tests ([ADR 0043](0043-backups-and-recovery.md)) add about A$10 a month before paying businesses, bringing that total to about A$475.
 
 ### Staying portable
 

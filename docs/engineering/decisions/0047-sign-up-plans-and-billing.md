@@ -79,8 +79,8 @@ stateDiagram-v2
 ```
 
 - **Business administrators** see their plan, status and paid-until date, and receive email reminders before a trial ends, when a payment is missed, and before read-only starts ([ADR 0023](0023-email-sending.md)).
-- **Read-only** means the business's people can still sign in, see and export everything ([ADR 0044](0044-privacy-and-data-export.md)), and its customers can still see what was sent to them, but nothing can be created or changed. Changes are refused with `403`, code `account_read_only`.
-- **Nothing is deleted for non-payment.** Data is deleted only after a business cancels, and then only as [ADR 0044](0044-privacy-and-data-export.md) sets out, after notice and a chance to export.
+- **Read-only** means the business's people can still sign in, see and export everything ([ADR 0051](0051-data-export-and-leaving.md)), and its customers can still see what was sent to them, but nothing can be created or changed. Changes are refused with `403`, code `account_read_only`.
+- **Nothing is deleted for non-payment.** Data is deleted only after a business cancels, and then only as [ADR 0051](0051-data-export-and-leaving.md) sets out, after notice and a chance to export.
 
 ### Paying, at launch
 
@@ -122,7 +122,7 @@ stateDiagram-v2
 - Subscriptions are new objects, and need an ID prefix registered in the [data model](../design/data-model.md).
 - `account_read_only` is a new error code ([ADR 0029](0029-api-errors-idempotency-versioning.md)).
 - The operations app needs subscription views: trials ending, payments due, complimentary arrangements.
-- Terms of service and a privacy policy must exist before the first sign-up. The privacy policy follows [ADR 0044](0044-privacy-and-data-export.md).
+- Terms of service and a privacy policy must exist before the first sign-up. The privacy policy follows [ADR 0044](0044-privacy-and-data-residency.md).
 - Moving to Stripe later is a design doc and a feature behind a flag ([ADR 0033](0033-feature-flags.md)), not a change to this decision.
 - A sign-up PRD is needed, with its stories, before the sign-up screens are built.
 
