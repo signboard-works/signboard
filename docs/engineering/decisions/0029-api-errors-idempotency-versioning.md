@@ -59,7 +59,8 @@ Rules:
 | `400 Bad Request` | The request cannot be understood: unreadable JSON, a wrong content type in the body, an invalid RQL query ([ADR 0016](0016-rql-queries.md)), or an unknown field | `malformed_request`, `invalid_query`, `unknown_field` |
 | `401 Unauthorized` | No valid session or token | `unauthenticated` |
 | `403 Forbidden` | The caller lacks a permission ([ADR 0022](0022-authorisation-and-roles.md)) | `forbidden` |
-| `403 Forbidden` | The business's plan does not include the feature | `not_entitled` |
+| `403 Forbidden` | The business's plan does not include the feature ([ADR 0046](0046-entitlements.md)) | `not_entitled` |
+| `403 Forbidden` | The request would go beyond one of the plan's limits, with the limit, its maximum and current usage ([ADR 0046](0046-entitlements.md#limits)) | `limit_reached` |
 | `404 Not Found` | The object does not exist, is deleted ([ADR 0018](0018-soft-delete.md)), belongs to another business, or is not visible to the caller | `not_found` |
 | `409 Conflict` | The object's state does not allow the request, such as sending a quote that has already been accepted; or a retry arrives while the original request is still running | `invalid_state`, `request_in_progress` |
 | `412 Precondition Failed`, `428 Precondition Required` | Concurrency checks ([ADR 0031](0031-concurrency.md)) | `precondition_failed`, `precondition_required` |
