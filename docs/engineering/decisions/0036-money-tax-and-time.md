@@ -59,13 +59,13 @@ Each needs one rule, decided before the first price is calculated. The JSON type
 | Kind | Examples | PostgreSQL | .NET (NodaTime) | API |
 |---|---|---|---|---|
 | **A moment in time** | When something was created, sent or approved | `timestamptz` | `Instant` | RFC 3339 in UTC, `2026-10-11T03:15:00Z`. Names end in `At`: `createdAt`, `sentAt` |
-| **A calendar date** | Due dates, invoice dates, install dates | `date` | `LocalDate` | `2026-10-11`. Names end in `Date`: `dueDate`, `invoiceDate` |
+| **A calendar date** | Due dates, invoice dates, site-visit dates | `date` | `LocalDate` | `2026-10-11`. Names end in `Date`: `dueDate`, `invoiceDate` |
 | **A time of day** | A reminder at 9 am | `time` | `LocalTime` | `09:00` |
-| **A future appointment** | An installation at 10 am next Tuesday | `date` and `time`, in the business's time zone | `LocalDateTime` | A date and a time of day, such as `"installDate": "2026-10-20", "installTime": "10:00"`, in the business's time zone |
+| **A future appointment** | A site visit at 10 am next Tuesday | `date` and `time`, in the business's time zone | `LocalDateTime` | A date and a time of day, such as `"visitDate": "2026-10-20", "visitTime": "10:00"`, in the business's time zone |
 
 - **Moments are stored in UTC** and returned in UTC. The API accepts any RFC 3339 offset on input and converts it. A time with no offset is refused with `422`.
 - **A calendar date has no time and no zone.** It is the same date for everyone. Questions such as "overdue" or "due today" are answered in the business's time zone.
-- **Future appointments keep their local time.** An installation at 10 am stays at 10 am even if daylight-saving rules change before it happens. It is converted to a moment only when needed, such as to schedule a reminder.
+- **Future appointments keep their local time.** A site visit at 10 am stays at 10 am even if daylight-saving rules change before it happens. It is converted to a moment only when needed, such as to schedule a reminder.
 - **Each business has a time zone**, an IANA name such as `Australia/Sydney`, set when the business is created from the browser's zone and changeable in its settings.
 - **Times are shown in the business's time zone**, the same as on its documents, for staff and customer users. When the viewer's browser is in a different zone, times are labelled with the zone, such as "10:00 AEDT".
 - **Recurring schedules a business would notice run in its time zone** ([ADR 0034](0034-background-work.md)). System schedules run in UTC.

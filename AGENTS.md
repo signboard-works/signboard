@@ -60,13 +60,14 @@ The site has four tabs, each a top-level section of `nav` in `zensical.toml`: Ov
 ## Conventions
 
 - The tenant is a **business** (business account), never a "shop" in the model, API or UI. "Shop" is fine in the trade sense ("sign shop", "shop floor", "the design partner shop").
+- The model is trade-neutral (ADR 0049): names in the data model, API, events, permissions, ID prefixes and UI labels suit any made-to-order business ("material", not "substrate"). Sign and print terms belong in the pitch, examples, sample data and the sign and print starter pack. Trade-specific features (proofs, artwork, installation) are capabilities a business switches on.
 - British English spelling throughout.
 - Use standard industry terms: PRD, design document, ADR, user story, acceptance criteria. Do not use SoftwareOne-internal acronyms (BDR, TDR).
 - User story IDs use a module prefix: QUO, SO, JOB, INV, EML, MIG.
 - Every doc has a status header: Draft, In review, Approved, Superseded.
 - Diagrams in Mermaid, not images.
 - Never put the design partner shop's name, staff names, pricing or customers in the repo. Refer to it as "the design partner shop".
-- Shop-specific behaviour is configuration, never code (ADR 0006).
+- Business-specific and trade-specific behaviour is configuration, never code (ADR 0006).
 - Code examples always use curly braces, even for single-line blocks.
 
 ## Commands

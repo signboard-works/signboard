@@ -9,7 +9,7 @@
 
 ## Summary
 
-One paragraph: what this module is and why it matters to a sign shop.
+One paragraph: what this module is and why it matters to a made-to-order business, starting with the design partner shop.
 
 ## Problem
 

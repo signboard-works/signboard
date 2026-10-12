@@ -13,7 +13,7 @@ How a quote line's price is calculated. The most important design in the system.
 
 ## Known constraints (to be expanded)
 
-- Pricing methods: area, length, machine or cutting time, per unit with quantity breaks, labour or design hours, fixed.
+- Pricing methods: by measured quantity, machine time, per unit with quantity breaks, labour hours, and fixed. The methods are general ([ADR 0049](../decisions/0049-scope-made-to-order-businesses.md)): what is measured and in which unit (area in m², length in lineal metres, or another, such as weight), and which kinds of labour (such as design), are configuration. The sign and print starter pack sets up area and length. A quote line has no fixed width and height fields; its measurements are inputs its pricing template defines.
 - A single line can combine several components, e.g. an illuminated acrylic sign is material plus CNC time plus fabrication plus installation.
 - Rates, markups, minimums and rounding are configuration. Arithmetic, precision, units and tax follow [ADR 0036](../decisions/0036-money-tax-and-time.md); commercial rounding (such as to the nearest $5) is decided here.
 - Every calculated price must be explainable: staff can see how it was built up.

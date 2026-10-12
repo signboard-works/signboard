@@ -39,13 +39,13 @@ Built-in roles by account kind:
 |---|---|---|
 | Business | **Administrator** | Everything, including settings, members, roles and API clients |
 | Business | **Sales** | Customers, quotes and sales orders in full, including costs and margins; reads jobs and invoices |
-| Business | **Designer** | Reads quotes and orders; works on design and proofs; no cost or margin |
+| Business | **Designer** | Reads quotes and orders; works on design and, where used, proofs; no cost or margin |
 | Business | **Production** | Reads and moves jobs through work centres; no prices |
-| Business | **Installer** | Reads jobs and their install details, records install progress; no prices |
+| Business | **Field staff** | Reads jobs and their site-visit details, such as an installation's, and records progress on site; no prices. Offered when the business uses site visits ([ADR 0049](0049-scope-made-to-order-businesses.md)) |
 | Business | **Accounts** | Invoices, payments and accounting sync in full; reads customers, quotes and orders, including costs |
 | Business | **Signboard support** | Given to an operations user who adds themselves to the account: reads everything, changes nothing |
 | Customer | **Customer administrator** | Everything the customer account can see and do, including managing its users |
-| Customer | **Approver** | Views, and approves or declines, quotes and proofs |
+| Customer | **Approver** | Views, and approves or declines, quotes and, where used, proofs |
 | Customer | **Viewer** | Views only |
 | Operations | **Platform administrator** | Runs the platform, including operations memberships |
 | Operations | **Support** | Supports businesses, including adding themselves to a business's account |
@@ -57,7 +57,7 @@ The exact permissions in each role are set out in the authorisation design. The 
 
 - Business staff see all of their business's records, limited by their permissions and field groups.
 - Customer users see only their own customer account's records.
-- Narrower scopes (for example, an installer seeing only jobs assigned to them) are a later decision.
+- Narrower scopes (for example, field staff seeing only jobs assigned to them) are a later decision.
 
 ### Managing memberships
 

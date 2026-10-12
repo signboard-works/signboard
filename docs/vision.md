@@ -4,7 +4,7 @@
 |---|---|
 | **Status** | Draft |
 | **Owner** | Stuart Meeks |
-| **Last updated** | 2026-10-10 |
+| **Last updated** | 2026-10-12 |
 
 ## The problem
 
@@ -17,7 +17,7 @@ A shop with four people on the floor should not be paying enterprise prices for 
 
 ## What Signboard is
 
-An open-source, hosted application (which a shop can also run itself) that runs a sign or print shop's core workflow:
+An open-source, hosted application (which a business can also run itself) that runs a sign or print shop's core workflow. It is built for sign and print first, and works for any made-to-order business, such as an embroiderer, engraver or fabricator, because its model is trade-neutral and the trade lives in configuration ([ADR 0049](engineering/decisions/0049-scope-made-to-order-businesses.md)):
 
 ```mermaid
 flowchart LR
@@ -30,7 +30,7 @@ flowchart LR
 
 ## Goals
 
-1. **Quote accurately and quickly**, using the pricing methods sign shops actually use, including mixed methods on a single line.
+1. **Quote accurately and quickly**, using the pricing methods sign shops actually use (measured area and length, machine time, quantity breaks, labour), which suit other made-to-order work too, including mixed methods on a single line.
 2. **Give the shop floor a clear, live view** of every job and where it is.
 3. **Get customer email to the inbox**: quotes, proofs and invoices that arrive reliably and look professional.
 4. **Keep the books in sync** with the shop's accounting system without double entry.
@@ -45,23 +45,23 @@ flowchart LR
 - Payroll, timesheets or HR
 - An online storefront
 
-These may come later, but only when a real shop asks for them.
+These may come later, but only when a real business asks for them. The same goes for features for other trades: none is built until a real business in that trade asks.
 
 ## Personas
 
 | Persona | Who they are | What they need most |
 |---|---|---|
 | **Owner** | Runs the business; often also sells, designs and quotes | Fast, accurate quotes; visibility of what's due and what's been paid |
-| **Designer** | Produces artwork and proofs | Clear briefs; a simple proof and approval loop |
-| **Production staff** | Prints, laminates, cuts, routes and fabricates | Knowing what to work on next, with every spec they need on the job |
-| **Installer** | Fits signs and wraps on site | Site address, contact, date, and exactly what's being installed |
+| **Designer** | Produces artwork, drawings and proofs | Clear briefs; a simple proof and approval loop |
+| **Production staff** | Makes the work: in a sign shop, prints, laminates, cuts, routes and fabricates | Knowing what to work on next, with every spec they need on the job |
+| **Installer** | Fits signs and wraps on site (field staff, in Signboard's roles) | Site address, contact, date, and exactly what's being installed |
 | **Customer** | Businesses, organisations and individuals buying signage | Professional quotes and proofs that are easy to approve |
 | **Platform operator** | Member of the operations account; runs the hosted Signboard service | Safe upgrades, monitoring, backups and tenant isolation, without seeing businesses' data unless they join a business account to help |
-| **Self-hosting admin** | Runs Signboard on a shop's own server instead of using the hosted service | Simple deployment, backups and upgrades |
+| **Self-hosting admin** | Runs Signboard on a business's own server instead of using the hosted service | Simple deployment, backups and upgrades |
 
 ## Design partner
 
-Signboard is being built first for a real, working sign and print shop in regional New South Wales: four people on the floor, offering design, large-format print, laminating, laser cutting, CNC routing, vehicle wraps, illuminated signage, engraving and installation. Requirements are validated against how that shop actually works. Everything shop-specific lives in configuration, never in code.
+Signboard is being built first for a real, working sign and print shop in regional New South Wales: four people on the floor, offering design, large-format print, laminating, laser cutting, CNC routing, vehicle wraps, illuminated signage, engraving and installation. Requirements are validated against how that shop actually works. Everything specific to that shop, or to the sign trade, lives in configuration, never in code, and becomes the sign and print starter pack.
 
 ## Principles
 
@@ -81,7 +81,7 @@ In practice:
 
 ### Configuration over customisation
 
-Pricing rules, production stages, tax settings, branding and email templates are configuration. A new shop should be able to adopt Signboard without changing a line of code.
+Pricing rules, production stages, tax settings, branding and email templates are configuration. A new business should be able to adopt Signboard without changing a line of code.
 
 ### API first
 

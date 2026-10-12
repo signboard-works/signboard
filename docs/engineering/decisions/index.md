@@ -9,7 +9,7 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0003](0003-licence.md) | Open-source licence: Apache 2.0 | Accepted |
 | [0004](0004-multi-tenant.md) | Multi-tenant SaaS, with row-level isolation | Accepted |
 | [0005](0005-accounting-as-plugin.md) | Accounting systems behind a plugin interface | Accepted |
-| [0006](0006-configuration-over-customisation.md) | Shop-specific behaviour is configuration, not code | Accepted |
+| [0006](0006-configuration-over-customisation.md) | Business-specific behaviour is configuration, not code | Accepted |
 | [0007](0007-backend-dotnet.md) | Back end: .NET and ASP.NET Core | Accepted |
 | [0008](0008-database-postgresql.md) | Database: PostgreSQL | Accepted |
 | [0009](0009-frontend-react.md) | Front end: React, TypeScript and Mantine | Accepted |
@@ -52,5 +52,6 @@ Each significant decision gets one short, numbered record: the context, the deci
 | [0046](0046-entitlements.md) | Entitlements | Proposed |
 | [0047](0047-sign-up-plans-and-billing.md) | Sign-up, plans and billing | Proposed |
 | [0048](0048-documents-and-templates.md) | Documents and templates | Proposed |
+| [0049](0049-scope-made-to-order-businesses.md) | Scope: built for sign and print, open to any made-to-order business | Accepted |
 
 New records use the [ADR template](https://github.com/signboard-works/signboard/blob/main/docs/engineering/templates/adr-template.md).

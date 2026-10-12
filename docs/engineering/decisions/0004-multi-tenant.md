@@ -16,7 +16,7 @@ The worst possible failure of a multi-tenant system is one business seeing anoth
 
 ## Decision
 
-Signboard is a multi-tenant application. A **tenant** is one **business**: a sign or print shop and everything it holds, including its customers.
+Signboard is a multi-tenant application. A **tenant** is one **business**: a made-to-order business, such as a sign or print shop, and everything it holds, including its customers.
 
 - **Shared database, shared schema.** Every tenant-owned table has a non-null `tenant_id`. Only platform-level data (tenants, users, the operations account, the index of users' memberships, plans) sits outside a tenant.
 - **Isolation enforced twice.** PostgreSQL row-level security policies on every tenant-owned table restrict rows to the current tenant, which the application sets for each transaction. The application connects as a role that does not own the tables and cannot bypass row-level security. EF Core global query filters apply the same rule in the application, so a mistake in one layer is caught by the other.
