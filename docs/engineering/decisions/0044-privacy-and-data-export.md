@@ -49,7 +49,7 @@ This is a design decision, not legal advice.
 
 ### Data residency
 
-- All business and personal data is stored and processed in **Australia**: in AWS Sydney, with backup copies in AWS Melbourne ([ADR 0030](0030-hosting-aws.md), [ADR 0043](0043-backups-recovery-and-migrations.md)).
+- All business and personal data is stored and processed in **Australia**: in AWS Sydney, with backup copies in AWS Melbourne ([ADR 0030](0030-hosting-aws.md), [ADR 0043](0043-backups-and-recovery.md)).
 - **Sub-processors** are listed publicly and kept current:
 
 | Service | What it receives | Where |
@@ -78,7 +78,7 @@ This is a design decision, not legal advice.
 | Logs, traces and metrics | 90 days | [ADR 0025](0025-observability.md) |
 | Event outbox, completed jobs | 7 days | [ADR 0032](0032-events-webhooks-live-updates.md), [ADR 0034](0034-background-work.md) |
 | Idempotency keys | 24 hours | [ADR 0029](0029-api-errors-idempotency-versioning.md) |
-| Backups | As set in [ADR 0043](0043-backups-recovery-and-migrations.md) | |
+| Backups | As set in [ADR 0043](0043-backups-and-recovery.md) | |
 | A business's data after it leaves | Deleted after the grace period below | This ADR |
 
 Keeping records such as invoices for as long as tax law requires is the business's obligation. Signboard keeps them while the business is a customer, and the export lets the business keep them afterwards.
@@ -89,7 +89,7 @@ Keeping records such as invoices for as long as tax law requires is the business
 - **The ID that remains identifies no one.** Every field that could identify the person is cleared, IDs are random and never reused ([ADR 0017](0017-object-ids.md)), and the links to the person elsewhere are severed: their person record and events in PostHog are deleted, and logs and traces, which hold IDs only, expire within 90 days ([ADR 0025](0025-observability.md)). A test checks that no personal field survives de-identification.
 - De-identification also clears the person from **audit snapshots** ([ADR 0019](0019-audit-trail.md)) and from **search indexes** ([ADR 0045](0045-search.md)).
 - **Files** that may contain the person, such as artwork or signed approvals, are listed for the business to review, because a file's content cannot be edited automatically. The erasure is not complete until each listed file has been deleted or replaced with a redacted copy, and until then the files are excluded from exports.
-- **Backups** keep erased data until they expire ([ADR 0043](0043-backups-recovery-and-migrations.md)). Every erasure is recorded in a durable erasure log, and the restore tooling applies that log to restored data **before** it reaches production, so a restore can never bring erased information back. Restore tests check it.
+- **Backups** keep erased data until they expire ([ADR 0043](0043-backups-and-recovery.md)). Every erasure is recorded in a durable erasure log, and the restore tooling applies that log to restored data **before** it reaches production, so a restore can never bring erased information back. Restore tests check it.
 - Every erasure is audited, without recording the erased values.
 - We do not use per-person encryption keys ("crypto-shredding"). They would make every query and search harder, for a guarantee that de-identification and expiring backups already give.
 

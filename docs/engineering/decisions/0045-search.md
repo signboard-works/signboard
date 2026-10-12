@@ -38,7 +38,7 @@ Search must respect everything already decided:
 ### Keeping it current
 
 - Search documents live in a `search_documents` table owned by the `system` module, one row per searchable object, updated **in the same transaction** as the change, by the same mechanism that writes change events to the outbox from the revision trigger ([ADR 0031](0031-concurrency.md), [ADR 0032](0032-events-webhooks-live-updates.md)). An object is searchable the moment it is saved, and never searchable after it is deleted ([ADR 0018](0018-soft-delete.md)).
-- A rebuild job re-creates every search document for a business, used after a change to what is searchable or a restore ([ADR 0034](0034-background-work.md), [ADR 0043](0043-backups-recovery-and-migrations.md)).
+- A rebuild job re-creates every search document for a business, used after a change to what is searchable or a restore ([ADR 0034](0034-background-work.md), [ADR 0043](0043-backups-and-recovery.md)).
 
 ### Object IDs jump straight to the object
 
