@@ -34,7 +34,7 @@ On tax: a business must register for GST once its GST turnover reaches A$75,000 
 ### Plans
 
 - **One paid plan at launch**, called Standard, with every feature.
-- **One price per business, with unlimited users**: **A$49 a month, or A$490 a year** (two months free), including GST if the operator charges it. Charging per user would work against the vision, which counts per-seat pricing among the problems with the tools businesses use today. About ten paying businesses cover the running costs. The price is reviewed against costs as the service grows.
+- **One price per business, with unlimited users**: **A$49 a month, or A$490 a year** (two months free), including GST if the operator charges it. Charging per user would work against the vision, which counts per-seat pricing among the problems with the tools businesses use today. About ten businesses paying monthly, or twelve paying yearly, cover the running costs. The price is reviewed against costs as the service grows.
 - **No free plan.** A free plan on the hosted service costs real money for every business on it. The free option is self-hosting, which gets everything.
 - **A 30-day trial** of the full plan, with no payment details needed.
 - **Complimentary** status, set by an operations user, for businesses that should not pay, such as an open-source project or a charity. Each complimentary arrangement has a reason and an optional end date, and is audited ([ADR 0019](0019-audit-trail.md)).
@@ -74,14 +74,13 @@ stateDiagram-v2
     complimentary --> read_only: arrangement ends unpaid
     active --> closing: business closes
     read_only --> closing: business closes, or trial never paid
-    closing --> active: closure cancelled, paid
-    closing --> read_only: closure cancelled, unpaid
     closing --> [*]: deleted after 30 days
+    note right of closing: Cancelling the closure returns the business to the status it would otherwise have
 ```
 
 - **Past due** lasts 14 days. Administrators are emailed when the payment is missed, 7 days later, and the day before read-only starts ([ADR 0023](0023-email-sending.md)).
 - **Business administrators** see their plan, status and paid-until date, and are also emailed before a trial ends.
-- **Closing** is the closure in [ADR 0051](0051-data-export-and-leaving.md#a-business-leaving): read-only for 30 days, with export, reminders and the option to cancel, then deletion. Cancelling the closure returns the business to the status it would otherwise have, which is read-only if it has not paid. An administrator can close the business from any status; the diagram shows the usual cases.
+- **Closing** is the closure in [ADR 0051](0051-data-export-and-leaving.md#a-business-leaving): read-only for 30 days, with export, reminders and the option to cancel, then deletion. Cancelling the closure returns the business to the status it would otherwise have: its trial if the trial has not ended, active if it is paid up, and read-only otherwise. An administrator can close the business from any status; the diagram shows the usual cases.
 - **Read-only** means the business's people can still sign in, see and export everything ([ADR 0051](0051-data-export-and-leaving.md)), and its customers can still see what was sent to them, but nothing can be created or changed. Changes are refused with `403`, code `account_read_only`.
 - **A business that has paid is never deleted for non-payment.** It stays read-only, with everything visible and exportable, until it pays or closes.
 - **A trial that is never paid for is closed.** A business that has never paid, and is not complimentary, starts closing 90 days after its trial ends, after its administrators are emailed 14 days and 1 day beforehand. It then has the usual 30 days of closure, with export. Without this, every abandoned trial would be kept, and paid for, for ever.
@@ -95,12 +94,13 @@ stateDiagram-v2
 
 - **Stripe Billing** with Stripe's hosted Checkout and Customer Portal. Card details are entered only on Stripe's pages and never reach Signboard, which keeps Signboard to the simplest PCI DSS self-assessment (SAQ A).
 - Stripe's events arrive as signed webhooks, are processed as background jobs ([ADR 0034](0034-background-work.md)), and update the subscription status. The status, not Stripe, is what the rest of Signboard reads.
-- **Not a merchant of record.** A merchant of record, such as Paddle or Lemon Squeezy, would resell the subscription to each business and handle its sales tax in every country, at about twice Stripe's cost. Signboard sells only to businesses, so most overseas rules that make one worthwhile, which are about selling to consumers, do not apply. This is revisited if Signboard sells widely abroad, especially in the United States, where states tax software services under their own rules and thresholds.
+- **Not a merchant of record.** A merchant of record, such as Paddle or Lemon Squeezy, would resell the subscription to each business and handle its sales tax in every country, at about twice Stripe's cost. Signboard sells only to businesses, so the rules that make one most worthwhile, which are about selling to consumers, mostly do not apply. In the EU, for example, a business customer usually accounts for VAT itself under the reverse charge ([European Commission: place of taxation](https://taxation-customs.ec.europa.eu/taxation/vat/vat-directive/place-taxation_en)). This is revisited if Signboard sells widely abroad. The United States in particular is an assumption to check then: its states tax software services under their own rules and thresholds.
 
 ### Tax on subscriptions
 
 - Prices are shown and invoiced in Australian dollars at launch.
-- If the operator is registered for GST, subscription invoices are tax invoices that show GST; if not, they do not charge GST. Signboard supports both.
+- If the operator is not registered for GST, no invoice charges GST.
+- If it is registered, GST is worked out for each invoice from the business's country. A business in Australia is charged GST, on a tax invoice. A business outside Australia may be GST-free, as a service supplied to a non-resident outside Australia ([ATO: exports and GST](https://www.ato.gov.au/businesses-and-organisations/international-tax-for-business/australians-doing-business-overseas/exports-and-gst)). The operator's accountant confirms the treatment for each country before the first business there pays.
 - **Who the operator is**, Stuart as a sole trader or a company, and whether it registers for GST, is decided with an accountant before the first paying business. It decides whose ABN is on the invoices and who holds the liability, but nothing in this ADR depends on it, which is why it says "the operator".
 
 ## Options considered
