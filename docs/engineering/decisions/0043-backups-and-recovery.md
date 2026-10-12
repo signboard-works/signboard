@@ -47,10 +47,11 @@ These targets are stated publicly, so businesses know what to expect, and each r
 
 A restore brings back the data as it was at the recovery point, including anything erased since ([ADR 0044](0044-privacy-and-data-residency.md#erasing-personal-information)). The log of erasures and business closures that undoes that must therefore survive whatever the restore is recovering from, so it cannot live only in the database being restored.
 
-- Each erasure or closure is written to the database in the same transaction as the change, and an outbox job ([ADR 0032](0032-events-webhooks-live-updates.md)) appends it to an **erasure log bucket** in S3, with Object Lock so entries cannot be changed or deleted.
-- The bucket is **replicated to the backup account in Melbourne**, so the log survives the loss of the production account or the Sydney region. Replication starts with the other copies, before the first paying business.
+- The log is an **erasure log bucket in the backup account, in Melbourne**, with Object Lock so entries cannot be changed or deleted, so it survives the loss of the production account or the Sydney region. Production can add entries through a write-only role, and cannot delete or change them. Until the backup account exists, before the first paying business, the bucket is in production.
+- **The log is written first.** Erasures and closures run as jobs ([ADR 0034](0034-background-work.md)). Each job writes its entry to the bucket, waits for S3 to confirm it, and only then de-identifies or deletes anything. If the job fails after writing, it is retried, and applying the entry again on a restore does no harm, because the erasure was requested either way. So there is never a moment when data has been erased but the log does not yet say so.
+- An erasure is reported to the person or business as done only once its job has finished.
 - Entries hold IDs and what was erased or closed, never the erased values, so the log itself holds no personal information. They are kept for as long as any backup could predate them, at least 35 days, and in practice for the life of the service, since they are tiny.
-- **Every restore applies the log before restored data reaches production or anyone using it:** a whole-database restore applies every entry later than its recovery point before traffic moves to it, and a single-business restore applies it to the exported data (below). The restore reads the log from the Melbourne copy when the Sydney copy is unavailable.
+- **Every restore applies the log before restored data reaches production or anyone using it:** a whole-database restore applies the whole log before traffic moves to it, and a single-business restore applies it to the exported data (below). Applying an entry that is already in effect changes nothing, so the whole log is applied, not only the entries after the recovery point, which might miss one written just before it. The restore reads the log from the backup account, which it can reach even when production cannot.
 
 ### Restoring one business
 
@@ -66,7 +67,7 @@ That tool is built before the first paying business, as [ADR 0004](0004-multi-te
 ### Restore testing
 
 - **Monthly, automatically, from before the first paying business:** AWS Backup's restore testing restores the latest database snapshot to a temporary instance, a check confirms that it opens and that row counts and the latest migration are as expected, and the instance is deleted. A failure raises an alert ([ADR 0025](0025-observability.md)).
-- **Every quarter, by hand, from the first paying business:** a drill that restores the database and files from the Melbourne copies, restores one business, checks that the erasure log, read from its Melbourne copy, was applied, and times both against the recovery targets. The drill is scripted, so it takes about an hour of the maintainer's time. The result is recorded in the journal ([ADR 0014](0014-build-journal.md)).
+- **Every quarter, by hand, from the first paying business:** a drill that restores the database and files from the Melbourne copies, restores one business, checks that the erasure log, read from the backup account, was applied, and times both against the recovery targets. The drill is scripted, so it takes about an hour of the maintainer's time. The result is recorded in the journal ([ADR 0014](0014-build-journal.md)).
 - **Production data never goes to staging or preview environments**, not even for a drill. Restores happen only in the production and backup accounts ([ADR 0039](0039-security-baseline.md)).
 
 ### Self-hosted installations
@@ -105,6 +106,6 @@ The estimate assumes a database of about 5 GB and 20 GB of files, and grows with
 
 - [ADR 0030](0030-hosting-aws.md) gains a fourth account, the backup account; backup copies in Melbourne, which stay in Australia; and about A$10 a month before paying businesses, taking that total to about A$475.
 - The business export and import tool is a shared component ([ADR 0051](0051-data-export-and-leaving.md#one-export-and-import-tool)).
-- The deployment design adds the AWS Backup plans, the vault and its lock, the erasure log bucket and its replication, and the restore test, all in the CDK code.
+- The deployment design adds the AWS Backup plans, the vault and its lock, the erasure log bucket and its write-only role, and the restore test, all in the CDK code.
 - Backups hold personal data for up to 35 days after it is de-identified or deleted, which the privacy ADR and the privacy policy state.
 - The switch of Vault Lock to compliance mode is a dated task on the board once the backup account is set up.
