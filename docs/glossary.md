@@ -16,9 +16,9 @@ Trade terms and Signboard's own vocabulary. If a word appears in a PRD or design
 | **Tax-exclusive pricing** | Prices entered and shown before tax, with tax added on top. Signboard's default; a business can choose tax-inclusive pricing instead. |
 | **Locale** | A business's choice of number, currency and date formats, such as `en-AU`. Everyone working on the business's data sees its formats. |
 | **Document language** | The language a customer's quotes, invoices and emails are written in, set per customer by the business. |
-| **Pricing method** | How a quote line component is priced: by a measured quantity (such as area or length, in one of Signboard's units), by time, per unit, or a fixed amount. |
+| **Pricing method** | How a quote line component is priced: by a measured quantity (such as area or length, in one of the units of measure), by time, per unit, or a fixed amount. |
 | **Material** | Anything consumed in making the work and priced as such. In a sign shop, a substrate, vinyl or laminate. |
-| **Unit of measure** | The unit a quantity is counted or measured in, such as m², metre, hour or each, from a fixed list in code. Every quantity has one ([ADR 0036](engineering/decisions/0036-money-tax-and-time.md)). |
+| **Unit of measure** | The unit a quantity is counted or measured in, such as m², metre, hour or each. Units are a platform-wide collection that operations users manage; businesses choose from it. Every quantity has one ([ADR 0036](engineering/decisions/0036-money-tax-and-time.md)). |
 | **Proof** | A representation of the work, such as artwork, a drawing or a render, sent to the customer for approval before production. An optional capability. |
 | **Site visit** | Work done at the customer's site, such as an installation, measure-up or delivery, with an address, contact, date and crew. An optional capability. |
 | **Capability** | A feature that suits some trades and not others, such as proofs or site visits, which a business switches on in its settings. Not an edition or a feature flag. |

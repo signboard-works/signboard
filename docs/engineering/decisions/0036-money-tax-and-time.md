@@ -78,7 +78,10 @@ Each needs one rule, decided before the first price is calculated. The JSON type
 
 ### Quantities
 
-- **Every quantity has a unit**, from a fixed list in code: `each`, `mm`, `m`, `m2` and `hour` to start with. In the API a quantity sits next to its unit: `"quantity": 2.5, "unit": "m2"`.
+- **Every quantity has a unit** from the **units of measure** collection: platform-wide reference data in the database, shared by every business and managed by operations users, so a new unit, such as kilograms, needs no release. It starts with `each`, `mm`, `m`, `m2` and `hour`, seeded by a migration.
+    - Each unit has an object ID ([ADR 0017](0017-object-ids.md)), a short **code** that never changes once it is in use, a name and symbol in each language ([ADR 0037](0037-localisation.md)), and what it measures, such as length or area.
+    - In the API a quantity sits next to its unit's code, as currencies use ISO codes: `"quantity": 2.5, "unit": "m2"`.
+    - Businesses read the collection but cannot change it. A unit in use is retired, never deleted ([ADR 0018](0018-soft-delete.md)).
 - **Metric inside Signboard.** Sizes are millimetres, lengths metres, areas square metres. Machine and labour time are **decimal hours**, such as `1.5`, never minutes or `1:30`. Field names say the unit where it is fixed, such as `widthMm` or `machineHours`.
 - Showing other units, such as feet and inches, can come later as display configuration. What is stored stays metric.
 
@@ -116,7 +119,7 @@ Numbers, amounts and dates are formatted for display from the business's locale,
 
 ## Consequences
 
-- The `Money` type, the rounding helper, the tax calculation and the unit list live in a shared library used by every module. They are tested with property-based tests for rounding and tax ([ADR 0012](0012-testing.md)), including tax-inclusive lines and negative amounts such as credits.
+- The `Money` type, the rounding helper, and the tax calculation live in a shared library used by every module. They are tested with property-based tests for rounding and tax ([ADR 0012](0012-testing.md)), including tax-inclusive lines and negative amounts such as credits.
 - Every line on a quote, order or invoice stores its tax rate's name, code and percentage. The invoices and accounting designs map tax rates to each accounting system's tax codes.
 - The architecture tests and banned-API analysers check for floating-point money, unqualified rounding and the system clock.
 - Validation refuses values with too many decimal places or digits, with `422 too_many_decimal_places` ([ADR 0029](0029-api-errors-idempotency-versioning.md#json-types)).

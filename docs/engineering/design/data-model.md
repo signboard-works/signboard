@@ -4,7 +4,7 @@
 |---|---|
 | **Status** | Draft |
 | **Author** | Stuart Meeks |
-| **Last updated** | 2026-10-10 |
+| **Last updated** | 2026-10-12 |
 | **Phase** | 1 |
 
 ## Context
@@ -15,6 +15,7 @@ Every entity, field and relationship, designed in full before build.
 
 - Core chain: customer, quote (versions, lines, components), sales order, job, invoice, payment.
 - Supporting: users and roles, catalogue items, materials, pricing rules, work centres, activity log, email events.
+- Platform reference data, shared by every business and managed by operations users: units of measure ([ADR 0036](../decisions/0036-money-tax-and-time.md#quantities)).
 - Every object has one ID, a prefix and random digits in groups of four, which is also its primary key ([ADR 0017](../decisions/0017-object-ids.md)). Versioned objects keep one ID; their versions are numbered beneath it.
 - Rows are soft-deleted by default ([ADR 0018](../decisions/0018-soft-delete.md)).
 
@@ -35,6 +36,7 @@ Every object type has one three-letter prefix and a fixed number of digits, a mu
 | `FIL` | File | To be decided |
 | `EVT` | Event ([ADR 0032](../decisions/0032-events-webhooks-live-updates.md)) | To be decided |
 | `WHK` | Webhook ([ADR 0032](../decisions/0032-events-webhooks-live-updates.md)) | To be decided |
+| `UOM` | Unit of measure ([ADR 0036](../decisions/0036-money-tax-and-time.md#quantities)) | To be decided |
 
 This list grows as the data model is designed.
 
