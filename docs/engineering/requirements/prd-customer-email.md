@@ -9,7 +9,7 @@
 
 ## Summary
 
-Send quotes, proofs and invoices to customers reliably and professionally.
+Send quotes, invoices and, where the business uses them, proofs to customers reliably and professionally.
 
 ## Known requirements (to be expanded)
 

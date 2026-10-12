@@ -4,7 +4,7 @@ Questions for the design partner shop that shape the requirements. Answers are r
 
 | # | Question | Affects | Answer |
 |---|---|---|---|
-| 1 | Which pricing methods are used today: area, machine or cutting time, per unit with quantity breaks, labour or design hours, fixed price? | [Pricing engine](../design/pricing-engine.md), [Quotes](prd-quotes.md) | |
+| 1 | Which pricing methods are used today: area, length, machine or cutting time, per unit with quantity breaks, labour or design hours, fixed price? | [Pricing engine](../design/pricing-engine.md), [Quotes](prd-quotes.md) | |
 | 2 | Does the current system price well, or are prices often overridden by hand? Where? | Pricing engine | |
 | 3 | Is design billed separately or built into the job price? | Quotes | |
 | 4 | How many proof revisions are typical, and how do customers approve proofs today? | Jobs, Customer email | |

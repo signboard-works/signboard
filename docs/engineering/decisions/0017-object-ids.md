@@ -40,7 +40,7 @@ JOB-4821-0937-1156
 
 **Validation:**
 
-- An ID with the wrong prefix for the endpoint (`GET /api/v1/jobs/QUO-…`) is rejected without touching the database: `404 Not Found` in a path, `400 Bad Request` in a request body.
+- An ID with the wrong prefix for the endpoint (`GET /api/v1/production/jobs/QUO-…`) is rejected without touching the database: `404 Not Found` in a path, `400 Bad Request` in a request body.
 - The database enforces the format with a check constraint on every ID column, including the prefix and the length for that table.
 
 **IDs never change and are never reissued.** An object keeps its ID for life. Rows are soft-deleted by default ([ADR 0018](0018-soft-delete.md)), so a deleted object's row, and its ID, stay in the table, and the primary key constraint keeps the ID from being issued again. For the rare object types that are hard-deleted, an ID could in theory be issued again after deletion; that is accepted.

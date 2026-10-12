@@ -4,5 +4,6 @@ A dated record of how Signboard is being built, mostly with AI assistance: what 
 
 | Date | Summary |
 |---|---|
+| [2026-10-12](2026-10-12.md) | Scope opened to any made-to-order business; model names made trade-neutral |
 | [2026-10-11](2026-10-11.md) | Docs moved to Zensical and restructured into tabs |
 | [2026-10-10](2026-10-10.md) | Documentation site scaffolded; licence, tenancy, stack and core principles decided |

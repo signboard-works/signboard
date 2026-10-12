@@ -19,7 +19,7 @@ Resource Query Language (RQL) is an established query-string syntax for filterin
 Every collection endpoint accepts RQL in the Marketplace dialect, for example:
 
 ```
-GET /api/v1/jobs?and(eq(status,in_production),ge(dueDate,2026-11-01))&order=-dueDate,number&select=customer&limit=50&offset=100
+GET /api/v1/production/jobs?and(eq(status,in_production),ge(dueDate,2026-11-01))&order=-dueDate,number&select=customer&limit=50&offset=100
 ```
 
 - **Implementation:** Mpt.Rql, applied to EF Core queries so filtering, sorting and projection run in PostgreSQL, beneath row-level security ([ADR 0004](0004-multi-tenant.md), [ADR 0008](0008-database-postgresql.md)).

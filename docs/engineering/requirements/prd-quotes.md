@@ -13,7 +13,7 @@ Create, price, version and send quotes to customers.
 
 ## Known requirements (to be expanded)
 
-- Quote lines can mix pricing methods (area, machine time, per unit with quantity breaks, labour or design hours, fixed). See [pricing engine](../design/pricing-engine.md).
+- Quote lines can mix pricing methods (measured quantities such as area or length, machine time, per unit with quantity breaks, labour hours such as design, fixed). See [pricing engine](../design/pricing-engine.md).
 - Quotes are versioned. A sent quote is never edited; it is revised as a new version.
 - Quotes are sent as a branded PDF and a customer approval link.
 - Statuses: draft, sent, accepted, declined, expired.

@@ -50,6 +50,7 @@ nav = [
         { "0004 Multi-tenant SaaS" = "engineering/decisions/0004-multi-tenant.md" },
         { "0005 Accounting as a plugin" = "engineering/decisions/0005-accounting-as-plugin.md" },
         { "0006 Configuration over customisation" = "engineering/decisions/0006-configuration-over-customisation.md" },
+        { "0049 Scope: made-to-order businesses" = "engineering/decisions/0049-scope-made-to-order-businesses.md" },
       ] },
       { "Architecture and stack" = [
         { "0007 Back end: .NET" = "engineering/decisions/0007-backend-dotnet.md" },
@@ -111,6 +112,7 @@ nav = [
   ] },
   { "Journal" = [
     "journal/index.md",
+    { "2026-10-12" = "journal/2026-10-12.md" },
     { "2026-10-11" = "journal/2026-10-11.md" },
     { "2026-10-10" = "journal/2026-10-10.md" },
   ] },

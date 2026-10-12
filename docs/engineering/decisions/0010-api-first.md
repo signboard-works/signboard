@@ -8,7 +8,7 @@
 
 ## Context
 
-Signboard has several kinds of client: the shop's own web app, customers approving quotes and proofs, and integrations (accounting sync, scripts, other systems a shop already uses). A common pattern is a private API for the UI plus a separate, smaller public API for integrations. The two drift apart: the public API lags behind, has different rules, and doubles the work of testing and documenting.
+Signboard has several kinds of client: the business's own web app, customers approving quotes and proofs, and integrations (accounting sync, scripts, other systems a business already uses). A common pattern is a private API for the UI plus a separate, smaller public API for integrations. The two drift apart: the public API lags behind, has different rules, and doubles the work of testing and documenting.
 
 Different actors must see different data. A customer must never see cost prices, margins or internal notes. A production staff member may not need to see pricing at all.
 
@@ -22,7 +22,7 @@ Signboard has **one API**. It is the only way to read or change data, for every 
 - **One surface for all actors.** Business staff, customer users in the customer portal and integration clients call the same endpoints. There is no separate customer API or partner API.
 - **Users are global.** The system holds one set of users, each identified by a unique email address. A user is not owned by any business.
 - **Access comes from memberships of accounts.** There are three kinds of account:
-    - A **business account** is one sign or print shop, called a *business* in Signboard because "shop" suggests an online store. It is the tenant ([ADR 0004](0004-multi-tenant.md)). Its members are the business's staff, each with a role.
+    - A **business account** is one made-to-order business, such as a sign or print shop, called a *business* in Signboard because "shop" suggests an online store. It is the tenant ([ADR 0004](0004-multi-tenant.md)). Its members are the business's staff, each with a role.
     - A **customer account** is one of a business's customers, and belongs to exactly one business. Its members use that business's customer portal. An organisation that buys from two businesses is two customer accounts, one in each business, and the same user can be a member of both.
     - The **operations account** is the platform itself. Its members run the hosted service.
 

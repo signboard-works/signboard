@@ -59,13 +59,13 @@ Each needs one rule, decided before the first price is calculated. The JSON type
 | Kind | Examples | PostgreSQL | .NET (NodaTime) | API |
 |---|---|---|---|---|
 | **A moment in time** | When something was created, sent or approved | `timestamptz` | `Instant` | RFC 3339 in UTC, `2026-10-11T03:15:00Z`. Names end in `At`: `createdAt`, `sentAt` |
-| **A calendar date** | Due dates, invoice dates, install dates | `date` | `LocalDate` | `2026-10-11`. Names end in `Date`: `dueDate`, `invoiceDate` |
+| **A calendar date** | Due dates, invoice dates, site-visit dates | `date` | `LocalDate` | `2026-10-11`. Names end in `Date`: `dueDate`, `invoiceDate` |
 | **A time of day** | A reminder at 9 am | `time` | `LocalTime` | `09:00` |
-| **A future appointment** | An installation at 10 am next Tuesday | `date` and `time`, in the business's time zone | `LocalDateTime` | A date and a time of day, such as `"installDate": "2026-10-20", "installTime": "10:00"`, in the business's time zone |
+| **A future appointment** | A site visit at 10 am next Tuesday | `date` and `time`, in the business's time zone | `LocalDateTime` | A date and a time of day, such as `"visitDate": "2026-10-20", "visitTime": "10:00"`, in the business's time zone |
 
 - **Moments are stored in UTC** and returned in UTC. The API accepts any RFC 3339 offset on input and converts it. A time with no offset is refused with `422`.
 - **A calendar date has no time and no zone.** It is the same date for everyone. Questions such as "overdue" or "due today" are answered in the business's time zone.
-- **Future appointments keep their local time.** An installation at 10 am stays at 10 am even if daylight-saving rules change before it happens. It is converted to a moment only when needed, such as to schedule a reminder.
+- **Future appointments keep their local time.** A site visit at 10 am stays at 10 am even if daylight-saving rules change before it happens. It is converted to a moment only when needed, such as to schedule a reminder.
 - **Each business has a time zone**, an IANA name such as `Australia/Sydney`, set when the business is created from the browser's zone and changeable in its settings.
 - **Times are shown in the business's time zone**, the same as on its documents, for staff and customer users. When the viewer's browser is in a different zone, times are labelled with the zone, such as "10:00 AEDT".
 - **Recurring schedules a business would notice run in its time zone** ([ADR 0034](0034-background-work.md)). System schedules run in UTC.
@@ -78,7 +78,10 @@ Each needs one rule, decided before the first price is calculated. The JSON type
 
 ### Quantities
 
-- **Every quantity has a unit**, from a fixed list in code: `each`, `mm`, `m`, `m2` and `hour` to start with. In the API a quantity sits next to its unit: `"quantity": 2.5, "unit": "m2"`.
+- **Every quantity has a unit** from the **units of measure** collection: platform-wide reference data in the database, shared by every business and managed by operations users, so a new unit, such as kilograms, needs no release. It starts with `each`, `mm`, `m`, `m2` and `hour`, seeded by a migration.
+    - Each unit has an object ID ([ADR 0017](0017-object-ids.md)), a short **code** that never changes once it is in use, a name and symbol in each language ([ADR 0037](0037-localisation.md)), and what it measures, such as length or area.
+    - In the API a quantity sits next to its unit's code, as currencies use ISO codes: `"quantity": 2.5, "unit": "m2"`.
+    - Businesses read the collection but cannot change it. A unit in use is retired, never deleted ([ADR 0018](0018-soft-delete.md)).
 - **Metric inside Signboard.** Sizes are millimetres, lengths metres, areas square metres. Machine and labour time are **decimal hours**, such as `1.5`, never minutes or `1:30`. Field names say the unit where it is fixed, such as `widthMm` or `machineHours`.
 - Showing other units, such as feet and inches, can come later as display configuration. What is stored stays metric.
 
@@ -116,7 +119,7 @@ Numbers, amounts and dates are formatted for display from the business's locale,
 
 ## Consequences
 
-- The `Money` type, the rounding helper, the tax calculation and the unit list live in a shared library used by every module. They are tested with property-based tests for rounding and tax ([ADR 0012](0012-testing.md)), including tax-inclusive lines and negative amounts such as credits.
+- The `Money` type, the rounding helper, and the tax calculation live in a shared library used by every module. They are tested with property-based tests for rounding and tax ([ADR 0012](0012-testing.md)), including tax-inclusive lines and negative amounts such as credits.
 - Every line on a quote, order or invoice stores its tax rate's name, code and percentage. The invoices and accounting designs map tax rates to each accounting system's tax codes.
 - The architecture tests and banned-API analysers check for floating-point money, unqualified rounding and the system clock.
 - Validation refuses values with too many decimal places or digits, with `422 too_many_decimal_places` ([ADR 0029](0029-api-errors-idempotency-versioning.md#json-types)).

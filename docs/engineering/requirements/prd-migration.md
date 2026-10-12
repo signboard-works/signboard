@@ -9,7 +9,7 @@
 
 ## Summary
 
-Move a shop's existing data into Signboard and cut over safely.
+Move a business's existing data into Signboard and cut over safely.
 
 ## Known requirements (to be expanded)
 

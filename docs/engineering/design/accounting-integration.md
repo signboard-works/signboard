@@ -9,7 +9,7 @@
 
 ## Context
 
-Syncing invoices, contacts and payments with the shop's accounting system.
+Syncing invoices, contacts and payments with the business's accounting system.
 
 ## Known constraints (to be expanded)
 
