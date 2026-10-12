@@ -38,7 +38,7 @@ The two streams use separate sending configurations, so a business's sending rep
 ### Content
 
 - Quotes and invoices are sent with **both** a PDF attachment and a link to view (and, for quotes, approve) them online. The link carries no credentials ([ADR 0021](0021-authentication.md)).
-- Templates are per-business configuration ([ADR 0006](0006-configuration-over-customisation.md)): branded, plain and mostly text. Every email has a plain-text part.
+- Templates are per-business configuration ([ADR 0006](0006-configuration-over-customisation.md)): branded, plain and mostly text. Every email has a plain-text part. How templates are written and rendered is decided in [ADR 0048](0048-documents-and-templates.md).
 
 ### Providers
 

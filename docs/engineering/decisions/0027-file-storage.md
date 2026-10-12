@@ -40,7 +40,7 @@ Many modules need files ([ADR 0026](0026-modular-monolith.md)). If each stored t
 ### Integrity
 
 - **Files never change.** A new version is a new file, so a proof's revisions are all kept. Files are soft-deleted like everything else ([ADR 0018](0018-soft-delete.md)).
-- **Sent documents are kept exactly.** The PDF of a quote, proof or invoice is stored as a file at the moment it is sent ([ADR 0023](0023-email-sending.md)), so what the customer received is never regenerated from data that may since have changed.
+- **Sent documents are kept exactly.** The PDF of a quote, proof or invoice is stored as a file at the moment it is sent ([ADR 0023](0023-email-sending.md)), so what the customer received is never regenerated from data that may since have changed. The template version and a snapshot of the data it was rendered from are kept with it ([ADR 0048](0048-documents-and-templates.md#kept-exactly-as-sent)).
 - **Uploads are scanned for malware** before they can be downloaded: by GuardDuty on the hosted service ([ADR 0030](0030-hosting-aws.md)) and by a ClamAV container when self-hosted, behind one scanning interface. The background worker records the result. A file that fails is quarantined, and the uploader and the business are told.
 - Uploads, deletions, and downloads by operations users are audited ([ADR 0019](0019-audit-trail.md)).
 

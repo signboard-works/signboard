@@ -26,7 +26,7 @@ In Australia, the Disability Discrimination Act 1992 applies to services like Si
 
 ### Documents and emails
 
-- **Every PDF Signboard generates is tagged for screen readers**, whether it is sent to a customer, such as a quote or invoice, or used internally, such as a job sheet. Tagging meets PDF/UA (ISO 14289): reading order, headings, table structure and alternative text for images. How PDFs are produced is decided in the documents and templates ADR, which must meet this.
+- **Every PDF Signboard generates is tagged for screen readers**, whether it is sent to a customer, such as a quote or invoice, or used internally, such as a job sheet. Tagging meets PDF/UA (ISO 14289): reading order, headings, table structure and alternative text for images. How PDFs are produced, and how they are checked against PDF/UA, is decided in [ADR 0048](0048-documents-and-templates.md#pdfs-html-and-css-printed-by-chromium).
 - **Emails** use semantic HTML, with a plain-text part ([ADR 0023](0023-email-sending.md)), real text rather than text in images, and alternative text for logos.
 
 ### Devices
@@ -100,6 +100,6 @@ A business's brand colour ([ADR 0006](0006-configuration-over-customisation.md))
 
 - The front-end design doc specifies the wrapper components' accessibility rules, the grid's keyboard model and the wall-screen view. The design doc template gains an accessibility section.
 - The drag-and-drop spike in [ADR 0009](0009-frontend-react.md) includes keyboard and screen-reader dragging in its pass criteria.
-- The documents and templates ADR must produce tagged PDFs.
+- [ADR 0048](0048-documents-and-templates.md) produces tagged PDFs and checks them with veraPDF in CI.
 - Each screen takes a little longer to finish, for the manual checks. It is part of done, not extra.
 - The accessibility statement is written before the first paying business, and kept current.

@@ -8,7 +8,7 @@
 
 ## Context
 
-Most businesses would rather sign up for Signboard than run it ([ADR 0004](0004-multi-tenant.md)). The hosted service costs about A$340 a month to run at launch, and about A$475 once it is ready for paying businesses ([ADR 0030](0030-hosting-aws.md), [ADR 0039](0039-security-baseline.md), [ADR 0043](0043-backups-and-recovery.md)), and Signboard is not a money-making exercise ([ADR 0003](0003-licence.md)): what businesses pay should cover the running costs, with as little cost and effort spent on collecting it as possible.
+Most businesses would rather sign up for Signboard than run it ([ADR 0004](0004-multi-tenant.md)). The hosted service costs about A$340 a month to run at launch, and about A$500 once it is ready for paying businesses ([ADR 0030](0030-hosting-aws.md), [ADR 0039](0039-security-baseline.md), [ADR 0043](0043-backups-and-recovery.md), [ADR 0048](0048-documents-and-templates.md)), and Signboard is not a money-making exercise ([ADR 0003](0003-licence.md)): what businesses pay should cover the running costs, with as little cost and effort spent on collecting it as possible.
 
 Already decided:
 
@@ -34,7 +34,7 @@ On tax: a business must register for GST once its GST turnover reaches A$75,000 
 ### Plans
 
 - **One paid plan at launch**, called Standard, with every feature.
-- **One price per business, with unlimited users**: **A$49 a month, or A$490 a year** (two months free), including GST if the operator charges it. Charging per user would work against the vision, which counts per-seat pricing among the problems with the tools businesses use today. About ten businesses paying monthly, or twelve paying yearly, cover the running costs. The price is reviewed against costs as the service grows.
+- **One price per business, with unlimited users**: **A$49 a month, or A$490 a year** (two months free), including GST if the operator charges it. Charging per user would work against the vision, which counts per-seat pricing among the problems with the tools businesses use today. About eleven businesses paying monthly, or thirteen paying yearly, cover the running costs. The price is reviewed against costs as the service grows.
 - **No free plan.** A free plan on the hosted service costs real money for every business on it. The free option is self-hosting, which gets everything.
 - **A 30-day trial** of the full plan, with no payment details needed.
 - **Complimentary** status, set by an operations user, for businesses that should not pay, such as an open-source project or a charity. Each complimentary arrangement has a reason and an optional end date, and is audited ([ADR 0019](0019-audit-trail.md)).

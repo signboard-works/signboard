@@ -119,7 +119,7 @@ Self-hosted installations get the same defaults in the documented proxy configur
 
 **Images and releases.**
 
-- Container images use Microsoft's **chiseled Ubuntu images** for .NET, which have no shell or package manager and run as a non-root user. We use the `-extra` variant, which includes ICU ([ADR 0037](0037-localisation.md)).
+- Container images use Microsoft's **chiseled Ubuntu images** for .NET, which have no shell or package manager and run as a non-root user. We use the `-extra` variant, which includes ICU ([ADR 0037](0037-localisation.md)). The one exception is the PDF renderer, which needs Chromium and its libraries ([ADR 0048](0048-documents-and-templates.md#where-rendering-runs)): it still runs as a non-root user with a read-only root filesystem, and has no database access, secrets or outbound network.
 - Containers run with a read-only root filesystem.
 - Every release publishes a **software bill of materials** (CycloneDX) and **signed build provenance** through GitHub's artifact attestations, so self-hosters can check that an image was built from this repository by our release workflow ([ADR 0028](0028-branching-ci-and-releases.md)).
 - ECR scans images when they are pushed, and Dependabot keeps base images current.

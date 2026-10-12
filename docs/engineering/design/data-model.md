@@ -36,6 +36,7 @@ Every object type has one three-letter prefix and a fixed number of digits, a mu
 | `INV` | Invoice | To be decided |
 | `EML` | Email | To be decided |
 | `FIL` | File | To be decided |
+| `TPL` | Document or email template ([ADR 0048](../decisions/0048-documents-and-templates.md)) | To be decided |
 | `EVT` | Event ([ADR 0032](../decisions/0032-events-webhooks-live-updates.md)) | To be decided |
 | `WHK` | Webhook ([ADR 0032](../decisions/0032-events-webhooks-live-updates.md)) | To be decided |
 | `UOM` | Unit of measure ([ADR 0036](../decisions/0036-money-tax-and-time.md#quantities)) | To be decided |
